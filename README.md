@@ -1,5 +1,5 @@
 # Ingeniería de Software II - Bookflix
 
 ## Requisitos
-* python3
-* virtualenv
+* python 3.8.2
+* virtualenv 20.0.10
