@@ -8,3 +8,6 @@
 * Bootstrap
 * Flask
 * MySQL
+
+## Instalar los paquetes especificados en requirements.txt
+* pip install -r requirements.txt
