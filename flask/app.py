@@ -9,3 +9,10 @@ def index():
 
 if __name__ == "__main__":
 	app.run()
+
+# Rutas de la página:
+
+# Ruta de inicio de sesion
+@app.route("/login")
+def login():
+	return render_template("login.html")

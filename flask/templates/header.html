@@ -2,9 +2,15 @@
 <header class="sticky-top">
 	<!-- Image and text -->
 	<nav class="navbar navbar-light bg-light">
-		<a class="navbar-brand" href="#">
+		<a class="navbar-brand" href="{{ url_for('index') }}">
 			<img src="..." width="30" height="30" class="d-inline-block align-top" alt="">
 			Bookflix
 		</a>
+
+		<div class="text-right">
+			<a href="#">Registrarse</a>
+			<span class="p-2"></span>
+			<a href="{{ url_for('login') }}">Iniciar Sesión</a>
+		</div>
 	</nav>
 </header>
