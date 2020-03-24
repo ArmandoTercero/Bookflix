@@ -7,10 +7,18 @@
 			Bookflix
 		</a>
 
+		{% if session['usuario'] %}
+			<h2>Bienvenido {{ session['usuario'] }}</h2>
+		{% endif %}
+
 		<div class="text-right">
-			<a href="#">Registrarse</a>
-			<span class="p-2"></span>
-			<a href="{{ url_for('login') }}">Iniciar Sesión</a>
+			{% if session['usuario'] %}
+				<a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+			{% else %}
+				<a href="#">Registrarse</a>
+				<span class="p-2"></span>
+				<a href="{{ url_for('login') }}">Iniciar Sesión</a>
+			{% endif %}
 		</div>
 	</nav>
 </header>
