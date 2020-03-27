@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, session, escape
+from bookflix.resources import usuario
 
 app = Flask(__name__)
 
@@ -28,3 +29,7 @@ def login():
 def logout():
 	session.pop("usuario", None)
 	return render_template('index.html')
+
+# Rutas de usuario
+app.add_url_rule('/hello/<nombre>', 'usuario_hello', usuario.hello)
+app.add_url_rule('/usuario/<id>', 'usuario_id', usuario.id)
