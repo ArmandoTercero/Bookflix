@@ -1,23 +1,24 @@
 <!-- https://getbootstrap.com/docs/4.4/components/navbar/ -->
 <header class="sticky-top">
 	<!-- Image and text -->
-	<nav class="navbar navbar-light bg-light">
+	<nav class="navbar" style="background-color: #000000">
 		<a class="navbar-brand" href="{{ url_for('index') }}">
-			<img src="..." width="30" height="30" class="d-inline-block align-top" alt="">
-			Bookflix
+			<img src="{{ url_for('static', filename='img/logo25.png') }}"
+				class="d-inline-block align-top"
+				alt="Logo de Bookflix">
 		</a>
 
 		{% if session['usuario'] %}
-			<h2>Bienvenido {{ session['usuario'] }}</h2>
+			<h2 class="text-white">Bienvenido {{ session['usuario'] }}</h2>
 		{% endif %}
 
 		<div class="text-right">
 			{% if session['usuario'] %}
-				<a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+				<a href="{{ url_for('logout') }}" class="btn btn-danger">Cerrar Sesión</a>
 			{% else %}
-				<a href="#">Registrarse</a>
+				<a href="#" class="btn btn-danger">Registrarse</a>
 				<span class="p-2"></span>
-				<a href="{{ url_for('login') }}">Iniciar Sesión</a>
+				<a href="{{ url_for('login') }}" class="btn btn-danger">Iniciar Sesión</a>
 			{% endif %}
 		</div>
 	</nav>
