@@ -16,8 +16,6 @@
 			{% if session['usuario'] %}
 				<a href="{{ url_for('logout') }}" class="btn btn-danger">Cerrar Sesión</a>
 			{% else %}
-				<a href="#" class="btn btn-danger">Registrarse</a>
-				<span class="p-2"></span>
 				<a href="{{ url_for('login') }}" class="btn btn-danger">Iniciar Sesión</a>
 			{% endif %}
 		</div>
