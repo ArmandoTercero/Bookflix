@@ -30,6 +30,11 @@ def logout():
 	session.pop("usuario", None)
 	return render_template('index.html')
 
+# Ruta para registrarse
+@app.route("/registrar")
+def registrar():
+	return render_template('registrar.html')
+
 # Rutas de usuario
 app.add_url_rule('/hello/<nombre>', 'usuario_hello', usuario.hello)
 app.add_url_rule('/usuario/<id>', 'usuario_id', usuario.id)
