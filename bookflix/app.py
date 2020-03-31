@@ -31,9 +31,12 @@ def logout():
 	return render_template('index.html')
 
 # Ruta para registrarse
-@app.route("/registrar")
+@app.route("/registrar", methods=["POST", "GET"])
 def registrar():
-	return render_template('registrar.html')
+	if request.method == "POST":
+		return "<h1> REGISTRANDO USUARIO </h1> <br> " + str(request.form)
+	else:
+		return render_template('registrar.html')
 
 # Rutas de usuario
 app.add_url_rule('/hello/<nombre>', 'usuario_hello', usuario.hello)

@@ -16,9 +16,9 @@
 				<span class="card-text">
 					<form method="POST">
 						<section class="form-group">
-							<label for="usuario"> Usuario </label>
-							<input type="text" class="form-control form-control-lg rounded-0" name="usuario"
-								id="usuario" required title="Este no parece un usuario válido.">
+							<label for="email"> Email </label>
+							<input type="text" class="form-control form-control-lg rounded-0" name="email"
+								id="email" required title="Este no parece un email válido.">
 						</section>
 
 						<section class="form-group">
@@ -28,7 +28,7 @@
 						</section>
 
 						<div class="text-right">
-							<a href="{{ url_for('index') }}" class="btn btn-white">Canelar</a>
+							<a href="{{ url_for('index') }}" class="btn btn-white">Cancelar</a>
 							<button type="submit" class="btn btn-primary">Entrar</button>
 						</div>
 					</form>

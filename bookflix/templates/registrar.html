@@ -8,6 +8,75 @@
 
 {% block content %}
 
-	Aca tiene que ir el formulario para registrarse
+	<div class="container p-5">
+		<div class="card mx-auto m-5" style="width: 40rem;">
+			<div class="card-header">
+				<h1 class="card-title">Registrar</h1>
+			</div>
+			
+			<div class="card-body">
+				<span class="card-text">
+					<form method="POST">
+						<section class="form-group">
+							<label for="nombre"> Nombre </label>
+							<input type="text" class="form-control form-control-lg rounded-0" name="nombre"
+								id="nombre" required>
+						</section>
+
+						<section class="form-group">
+							<label for="apellido"> Apellido </label>
+							<input type="text" class="form-control form-control-lg rounded-0" name="apellido"
+								id="apellido" required>
+						</section>
+
+						<section class="form-group">
+							<label for="email"> Email </label>
+							<input type="email" class="form-control form-control-lg rounded-0" name="email"
+								id="email" required>
+						</section>
+
+						<section class="form-group">
+							<label for="password"> Contraseña </label>
+							<input type="password" class="form-control form-control-lg rounded-0"
+								name="password" id="password" required="" autocomplete="new-password">
+						</section>
+
+						<section class="form-group">
+							<label for="tarjetaNumero"> Número de tarjeta de crédito </label>
+							<input type="number" class="form-control form-control-lg rounded-0" name="tarjetaNumero"
+								id="tarjetaNumero" required>
+						</section>
+
+						<div class="d-flex">
+							<section class="form-group mr-auto">
+								<label for="tarjetaPin"> Número de pin </label>
+								<input type="number" class="form-control form-control-lg rounded-0" name="tarjetaPin"
+									id="tarjetaPin" required>
+							</section>
+
+							<section class="form-group">
+								<label for="tarjetaFechaDeExpiracion"> Fecha de expiración </label>
+								<input type="date" class="form-control form-control-lg rounded-0" name="tarjetaFechaDeExpiracion"
+									id="tarjetaFechaDeExpiracion" required>
+							</section>
+						</div>
+
+						<section class="form-group">
+							<label for="plan"> Tipo de plan </label>
+							<select id="plan" name="plan" class="custom-select ">
+								<option value="basico">Básico</option>
+								<option value="familiar">Familiar</option>
+							</select>
+						</section>
+
+						<div class="text-right">
+							<a href="{{ url_for('index') }}" class="btn btn-white">Cancelar</a>
+							<button type="submit" class="btn btn-primary">Aceptar</button>
+						</div>
+					</form>
+				</span>
+			</div>
+		</div>
+	</div>
 
 {% endblock %}
