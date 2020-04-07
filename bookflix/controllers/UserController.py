@@ -26,7 +26,7 @@ class UserController():
         return render_template("login.html")
     
     def loginuser(self):
-        session["usuario"] = request.form["usuario"]
+        session["usuario"] = request.form["email"]
         return self.index()
     
     def logout(self):

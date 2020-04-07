@@ -21,10 +21,10 @@ def registeruser():
 @app.route("/login", methods=["GET"])
 def login ():
     return usercontroller.login()
-#
-#@routes.route("/login", methods=["POST"])
-#def login ():
-#    return usercontroller.loginuser()
+
+@app.route("/login", methods=["POST"])
+def loginuser ():
+   return usercontroller.loginuser()
 
 @app.route("/logout", methods=["GET", "POST"])
 def logout ():

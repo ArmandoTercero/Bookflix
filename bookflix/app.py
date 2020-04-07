@@ -11,6 +11,8 @@ app = Flask(__name__)
 #app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 #mysql.init_app(app)
 
+app.secret_key = "12345"
+
 from routes import routes
 
 if __name__ == "__main__":
