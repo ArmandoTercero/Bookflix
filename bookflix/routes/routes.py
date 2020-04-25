@@ -32,9 +32,9 @@ def logout ():
 
 @app.route("/hello/<name>")
 def hello (name):
-    return usercontroller.hello (name)
+    return usercontroller.hello(name)
 
 @app.route("/user/<id>")
-def user_id (userid):
-    return usercontroller.user_id (id)
+def user_id (id):
+    return usercontroller.user_id(id)
 

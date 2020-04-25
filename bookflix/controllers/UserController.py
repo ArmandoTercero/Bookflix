@@ -1,7 +1,7 @@
 from flask import request, render_template, session
 #from app.models.AuthModel import authmodel
 #from app.helpers.Utility import sendResponse
-from models.user import User
+from models.usuario import Usuario
 
 class UserController():
 
@@ -20,6 +20,7 @@ class UserController():
         #_email = request.form.get('email', '')
         #_password = request.form.get('password', '')
         #return sendResponse(authmodel.registerUser(_firstname,_lastname,_email,_password))
+        Usuario.crear(request.form)
         return "<h1> REGISTRANDO USUARIO </h1> <br> " + str(request.form)
     
     def login(self):
@@ -34,7 +35,7 @@ class UserController():
         return self.index()
     
     def hello(self, name):
-        saludo = "!Hola " + nombre + "!"
+        saludo = "!Hola " + name + "!"
         return "<h1>" + saludo + "</h1>"
     
     def user_id(self, id):
