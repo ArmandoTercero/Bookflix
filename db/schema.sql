@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-03-2020 a las 05:15:19
+-- Tiempo de generación: 26-04-2020 a las 07:43:34
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.3
 
@@ -25,6 +25,27 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `plan`
+--
+
+CREATE TABLE `plan` (
+  `id` int(6) NOT NULL,
+  `nombre` text NOT NULL,
+  `precio` float NOT NULL,
+  `perfiles_max` int(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `plan`
+--
+
+INSERT INTO `plan` (`id`, `nombre`, `precio`, `perfiles_max`) VALUES
+(1, 'basico', 250, 2),
+(2, 'familiar', 400, 4);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuario`
 --
 
@@ -33,7 +54,10 @@ CREATE TABLE `usuario` (
   `nombre` varchar(50) NOT NULL,
   `apellido` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `tarjeta` varchar(30) NOT NULL,
+  `contraseña` varchar(50) NOT NULL,
+  `tarjetaNumero` varchar(30) NOT NULL,
+  `tarjetaPin` varchar(10) NOT NULL,
+  `tarjetaFechaDeExpiracion` date NOT NULL,
   `fecha_de_nacimiento` date NOT NULL,
   `plan` int(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -42,12 +66,18 @@ CREATE TABLE `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `email`, `tarjeta`, `fecha_de_nacimiento`, `plan`) VALUES
-(1, 'Armando', 'Marino', 'armando@gmail.com', '12345', '2000-10-03', 1);
+INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `email`, `contraseña`, `tarjetaNumero`, `tarjetaPin`, `tarjetaFechaDeExpiracion`, `fecha_de_nacimiento`, `plan`) VALUES
+(1, 'Armando', 'Marino', 'armando@gmail.com', 'pato', '12345', '956', '2021-12-03', '2000-10-03', 1);
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `plan`
+--
+ALTER TABLE `plan`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `usuario`
@@ -60,10 +90,16 @@ ALTER TABLE `usuario`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `plan`
+--
+ALTER TABLE `plan`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
