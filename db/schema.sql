@@ -69,6 +69,25 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `email`, `contraseña`, `tarjetaNumero`, `tarjetaPin`, `tarjetaFechaDeExpiracion`, `fecha_de_nacimiento`, `plan`) VALUES
 (1, 'Armando', 'Marino', 'armando@gmail.com', 'pato', '12345', '956', '2021-12-03', '2000-10-03', 1);
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `libro`
+--
+
+CREATE TABLE `libro` (
+  `id` int(6) NOT NULL,
+  `nombre` text NOT NULL,
+  `ruta` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `libro`
+--
+
+INSERT INTO `libro` (`id`, `nombre`, `ruta`) VALUES
+(1, 'test.pdf', "./static/pdf/test.pdf");
+
 --
 -- Índices para tablas volcadas
 --
@@ -86,6 +105,12 @@ ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `libro`
+--
+ALTER TABLE `libro`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -100,6 +125,12 @@ ALTER TABLE `plan`
 --
 ALTER TABLE `usuario`
   MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT de la tabla `libro`
+--
+ALTER TABLE `libro`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

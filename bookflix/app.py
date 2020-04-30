@@ -2,7 +2,7 @@ from flask import Flask,request
 #from flaskext.mysql import MySQL
 from config import config
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 
 #mysql = MySQL()
 #app.config['MYSQL_DATABASE_USER'] = 'root'
@@ -14,6 +14,7 @@ app = Flask(__name__)
 app.secret_key = "12345"
 
 from routes import routes
+from routes import bookRoutes
 
 if __name__ == "__main__":
     app.run()
