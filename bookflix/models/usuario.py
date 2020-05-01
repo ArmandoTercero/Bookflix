@@ -23,3 +23,18 @@ class Usuario (object):
 		cursor.execute(sql % parametros)
 		cls.database().commit()
 		return True
+
+	# Esta función devuelve TRUE o FALSE:
+	# - True: Si es que existe un usuario con el email pasado como parametro.
+	# - False: Caso contrario.
+	@classmethod
+	def existe_usuario_con_email(cls, email):
+		sql = """
+		SELECT *
+		FROM usuario u
+		WHERE u.email = %s
+		"""
+		cursor = cls.database().cursor()
+		cursor.execute(sql, (email))
+
+		return cursor.rowcount > 0
