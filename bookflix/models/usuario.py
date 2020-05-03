@@ -38,3 +38,12 @@ class Usuario (object):
 		cursor.execute(sql, (email))
 
 		return cursor.rowcount > 0
+
+	# Esta función devuelve el resultado de una consulta a la BBDD que busca a ...
+	# ... un usuario por el campo de email.
+	@classmethod
+	def encontrar_por_email(cls, email):
+		sql = "SELECT * FROM usuario WHERE email = %s"
+		cursor = cls.database().cursor()
+		cursor.execute(sql, (email))
+		return cursor.fetchone()

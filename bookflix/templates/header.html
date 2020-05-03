@@ -8,12 +8,12 @@
 				alt="Logo de Bookflix">
 		</a>
 
-		{% if session['usuario'] %}
-			<h2 class="text-white">Bienvenido {{ session['usuario'] }}</h2>
+		{% if session['id'] %}
+			<h2 class="text-white">Bienvenido de vuelta</h2>
 		{% endif %}
 
 		<div class="text-right">
-			{% if session['usuario'] %}
+			{% if session['id'] %}
 				<a href="{{ url_for('logout') }}" class="btn btn-danger">Cerrar Sesión</a>
 			{% else %}
 				<a href="{{ url_for('login') }}" class="btn btn-danger">Iniciar Sesión</a>

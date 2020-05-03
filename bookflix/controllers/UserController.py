@@ -47,18 +47,30 @@ class UserController():
 			# Solo entra aca si el arreglo esta vacio, esto significa que no hay ...
 			# ... errores y el registro se realiza de forma exitosa.
 			usuario = Usuario.crear(request.form)
-			return "<h1> REGISTRANDO USUARIO </h1> <br> " + str(request.form)
+			return self.index()
 		
-	
+	# Login GET
 	def login(self):
 		return render_template("login.html")
 	
+	# Login POST
 	def loginuser(self):
-		session["usuario"] = request.form["email"]
-		return self.index()
+		errores = []
+
+		# Me fijo si existe el usuario ingresado y luego pregunto si la contraseña ingresada es correcta
+		usuario = Usuario.encontrar_por_email(request.form["email"])
+		if usuario and (usuario["contraseña"] == request.form["password"]):
+			session["id"] = usuario["id"]
+			# session["perfil_id"] = request.form["perfil_id"] TODAVÍA NO HICIMOS NADA ACERCA DE LOS PERFILES
+			session["admin"] = (usuario["email"] == "admin")
+			return self.index()
+		else:
+			errores.append("Los datos ingresados son incorrectos.")
+			return render_template("login.html", errores=errores)
 	
 	def logout(self):
-		session.pop("usuario", None)
+		session.pop("id", None)
+		session.pop("admin", None)
 		return self.index()
 	
 	def hello(self, name):

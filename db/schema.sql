@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-04-2020 a las 07:43:34
+-- Tiempo de generación: 03-05-2020 a las 23:22:13
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.3
 
@@ -21,6 +21,25 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `bookflix`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `libro`
+--
+
+CREATE TABLE `libro` (
+  `id` int(6) NOT NULL,
+  `nombre` text NOT NULL,
+  `ruta` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `libro`
+--
+
+INSERT INTO `libro` (`id`, `nombre`, `ruta`) VALUES
+(1, 'test.pdf', './static/pdf/test.pdf');
 
 -- --------------------------------------------------------
 
@@ -67,30 +86,18 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `email`, `contraseña`, `tarjetaNumero`, `tarjetaPin`, `tarjetaFechaDeExpiracion`, `fecha_de_nacimiento`, `plan`) VALUES
-(1, 'Armando', 'Marino', 'armando@gmail.com', 'pato', '12345', '956', '2021-12-03', '2000-10-03', 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `libro`
---
-
-CREATE TABLE `libro` (
-  `id` int(6) NOT NULL,
-  `nombre` text NOT NULL,
-  `ruta` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `libro`
---
-
-INSERT INTO `libro` (`id`, `nombre`, `ruta`) VALUES
-(1, 'test.pdf', "./static/pdf/test.pdf");
+(1, 'Armando', 'Marino', 'armando@gmail.com', 'pato', '12345', '956', '2021-12-03', '2000-10-03', 1),
+(15, 'admin', 'admin', 'admin', 'admin', '1234567890', '123', '2222-01-01', '1990-01-01', 1);
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `libro`
+--
+ALTER TABLE `libro`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `plan`
@@ -105,14 +112,14 @@ ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `libro`
---
-ALTER TABLE `libro`
-  ADD PRIMARY KEY (`id`);
-
---
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `libro`
+--
+ALTER TABLE `libro`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `plan`
@@ -124,13 +131,7 @@ ALTER TABLE `plan`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
--- AUTO_INCREMENT de la tabla `libro`
---
-ALTER TABLE `libro`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
