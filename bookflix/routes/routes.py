@@ -10,6 +10,10 @@ from controllers.UserController import usercontroller
 def index():
 	return usercontroller.index()
 
+@app.route("/panel_de_control", methods=["GET"])
+def panel_de_control():
+	return usercontroller.panel_de_control()
+
 @app.route("/register", methods=["GET"])
 def register():
 	return usercontroller.register()
@@ -30,6 +34,7 @@ def loginuser ():
 def logout ():
 	return usercontroller.logout()
 
+# Borrar a futuro
 @app.route("/hello/<name>")
 def hello (name):
 	return usercontroller.hello(name)

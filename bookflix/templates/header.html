@@ -14,7 +14,10 @@
 
 		<div class="text-right">
 			{% if session['id'] %}
-				<a href="{{ url_for('logout') }}" class="btn btn-danger">Cerrar Sesión</a>
+				{% if session['admin'] %}
+					<a href="{{ url_for('panel_de_control') }}" class="btn btn-danger">Panel de control (no hace nada)</a>
+				{% endif %}
+				<a href="{{ url_for('logout') }}" class="btn btn-outline-light">Cerrar Sesión</a>
 			{% else %}
 				<a href="{{ url_for('login') }}" class="btn btn-danger">Iniciar Sesión</a>
 			{% endif %}

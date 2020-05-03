@@ -14,6 +14,9 @@ class UserController():
 	def index(self):
 		return render_template('index.html')
 
+	def panel_de_control(self):
+		return render_template('panel_de_control.html')
+
 	def register(self):
 		planes = Plan.all()
 		return render_template('registrar.html', planes=planes)
