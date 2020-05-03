@@ -8,27 +8,27 @@ import os
 
 class BookController():
 
-    def __init__(self):
-        pass
+	def __init__(self):
+		pass
 
-    def index(self):
-        libros = Libro.all()
-        return render_template('libros/index.html', libros=libros)
+	def index(self):
+		libros = Libro.all()
+		return render_template('libros/index.html', libros=libros)
 
-    def libro(self, libro_id):
-        libro = Libro.id (libro_id)
-        return send_from_directory(config['UPLOAD_FOLDER'], libro["nombre"])
+	def libro(self, libro_id):
+		libro = Libro.id (libro_id)
+		return send_from_directory(config['UPLOAD_FOLDER'], libro["nombre"])
 
-    def upload (self):
-        return render_template ('libros/agregar.html')
+	def upload (self):
+		return render_template ('libros/agregar.html')
 
-    def upload_file(self):
-        file = request.files['libro']
-        filename = file.filename
-        path = config['UPLOAD_FOLDER'] + filename
-        file.save(path)
-        Libro.crear(filename, path)
-        return self.index()
+	def upload_file(self):
+		file = request.files['libro']
+		filename = file.filename
+		path = config['UPLOAD_FOLDER'] + filename
+		file.save(path)
+		Libro.crear(filename, path)
+		return self.index()
 
 bookController = BookController()
 

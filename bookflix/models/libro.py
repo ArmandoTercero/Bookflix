@@ -10,7 +10,7 @@ class Libro (object):
 	def id(cls, libro_id):
 		sql = "SELECT * FROM libro WHERE id = %s"
 		cursor = cls.database().cursor()
-		cursor.execute(sql, (libro_id))        
+		cursor.execute(sql % libro_id)
 		return cursor.fetchone()
 
 	@classmethod

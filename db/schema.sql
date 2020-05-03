@@ -24,6 +24,16 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
+CREATE TABLE `autor` (
+  `id` int(6) NOT NULL,
+  `nombre` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `autor` (`id`, `nombre`) VALUES
+(1, 'test author');
+
+-- --------------------------------------------------------
+
 --
 -- Estructura de tabla para la tabla `libro`
 --
@@ -40,6 +50,17 @@ CREATE TABLE `libro` (
 
 INSERT INTO `libro` (`id`, `nombre`, `ruta`) VALUES
 (1, 'test.pdf', './static/pdf/test.pdf');
+
+-- --------------------------------------------------------
+
+CREATE TABLE `libro_autor` (
+  `id` int(6) NOT NULL,
+  `libro_id` int(6) NOT NULL,
+  `autor_id` int(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `libro_autor` (`id`, `libro_id`, `autor_id`) VALUES
+(1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -111,6 +132,12 @@ ALTER TABLE `plan`
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id`);
 
+ALTER TABLE `autor`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `libro_autor`
+  ADD PRIMARY KEY (`id`);
+
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
@@ -126,6 +153,12 @@ ALTER TABLE `libro`
 --
 ALTER TABLE `plan`
   MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+ALTER TABLE `autor`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+ALTER TABLE `libro_autor`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`

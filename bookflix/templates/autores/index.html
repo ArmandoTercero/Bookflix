@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block title %}Bookflix{% endblock %}
+
+{% block head %}
+	{{ super() }}
+{% endblock %}
+
+
+{% block content %}
+
+	<div class="container p-5">
+		<div class="card mx-auto m-5" style="width: 40rem;">
+			<div class="card-header">
+				<h1 class="card-title">Autores</h1>
+			</div>
+			
+			<div class="card-body">
+				<span class="card-text">
+					{% for autor in autores %}
+                        <a href="{{ url_for('autor', autor_id=autor.id) }}">{{ autor.nombre }}</a>
+                    {% endfor %}
+				</span>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

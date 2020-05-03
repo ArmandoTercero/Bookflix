@@ -10,7 +10,7 @@ class Usuario (object):
 	def encontrar_por_id(cls, usuario_id):
 		sql = "SELECT * FROM usuario WHERE id = %s"
 		cursor = cls.database().cursor()
-		cursor.execute(sql, (usuario_id))        
+		cursor.execute(sql, (usuario_id))		
 		return cursor.fetchone()
 
 	@classmethod
