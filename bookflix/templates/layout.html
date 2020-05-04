@@ -12,8 +12,12 @@
         <script src="{{ url_for('static', filename='../static/JS/bootstrap.js')}}"></script>
         <script src="{{ url_for('static', filename='../static/JS/bootstrap.bundle.js')}}"></script>
         
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="{{ url_for('static', filename='img/logo.png') }}">
+
         <!-- Iconos -->
-        <link rel="shortcut icon" href="{{ url_for('static', filename='icono.png') }}">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="CSS/materialize.css"  media="screen,projection"/>
 
         <!-- Título -->
         <title>{% block title %}{% endblock %}</title>
@@ -33,5 +37,8 @@
         {% block footer %}
             {% include '/footer.html' %}
         {% endblock %}
+
+        <!--JavaScript at end of body for optimized loading-->
+        <script type="text/javascript" src="JS/materialize.min.js"></script>
     </body>
 </html>
