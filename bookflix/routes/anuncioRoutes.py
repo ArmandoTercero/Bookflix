@@ -10,10 +10,6 @@ from controllers.AnuncioController import anuncioController
 def anuncio_index():
 	return anuncioController.index()
 
-# @app.route("/anuncio/create", methods=["GET"])
-# def anuncio_crear():
-# 	return anuncioController.crear()
-
-# @app.route("/anuncio/create", methods=["POST"])
-# def anuncio_crear_post():
-# 	return anuncioController.crear_anuncio()
+@app.route("/anuncio/agregar", methods=["POST", "GET"])
+def anuncio_new():
+	return anuncioController.new()

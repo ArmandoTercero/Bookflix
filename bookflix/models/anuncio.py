@@ -14,3 +14,14 @@ class Anuncio (object):
 		cursor.execute(sql)
 
 		return cursor.fetchall()
+
+	@classmethod
+	def crear(cls, data):
+		sql = """INSERT INTO anuncio
+		(titulo, contenido)
+		VALUES (%s)"""
+		parametros = str(list(data.values())).strip('[]')
+		cursor = cls.database().cursor()
+		cursor.execute(sql % parametros)
+		cls.database().commit()
+		return True

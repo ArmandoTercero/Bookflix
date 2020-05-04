@@ -11,12 +11,11 @@ class AnuncioController():
 		anuncios = Anuncio.all()
 		return render_template('anuncios/index.html', anuncios=anuncios)
 
-	# def crear(self):
-	# 	return render_template ('anuncios/agregar.html')
-
-	# def crear_anuncio(self):
-	# 	# OBTENER LOS DATOS DEL FORMULARIO
-	# 	# Anuncio.crear(request.form)
-	# 	return self.index()
+	def new(self):
+		if request.method == 'GET':
+			return render_template ('anuncios/new.html')
+		elif request.method == 'POST':
+			Anuncio.crear(request.form)
+			return self.index()
 
 anuncioController = AnuncioController()
