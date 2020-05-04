@@ -16,6 +16,7 @@ app.secret_key = "12345"
 from routes import routes
 from routes import bookRoutes
 from routes import authorRoutes
+from routes import anuncioRoutes
 
 if __name__ == "__main__":
 	app.run()
