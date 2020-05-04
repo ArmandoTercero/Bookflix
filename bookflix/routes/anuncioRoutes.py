@@ -13,3 +13,7 @@ def anuncio_index():
 @app.route("/anuncio/agregar", methods=["POST", "GET"])
 def anuncio_new():
 	return anuncioController.new()
+
+@app.route("/anuncio/editar", methods=["POST", "GET"])
+def anuncio_edit():
+	return anuncioController.edit()

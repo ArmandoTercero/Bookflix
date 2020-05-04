@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block title %}Bookflix{% endblock %}
+
+{% block head %}
+	{{ super() }}
+{% endblock %}
+
+
+{% block content %}
+<div class="jumbotron jumbotron-fluid">
+	<div class="container">
+		<h1 class="display-4 text-center">Editar un anuncio</h1>
+	</div>
+</div>
+
+
+<div class="container">
+	<div class="card mx-auto m-5" style="width: 40rem;">
+		<div class="card-header">
+			<h1 class="card-title">Editar un anuncio</h1>
+		</div>
+		
+		<div class="card-body">
+			<span class="card-text">
+				<form method="POST">
+					<section class="form-group">
+						<label for="titulo"> Título </label>
+						<input type="text" class="form-control form-control-lg rounded-0" name="titulo"
+							id="titulo" required value="{{anuncio.titulo}}">
+					</section>
+
+					<section class="form-group">
+						<label for="contenido"> Contenido </label>
+						<textarea
+							type="text"
+							class="form-control form-control-lg rounded-0"
+							name="contenido"
+							id="contenido"
+							required
+							value="{{anuncio.contenido}}"
+						>{{anuncio.contenido}}</textarea>
+					</section>
+
+					<section class="form-group">
+						<label for="id"> Título </label>
+						<input type="hidden" class="form-control form-control-lg rounded-0" name="id"
+							id="id" required value="{{anuncio.id}}">
+					</section>
+
+					<div class="text-right">
+						<a href="{{ url_for('anuncio_index') }}" class="btn btn-white">Cancelar</a>
+						<button type="submit" class="btn btn-primary">Modificar</button>
+					</div>
+				</form>
+			</span>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

@@ -45,13 +45,20 @@
 				<td>{{ anuncio.titulo }}</td>
 				<td>{{ anuncio.contenido }}</td>
 				<td>
-					<i class="material-icons btn btn-primary disabled" title="Ver">visibility</i>
+					<a
+						class="material-icons btn btn-primary disabled"
+						title="Ver"
+					>visibility</a>
 				</td>
 				<td>
-					<i class="material-icons btn btn-info disabled" title="Editar">edit</i>
+					<a
+						class="material-icons btn btn-info"
+						title="Editar"
+						href="{{ url_for('anuncio_edit', anuncio_id=anuncio.id) }}"
+					>edit</a>
 				</td>
 				<td>
-					<i class="material-icons btn btn-danger disabled" title="Eliminar">delete</i>
+					<a class="material-icons btn btn-danger disabled" title="Eliminar">delete</a>
 				</td>
 			</tr>
 			{% endfor %}

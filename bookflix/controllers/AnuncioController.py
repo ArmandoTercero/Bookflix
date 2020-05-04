@@ -18,4 +18,12 @@ class AnuncioController():
 			Anuncio.crear(request.form)
 			return self.index()
 
+	def edit(self):
+		if request.method == 'GET':
+			anuncio = Anuncio.encontrar_por_id(request.args.get("anuncio_id"))
+			return render_template ('anuncios/edit.html', anuncio=anuncio)
+		elif request.method == 'POST':
+			Anuncio.edit(request.form)
+			return self.index()
+
 anuncioController = AnuncioController()
