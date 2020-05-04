@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-05-2020 a las 23:22:13
+-- Tiempo de generación: 04-05-2020 a las 15:24:16
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.3
 
@@ -24,10 +24,37 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `anuncio`
+--
+
+CREATE TABLE `anuncio` (
+  `id` int(6) NOT NULL,
+  `titulo` varchar(255) NOT NULL,
+  `contenido` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `anuncio`
+--
+
+INSERT INTO `anuncio` (`id`, `titulo`, `contenido`) VALUES
+(1, 'Nuevos libros!', 'Hay 200 nuevos libros listos para ser leídos, que estas esperando!');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `autor`
+--
+
 CREATE TABLE `autor` (
   `id` int(6) NOT NULL,
   `nombre` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `autor`
+--
 
 INSERT INTO `autor` (`id`, `nombre`) VALUES
 (1, 'test author');
@@ -53,11 +80,19 @@ INSERT INTO `libro` (`id`, `nombre`, `ruta`) VALUES
 
 -- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `libro_autor`
+--
+
 CREATE TABLE `libro_autor` (
   `id` int(6) NOT NULL,
   `libro_id` int(6) NOT NULL,
   `autor_id` int(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `libro_autor`
+--
 
 INSERT INTO `libro_autor` (`id`, `libro_id`, `autor_id`) VALUES
 (1, 1, 1);
@@ -115,9 +150,27 @@ INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `email`, `contraseña`, `tarj
 --
 
 --
+-- Indices de la tabla `anuncio`
+--
+ALTER TABLE `anuncio`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `autor`
+--
+ALTER TABLE `autor`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `libro`
 --
 ALTER TABLE `libro`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `libro_autor`
+--
+ALTER TABLE `libro_autor`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -132,15 +185,21 @@ ALTER TABLE `plan`
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id`);
 
-ALTER TABLE `autor`
-  ADD PRIMARY KEY (`id`);
-
-ALTER TABLE `libro_autor`
-  ADD PRIMARY KEY (`id`);
-
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `anuncio`
+--
+ALTER TABLE `anuncio`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `autor`
+--
+ALTER TABLE `autor`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `libro`
@@ -149,16 +208,16 @@ ALTER TABLE `libro`
   MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT de la tabla `libro_autor`
+--
+ALTER TABLE `libro_autor`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT de la tabla `plan`
 --
 ALTER TABLE `plan`
   MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
-ALTER TABLE `autor`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
-ALTER TABLE `libro_autor`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
