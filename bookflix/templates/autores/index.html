@@ -8,20 +8,46 @@
 
 {% block content %}
 
-	<div class="container p-5">
-		<div class="card mx-auto m-5" style="width: 40rem;">
-			<div class="card-header">
-				<h1 class="card-title">Autores</h1>
-			</div>
-			
-			<div class="card-body">
-				<span class="card-text">
-					{% for autor in autores %}
-                        <a href="{{ url_for('autor', autor_id=autor.id) }}">{{ autor.nombre }}</a>
-                    {% endfor %}
-				</span>
-			</div>
-		</div>
-	</div>
+<div class="container p-5">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				{% if session["admin"] %}
+				<th scope="col">#</th>
+				{% endif %}
+				<th scope="col">Autor</th>
+				{% if session["admin"] %}
+				<th scope="col">Acciones</th>
+				{% endif %}
+			</tr>
+		</thead>
+
+		<tbody>
+			{% for autor in autores %}
+			<tr>
+				{% if session["admin"] %}
+				<th scope="row">{{ autor.id }}</th>
+				{% endif %}
+				<td><a href="{{ url_for('autor', autor_id=autor.id) }}">{{ autor.nombre }}</a></td>
+				{% if session["admin"] %}
+				<td align="right">
+					<a
+						class="material-icons btn btn-primary"
+						title="Ver"
+						href="{{ url_for('autor', autor_id=autor.id) }}"
+					>visibility</a>
+					<a
+						class="material-icons btn btn-info"
+						title="Editar"
+						href="{{ url_for('autor_edit', autor_id=autor.id) }}"
+					>edit</a>
+					<a class="material-icons btn btn-danger disabled" title="Eliminar">delete</a>
+				</td>
+				{% endif %}
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
 
 {% endblock %}

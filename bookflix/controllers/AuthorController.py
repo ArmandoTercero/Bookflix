@@ -49,9 +49,9 @@ class AuthorController():
 		name = request.form.get('nombre', '')
 		if Author.existe (name):#chequear que no existe
 			return render_template ('autores/error.html')
-        else:
-            Author.edit (autor_id, name)
-            return self.index()
+		else:
+			Author.edit (autor_id, name)
+			return self.index()
 
 authorController = AuthorController()
 
