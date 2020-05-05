@@ -47,8 +47,11 @@ class AuthorController():
 	@validate
 	def edit_author (self, autor_id):
 		name = request.form.get('nombre', '')
-		Author.edit (autor_id, name)
-		return self.index()
+		if Author.existe (name):#chequear que no existe
+			return render_template ('autores/error.html')
+        else:
+            Author.edit (autor_id, name)
+            return self.index()
 
 authorController = AuthorController()
 
