@@ -7,7 +7,7 @@ from models.libro import Libro
 from config import config
 import os
 
-class BookController():
+class BookController(AbstractController):
 
 	def __init__(self):
 		pass
@@ -22,9 +22,11 @@ class BookController():
 		dir, name = os.path.split(path)
 		return send_from_directory(dir, name)
 
+	@AbstractController.validate
 	def new (self):
 		return render_template ('libros/agregar.html')
 
+	@AbstractController.validate
 	def new_book(self):
 		
 		def gen_path (field):
