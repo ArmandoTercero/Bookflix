@@ -2,6 +2,7 @@ from flask import request, render_template, session
 from flask import send_from_directory, url_for
 #from app.models.AuthModel import authmodel
 #from app.helpers.Utility import sendResponse
+from controllers.AbstractController import AbstractController
 from models.libro import Libro
 from config import config
 import os
@@ -17,17 +18,25 @@ class BookController():
 
 	def libro(self, libro_id):
 		libro = Libro.id (libro_id)
-		return send_from_directory(config['UPLOAD_FOLDER'], libro["nombre"])
+		path = libro["ruta"]
+		dir, name = os.path.split(path)
+		return send_from_directory(dir, name)
 
-	def upload (self):
+	def new (self):
 		return render_template ('libros/agregar.html')
 
-	def upload_file(self):
-		file = request.files['libro']
-		filename = file.filename
-		path = config['UPLOAD_FOLDER'] + filename
-		file.save(path)
-		Libro.crear(filename, path)
+	def new_book(self):
+		
+		def gen_path (field):
+			file = request.files[field]
+			name = file.filename
+			path =  config['UPLOAD_FOLDER'] + name
+			file.save (path)
+			return path
+		
+		pdfpath = gen_path ('libro')
+		imgpath = gen_path ('portada')
+		Libro.crear(request.form, pdfpath, imgpath)
 		return self.index()
 
 bookController = BookController()

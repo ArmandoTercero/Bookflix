@@ -2,19 +2,12 @@ from flask import request, render_template, session, abort
 from flask import send_from_directory, url_for
 #from app.models.AuthModel import authmodel
 #from app.helpers.Utility import sendResponse
+from controllers.AbstractController import AbstractController
 from models.autor import Author
 from models.libro import Libro
 from config import config
 
-class AuthorController():
-
-	def validate (func):
-		def val (*args, **kwargs):
-			if not "admin" in session:
-				abort (401)
-			else:
-				return func (*args, **kwargs)
-		return val
+class AuthorController(AbstractController):
 
 	def __init__(self):
 		pass
@@ -27,11 +20,11 @@ class AuthorController():
 		autor = Author.id (autor_id)
 		return render_template('autores/show.html', autor=autor)
 
-	@validate
+	@AbstractController.validate
 	def create (self):#formulario
 		return render_template ('autores/agregar.html')
 
-	@validate
+	@AbstractController.validate
 	def create_author (self):
 		name = request.form.get('nombre', '')
 		if Author.existe (name):#chequear que no existe
@@ -40,11 +33,11 @@ class AuthorController():
 			Author.crear (name)
 			return self.index()
 
-	@validate
+	@AbstractController.validate
 	def edit (self, autor_id):#formulario
 		return render_template('autores/editar.html')
 
-	@validate
+	@AbstractController.validate
 	def edit_author (self, autor_id):
 		name = request.form.get('nombre', '')
 		if Author.existe (name):#chequear que no existe

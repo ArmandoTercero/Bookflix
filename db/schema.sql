@@ -67,7 +67,13 @@ INSERT INTO `autor` (`id`, `nombre`) VALUES
 
 CREATE TABLE `libro` (
   `id` int(6) NOT NULL,
-  `nombre` text NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `isbn` varchar(100) NOT NULL,
+  `fecha_publicacion` date NOT NULL,
+  `fecha_vencimiento` date NOT NULL,
+  `ruta_img` text NOT NULL,
+  `sinopsis` text NOT NULL,
+  `editorial` varchar(100) NOT NULL,
   `ruta` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -75,8 +81,8 @@ CREATE TABLE `libro` (
 -- Volcado de datos para la tabla `libro`
 --
 
-INSERT INTO `libro` (`id`, `nombre`, `ruta`) VALUES
-(1, 'test.pdf', './static/pdf/test.pdf');
+INSERT INTO `libro` (`id`, `nombre`, `isbn`, `fecha_publicacion`, `fecha_vencimiento`, `ruta_img`, `sinopsis`, `editorial`, `ruta`) VALUES
+(1, 'test.pdf', '1234', '2000-10-03', '2021-12-03', './static/pdf/test.jpg', 'test', 'test-editoriales', './static/pdf/test.pdf');
 
 -- --------------------------------------------------------
 

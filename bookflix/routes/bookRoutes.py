@@ -10,13 +10,13 @@ from controllers.BookController import bookController
 def libro_index():
 	return bookController.index()
 
-@app.route("/libro/upload", methods=["GET"])
+@app.route("/libro/new", methods=["GET"])
 def libro_upload():
-	return bookController.upload()
+	return bookController.new()
 
-@app.route("/libro/upload", methods=["POST"])
+@app.route("/libro/new", methods=["POST"])
 def libro_upload_file():
-	return bookController.upload_file()
+	return bookController.new_book()
 
 @app.route("/libro/<libro_id>", methods=["GET"])
 def libro (libro_id):

@@ -1,4 +1,5 @@
 from db import get_db
+from datetime import datetime
 
 class Libro (object):
 
@@ -21,10 +22,18 @@ class Libro (object):
 		return cursor.fetchall()
 
 	@classmethod
-	def crear(cls, name, ruta):
-		sql = "INSERT INTO libro (nombre, ruta) VALUES ('%s', '%s')"
+	def crear(cls, form, pdfpath, imgpath):
+		sql = """INSERT INTO
+		libro (nombre, isbn, fecha_publicacion, fecha_vencimiento, ruta_img, sinopsis, editorial, ruta)
+		VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"""
+		name = form.get('nombre', '')
+		isbn = form.get('isbn', '')
+		pdate = datetime.strptime(form["fechaPublicacion"], "%Y-%m-%d")
+		vdate = datetime.strptime(form["fechaVencimiento"], "%Y-%m-%d")
+		sinopsis = form.get('sinopsis', '')
+		editorial = form.get('editorial', '')
 		cursor = cls.database().cursor()
-		cursor.execute(sql % (name, ruta))
+		cursor.execute(sql % (name, isbn, pdate, vdate, imgpath, sinopsis, editorial, pdfpath))
 		cls.database().commit()
 		return True
 
