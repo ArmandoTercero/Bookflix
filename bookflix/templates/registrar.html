@@ -86,6 +86,19 @@
 							</select>
 						</section>
 
+						<!-- <section class="form-group text-center">
+							{% for plan in planes %}
+							<div class="p-5 custom-control-inline custom-radio col-sm-4" style="border-style: solid; border-color: black; border-width: 1px; background-color: lightgray;">
+								<input type="radio" id="customRadio{{plan.id}}" name="customRadio" class="custom-control-input">
+								<label class="custom-control-label" for="customRadio{{plan.id}}">
+									{{ plan.nombre|capitalize }}
+									Precio: ${{ plan.precio }}
+									Puedes crear hasta {{plan.perfiles_max}} perfiles.
+								</label>
+							</div>
+							{% endfor %}
+						</section> -->
+
 						<div class="text-right">
 							<a href="{{ url_for('index') }}" class="btn btn-white">Cancelar</a>
 							<button type="submit" class="btn btn-primary">Aceptar</button>
