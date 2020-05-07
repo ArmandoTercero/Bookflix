@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-05-2020 a las 15:24:16
+-- Tiempo de generación: 07-05-2020 a las 14:54:13
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.3
 
@@ -58,6 +58,26 @@ CREATE TABLE `autor` (
 
 INSERT INTO `autor` (`id`, `nombre`) VALUES
 (1, 'test author');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `genero`
+--
+
+CREATE TABLE `genero` (
+  `id` int(6) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `activo` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `genero`
+--
+
+INSERT INTO `genero` (`id`, `nombre`, `activo`) VALUES
+(1, 'Drama', 1),
+(2, 'horror', 1);
 
 -- --------------------------------------------------------
 
@@ -168,6 +188,12 @@ ALTER TABLE `autor`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `genero`
+--
+ALTER TABLE `genero`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `libro`
 --
 ALTER TABLE `libro`
@@ -206,6 +232,12 @@ ALTER TABLE `anuncio`
 --
 ALTER TABLE `autor`
   MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `genero`
+--
+ALTER TABLE `genero`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `libro`
