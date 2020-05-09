@@ -34,6 +34,28 @@ def loginuser ():
 def logout ():
 	return usercontroller.logout()
 
+#ruta para ver perfil
+@app.route("/ver_perfil/<id>", methods=["GET", "POST"])
+def ver_perfil (id):
+	return usercontroller.ver_perfil(id)
+
+#ruta ver perfiles 
+@app.route("/ver_perfiles/<id>", methods=["GET", "POST"])
+def ver_perfiles (id):
+	return usercontroller.ver_perfiles(id)
+
+#ruta crear un perfil
+@app.route("/crear_perfil", methods=["GET", "POST"])
+def crear_perfil ():
+	return usercontroller.crear_perfil()
+
+#ruta modificar un perfil
+@app.route("/modificar_perfil", methods=["GET", "POST"])
+def modificar_perfil ():
+	return usercontroller.modificar_perfil()
+
+
+
 # Borrar a futuro
 @app.route("/hello/<name>")
 def hello (name):

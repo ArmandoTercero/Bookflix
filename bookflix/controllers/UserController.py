@@ -1,10 +1,12 @@
 from datetime import datetime
 
-from flask import request, render_template, session
+from flask import request, render_template, session, redirect, url_for, flash
 #from app.models.AuthModel import authmodel
 #from app.helpers.Utility import sendResponse
 from models.usuario import Usuario
 from models.plan import Plan
+from models.perfiles import Perfiles
+from models.rel_perfil_usuario import RelacionPerUser
 
 class UserController():
 
@@ -62,11 +64,14 @@ class UserController():
 
 		# Me fijo si existe el usuario ingresado y luego pregunto si la contraseña ingresada es correcta
 		usuario = Usuario.encontrar_por_email(request.form["email"])
+		perfiles = Perfiles.all()
 		if usuario and (usuario["contraseña"] == request.form["password"]):
 			session["id"] = usuario["id"]
+			print(usuario["id"])
 			# session["perfil_id"] = request.form["perfil_id"] TODAVÍA NO HICIMOS NADA ACERCA DE LOS PERFILES
 			session["admin"] = (usuario["email"] == "admin")
-			return self.index()
+			return render_template("/usuarios/perfiles.html", perfiles = perfiles, usuario = usuario) #se conecta a perfiles
+			#return self.index()
 		else:
 			errores.append("Los datos ingresados son incorrectos.")
 			return render_template("login.html", errores=errores)
@@ -86,6 +91,34 @@ class UserController():
 			return render_template("/usuarios/read.html", usuario = user)
 		else:
 			return "<h1> No existe ningun usuario con esa id</h1>"
+	
+	#ver perfil de usuario sus datos
+	def ver_perfil(self, id):
+		user = Usuario.encontrar_por_id(id)
+		if user:
+			return render_template("/usuarios/perfil.html", usuario = user)
+		else:
+			return "<h1> No existe ningun usuario con esa id</h1>"
+    
+	# ver perfiles de usuario
+	#def ver_perfiles(self, id):
+	#	user = Usuario.encontrar_por_id(id)
+	#	perfiles = Perfiles.all()
+		#per['id_usuario'] = id
+		
+	#	return render_template("/usuarios/perfiles.html", perfiles = perfiles, usuario = user)
+    
+	#crear un perfil
+	def crear_perfil(self):
+		perfiles = Perfiles.all()
+		#per = Perfiles.crear(request.form)
+		#print(per)
+		return render_template("/usuarios/crearPerfil.html", perfiles = perfiles)
+
+	#modificar un perfil
+	def modificar_perfil(self):
+
+		return render_template("/usuarios/modificarPerfil.html")
 
 usercontroller=UserController()
 

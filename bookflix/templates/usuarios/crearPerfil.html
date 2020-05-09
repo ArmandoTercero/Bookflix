@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block title %}Bookflix{% endblock %}
+
+{% block head %}
+	{{ super() }}
+{% endblock %}
+
+
+{% block content %}
+
+
+  <form action="/crear_perfil" method="POST">
+      <input type="text" name="nombre" placeholder="nombre">
+      <select id="foto" name="foto">
+        <option>../../static/img/img1.png</option>
+        <option>../../static/img/img2.png</option>
+        <option>../../static/img/img3.png</option>
+        <option>../../static/img/img4.png</option>
+        <option>../../static/img/img5.png</option>
+    
+      </select>
+
+      <button type="submit">
+          Guardar
+      </button> 
+  </form>
+
+
+{% endblock %}

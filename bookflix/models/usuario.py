@@ -16,7 +16,7 @@ class Usuario (object):
 	@classmethod
 	def crear(cls, data):
 		sql = """INSERT INTO usuario
-		(nombre, apellido, email, contraseña, fecha_de_nacimiento, tarjetaNumero, tarjetaPin, tarjetaFechaDeExpiracion, plan)
+		(nombre, apellido, email, contraseña, fecha_de_nacimiento, tarjetaNumero, tarjetaPin, tarjetaFechaDeExpiracion, plan, cantPerfiles)
 		VALUES (%s)"""
 		parametros = str(list(data.values())).strip('[]')
 		cursor = cls.database().cursor()

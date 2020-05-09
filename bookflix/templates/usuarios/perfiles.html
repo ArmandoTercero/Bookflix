@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block title %}Bookflix{% endblock %}
+
+{% block head %}
+    
+   {{ super() }}
+   
+{% endblock %}
+
+{% block content %}
+    <body class="fondo">
+
+        <div class="conteiner">
+            <h1 class="titulo text-center pt-5 mt-5"> Quien esta ingrasando ahora ? </h1>
+            <div class="row justify-content-center align-items-center text-center pt-3 m-5">
+                {% for perfil in perfiles %}
+                  {% if usuario.id == perfil.id_usuario %}  
+                    <div class="col-md-2 mr-4 text-center">
+                        <a href="{{ url_for('index') }}" class="perfil"> <img src="{{ perfil.foto }}" class="img1" width="130px" alt=""></a>
+                        <p class="text-center">{{ perfil.nombre }}</p>
+                        <a href="/modificar_perfil/{{ perfil.id }}" class="btn btn-danger"> Modificar Perfil </a>
+                        <a href="{{ url_for('index') }}" class="btn btn-danger"> Eliminar </a>
+                    </div>
+                  {% endif %}
+                {% endfor %}
+               
+                
+            </div>
+            <div class="text-center">
+                <a href="{{ url_for('crear_perfil') }}" class="btn btn-danger"> Crear Perfil </a>
+                <a href="{{ url_for('logout') }}" class="btn btn-danger"> Salir </a>
+            </div>
+        </div>
+        
+    </body>
+{% endblock %}    

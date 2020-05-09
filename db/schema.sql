@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 07-05-2020 a las 14:54:13
+-- Servidor: localhost
+-- Tiempo de generación: 09-05-2020 a las 20:47:39
 -- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.4.3
+-- Versión de PHP: 7.4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -87,13 +86,7 @@ INSERT INTO `genero` (`id`, `nombre`, `activo`) VALUES
 
 CREATE TABLE `libro` (
   `id` int(6) NOT NULL,
-  `nombre` varchar(255) NOT NULL,
-  `isbn` varchar(100) NOT NULL,
-  `fecha_publicacion` date NOT NULL,
-  `fecha_vencimiento` date NOT NULL,
-  `ruta_img` text NOT NULL,
-  `sinopsis` text NOT NULL,
-  `editorial` varchar(100) NOT NULL,
+  `nombre` text NOT NULL,
   `ruta` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -101,27 +94,33 @@ CREATE TABLE `libro` (
 -- Volcado de datos para la tabla `libro`
 --
 
-INSERT INTO `libro` (`id`, `nombre`, `isbn`, `fecha_publicacion`, `fecha_vencimiento`, `ruta_img`, `sinopsis`, `editorial`, `ruta`) VALUES
-(1, 'test.pdf', '1234', '2000-10-03', '2021-12-03', './static/pdf/test.jpg', 'test', 'test-editoriales', './static/pdf/test.pdf');
+INSERT INTO `libro` (`id`, `nombre`, `ruta`) VALUES
+(1, 'test.pdf', './static/pdf/test.pdf');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `libro_autor`
+-- Estructura de tabla para la tabla `perfiles`
 --
 
-CREATE TABLE `libro_autor` (
-  `id` int(6) NOT NULL,
-  `libro_id` int(6) NOT NULL,
-  `autor_id` int(6) NOT NULL
+CREATE TABLE `perfiles` (
+  `id` int(10) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `foto` varchar(50) NOT NULL,
+  `id_usuario` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `libro_autor`
+-- Volcado de datos para la tabla `perfiles`
 --
 
-INSERT INTO `libro_autor` (`id`, `libro_id`, `autor_id`) VALUES
-(1, 1, 1);
+INSERT INTO `perfiles` (`id`, `nombre`, `foto`, `id_usuario`) VALUES
+(1, 'juan', '../../static/img/img1.png', 2),
+(2, 'hugo', '../../static/img/img2.png', 2),
+(3, 'dai', '../../static/img/img3.png', 3),
+(4, 'geronimo', '../../static/img/img4.png', 3),
+(5, 'leandro', '../../static/img/img5.png', 2),
+(7, 'maria', '../../static/img/img1.png', 1);
 
 -- --------------------------------------------------------
 
@@ -147,11 +146,34 @@ INSERT INTO `plan` (`id`, `nombre`, `precio`, `perfiles_max`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `rel_perfil_usuario`
+--
+
+CREATE TABLE `rel_perfil_usuario` (
+  `id` int(10) NOT NULL,
+  `id_usuario` int(10) NOT NULL,
+  `id_perfil` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `rel_perfil_usuario`
+--
+
+INSERT INTO `rel_perfil_usuario` (`id`, `id_usuario`, `id_perfil`) VALUES
+(1, 2, 1),
+(2, 2, 2),
+(3, 3, 3),
+(4, 3, 4),
+(5, 2, 5);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuario`
 --
 
 CREATE TABLE `usuario` (
-  `id` int(6) NOT NULL,
+  `id` int(10) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `apellido` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -160,38 +182,23 @@ CREATE TABLE `usuario` (
   `tarjetaPin` varchar(10) NOT NULL,
   `tarjetaFechaDeExpiracion` date NOT NULL,
   `fecha_de_nacimiento` date NOT NULL,
-  `plan` int(6) NOT NULL
+  `plan` int(10) NOT NULL,
+  `cantPerfiles` int(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `email`, `contraseña`, `tarjetaNumero`, `tarjetaPin`, `tarjetaFechaDeExpiracion`, `fecha_de_nacimiento`, `plan`) VALUES
-(1, 'Armando', 'Marino', 'armando@gmail.com', 'pato', '12345', '956', '2021-12-03', '2000-10-03', 1),
-(15, 'admin', 'admin', 'admin', 'admin', '1234567890', '123', '2222-01-01', '1990-01-01', 1);
+INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `email`, `contraseña`, `tarjetaNumero`, `tarjetaPin`, `tarjetaFechaDeExpiracion`, `fecha_de_nacimiento`, `plan`, `cantPerfiles`) VALUES
+(1, 'admin', 'admin', 'admin@gmail.com', '1234', '100', '1212', '2020-05-31', '1999-08-30', 1, 4),
+(2, 'hugo', 'contrera', 'hugo@gmail.com', '12345', '12345', '123', '2020-05-31', '1998-08-30', 1, 4),
+(3, 'juan', 'perez', 'juanp@gmail.com', '12345', '4321', '1234', '2020-05-29', '1999-08-20', 1, 4),
+(4, 'julia', 'perez', 'juli@gmail.com', '1234', '1212', '1222', '2020-05-30', '1999-08-30', 1, 4);
 
 --
 -- Índices para tablas volcadas
 --
-
---
--- Indices de la tabla `anuncio`
---
-ALTER TABLE `anuncio`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `autor`
---
-ALTER TABLE `autor`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `genero`
---
-ALTER TABLE `genero`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `libro`
@@ -200,15 +207,21 @@ ALTER TABLE `libro`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `libro_autor`
+-- Indices de la tabla `perfiles`
 --
-ALTER TABLE `libro_autor`
+ALTER TABLE `perfiles`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `plan`
 --
 ALTER TABLE `plan`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `rel_perfil_usuario`
+--
+ALTER TABLE `rel_perfil_usuario`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -222,34 +235,16 @@ ALTER TABLE `usuario`
 --
 
 --
--- AUTO_INCREMENT de la tabla `anuncio`
---
-ALTER TABLE `anuncio`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de la tabla `autor`
---
-ALTER TABLE `autor`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT de la tabla `genero`
---
-ALTER TABLE `genero`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT de la tabla `libro`
 --
 ALTER TABLE `libro`
   MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de la tabla `libro_autor`
+-- AUTO_INCREMENT de la tabla `perfiles`
 --
-ALTER TABLE `libro_autor`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `perfiles`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `plan`
@@ -258,10 +253,16 @@ ALTER TABLE `plan`
   MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT de la tabla `rel_perfil_usuario`
+--
+ALTER TABLE `rel_perfil_usuario`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
