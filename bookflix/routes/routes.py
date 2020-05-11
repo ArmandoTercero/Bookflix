@@ -45,9 +45,9 @@ def ver_perfiles (id):
 	return usercontroller.ver_perfiles(id)
 
 #ruta crear un perfil
-@app.route("/crear_perfil", methods=["GET", "POST"])
-def crear_perfil ():
-	return usercontroller.crear_perfil()
+@app.route("/crear_perfil/<id>", methods=["GET", "POST"])
+def crear_perfil (id):
+	return usercontroller.crear_perfil(id)
 
 #ruta modificar un perfil
 @app.route("/modificar_perfil", methods=["GET", "POST"])

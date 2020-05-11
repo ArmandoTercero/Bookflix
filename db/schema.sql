@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 09-05-2020 a las 20:47:39
+-- Tiempo de generación: 11-05-2020 a las 16:09:04
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.5
 
@@ -87,6 +87,12 @@ INSERT INTO `genero` (`id`, `nombre`, `activo`) VALUES
 CREATE TABLE `libro` (
   `id` int(6) NOT NULL,
   `nombre` text NOT NULL,
+  `isbn` varchar(100) NOT NULL,
+  `fecha_publicacion` date NOT NULL,
+  `fecha_vencimiento` date NOT NULL,
+  `ruta_img` text NOT NULL,
+  `sinopsis` text NOT NULL,
+  `editorial` varchar(100) NOT NULL,
   `ruta` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -94,8 +100,8 @@ CREATE TABLE `libro` (
 -- Volcado de datos para la tabla `libro`
 --
 
-INSERT INTO `libro` (`id`, `nombre`, `ruta`) VALUES
-(1, 'test.pdf', './static/pdf/test.pdf');
+INSERT INTO `libro` (`id`, `nombre`, `isbn`, `fecha_publicacion`, `fecha_vencimiento`, `ruta_img`, `sinopsis`, `editorial`, `ruta`) VALUES
+(1, 'test.pdf', '', '0000-00-00', '0000-00-00', '', '', '', './static/pdf/test.pdf');
 
 -- --------------------------------------------------------
 
@@ -146,29 +152,6 @@ INSERT INTO `plan` (`id`, `nombre`, `precio`, `perfiles_max`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `rel_perfil_usuario`
---
-
-CREATE TABLE `rel_perfil_usuario` (
-  `id` int(10) NOT NULL,
-  `id_usuario` int(10) NOT NULL,
-  `id_perfil` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `rel_perfil_usuario`
---
-
-INSERT INTO `rel_perfil_usuario` (`id`, `id_usuario`, `id_perfil`) VALUES
-(1, 2, 1),
-(2, 2, 2),
-(3, 3, 3),
-(4, 3, 4),
-(5, 2, 5);
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `usuario`
 --
 
@@ -192,8 +175,8 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `email`, `contraseña`, `tarjetaNumero`, `tarjetaPin`, `tarjetaFechaDeExpiracion`, `fecha_de_nacimiento`, `plan`, `cantPerfiles`) VALUES
 (1, 'admin', 'admin', 'admin@gmail.com', '1234', '100', '1212', '2020-05-31', '1999-08-30', 1, 4),
-(2, 'hugo', 'contrera', 'hugo@gmail.com', '12345', '12345', '123', '2020-05-31', '1998-08-30', 1, 4),
-(3, 'juan', 'perez', 'juanp@gmail.com', '12345', '4321', '1234', '2020-05-29', '1999-08-20', 1, 4),
+(2, 'hugo', 'contrera', 'hugo@gmail.com', '1234', '12345', '123', '2020-05-31', '1998-08-30', 1, 4),
+(3, 'juan', 'perez', 'juanp@gmail.com', '1234', '4321', '1234', '2020-05-29', '1999-08-20', 1, 4),
 (4, 'julia', 'perez', 'juli@gmail.com', '1234', '1212', '1222', '2020-05-30', '1999-08-30', 1, 4);
 
 --
@@ -216,12 +199,6 @@ ALTER TABLE `perfiles`
 -- Indices de la tabla `plan`
 --
 ALTER TABLE `plan`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `rel_perfil_usuario`
---
-ALTER TABLE `rel_perfil_usuario`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -251,12 +228,6 @@ ALTER TABLE `perfiles`
 --
 ALTER TABLE `plan`
   MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT de la tabla `rel_perfil_usuario`
---
-ALTER TABLE `rel_perfil_usuario`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`

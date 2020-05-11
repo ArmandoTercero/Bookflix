@@ -6,7 +6,6 @@ from flask import request, render_template, session, redirect, url_for, flash
 from models.usuario import Usuario
 from models.plan import Plan
 from models.perfiles import Perfiles
-from models.rel_perfil_usuario import RelacionPerUser
 
 class UserController():
 
@@ -109,12 +108,16 @@ class UserController():
 	#	return render_template("/usuarios/perfiles.html", perfiles = perfiles, usuario = user)
     
 	#crear un perfil
-	def crear_perfil(self):
+	def crear_perfil(self, id):
 		perfiles = Perfiles.all()
-		#per = Perfiles.crear(request.form)
-		#print(per)
+		id_usuario = id
+		foto = request.form["foto"]
+		nombre = request.form["nombre"]
+		print(id_usuario)
+		print(foto)
+		print(nombre)
 		return render_template("/usuarios/crearPerfil.html", perfiles = perfiles)
-
+	
 	#modificar un perfil
 	def modificar_perfil(self):
 
