@@ -4,6 +4,9 @@ from flask import send_from_directory, url_for
 #from app.helpers.Utility import sendResponse
 from controllers.AbstractController import AbstractController
 from models.libro import Libro
+from models.editorial import Editorial
+from models.genero import Genero
+from models.autor import Author
 from config import config
 import os
 
@@ -24,7 +27,10 @@ class BookController(AbstractController):
 
 	@AbstractController.validate
 	def new (self):
-		return render_template ('libros/agregar.html')
+		editoriales = Editorial.all()
+		generos = Genero.all()
+		autores = Author.all()
+		return render_template ('libros/agregar.html', editoriales=editoriales, generos=generos, autores=autores)
 
 	@AbstractController.validate
 	def new_book(self):

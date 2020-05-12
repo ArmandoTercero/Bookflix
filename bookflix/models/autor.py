@@ -13,13 +13,14 @@ class Author (object):
 		cursor = cls.database().cursor()
 		cursor.execute(sql % autor_id)
 		autor = cursor.fetchone()
-		sql = "SELECT libro_id FROM libro_autor WHERE autor_id = %s"
+		sql = "SELECT * FROM libro WHERE autor = %s"
 		cursor.execute(sql % autor_id)
-		libros_id = cursor.fetchall()
-		autor["libros"] = [Libro.id(i["libro_id"]) for i in libros_id]
+		autor["libros"] = cursor.fetchall()
+		#autor["libros"] = [Libro.id(i["libro_id"]) for i in libros_id]
 		#agregar a autor los libros relacionados
 		return autor
 
+	@classmethod
 	def existe(cls, name):
 		sql = "SELECT * FROM autor WHERE nombre = '%s'"
 		cursor = cls.database().cursor()

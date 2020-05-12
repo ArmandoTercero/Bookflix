@@ -81,6 +81,24 @@ INSERT INTO `genero` (`id`, `nombre`, `activo`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `genero`
+--
+
+CREATE TABLE `editorial` (
+  `id` int(6) NOT NULL,
+  `nombre` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `genero`
+--
+
+INSERT INTO `editorial` (`id`, `nombre`) VALUES
+(1, 'test editorial');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `libro`
 --
 
@@ -92,7 +110,9 @@ CREATE TABLE `libro` (
   `fecha_vencimiento` date NOT NULL,
   `ruta_img` text NOT NULL,
   `sinopsis` text NOT NULL,
-  `editorial` varchar(100) NOT NULL,
+  `editorial` int(6) NOT NULL,
+  `genero` int(6) NOT NULL,
+  `autor` int(6) NOT NULL,
   `ruta` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -100,8 +120,8 @@ CREATE TABLE `libro` (
 -- Volcado de datos para la tabla `libro`
 --
 
-INSERT INTO `libro` (`id`, `nombre`, `isbn`, `fecha_publicacion`, `fecha_vencimiento`, `ruta_img`, `sinopsis`, `editorial`, `ruta`) VALUES
-(1, 'test.pdf', '', '0000-00-00', '0000-00-00', '', '', '', './static/pdf/test.pdf');
+INSERT INTO `libro` (`id`, `nombre`, `isbn`, `fecha_publicacion`, `fecha_vencimiento`, `ruta_img`, `sinopsis`, `editorial`, `genero`, `autor`, `ruta`) VALUES
+(1, 'test.pdf', '1234', '2010-01-01', '2021-01-01', './static/pdf/test.png', 'test', 1, 1, 1, './static/pdf/test.pdf');
 
 -- --------------------------------------------------------
 
@@ -208,6 +228,24 @@ ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `editorial`
+--
+ALTER TABLE `editorial`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `genero`
+--
+ALTER TABLE `genero`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `autor`
+--
+ALTER TABLE `autor`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -234,6 +272,24 @@ ALTER TABLE `plan`
 --
 ALTER TABLE `usuario`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `editorial`
+--
+ALTER TABLE `editorial`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `genero`
+--
+ALTER TABLE `genero`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `autor`
+--
+ALTER TABLE `autor`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

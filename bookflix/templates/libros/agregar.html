@@ -26,8 +26,29 @@
 
 						<section class="form-group">
 							<label for="editorial"> Editorial </label>
-							<input type="text" class="form-control form-control-lg rounded-0" name="editorial"
-								id="editorial" required>
+							<select class="selectpicker" data-live-search="true" name="editorial" id="editorial" required>
+								{% for editorial in editoriales %}
+									<option value="{{editorial.id}}">{{ editorial.nombre }}</option>
+								{% endfor %}
+							</select>
+						</section>
+
+						<section class="form-group">
+							<label for="genero"> Genero </label>
+							<select class="selectpicker" data-live-search="true" name="genero" id="genero" required>
+								{% for genero in generos %}
+									<option value="{{genero.id}}">{{ genero.nombre }}</option>
+								{% endfor %}
+							</select>
+						</section>
+
+						<section class="form-group">
+							<label for="autor"> Autor </label>
+							<select class="selectpicker" data-live-search="true" name="autor" id="autor" required>
+								{% for autor in autores %}
+									<option value="{{autor.id}}">{{ autor.nombre }}</option>
+								{% endfor %}
+							</select>
 						</section>
 
 						<section class="form-group">

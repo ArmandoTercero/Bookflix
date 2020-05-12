@@ -24,16 +24,18 @@ class Libro (object):
 	@classmethod
 	def crear(cls, form, pdfpath, imgpath):
 		sql = """INSERT INTO
-		libro (nombre, isbn, fecha_publicacion, fecha_vencimiento, ruta_img, sinopsis, editorial, ruta)
-		VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"""
+		libro (nombre, isbn, fecha_publicacion, fecha_vencimiento, ruta_img, sinopsis, editorial, genero, autor, ruta)
+		VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"""
 		name = form.get('nombre', '')
 		isbn = form.get('isbn', '')
 		pdate = datetime.strptime(form["fechaPublicacion"], "%Y-%m-%d")
 		vdate = datetime.strptime(form["fechaVencimiento"], "%Y-%m-%d")
 		sinopsis = form.get('sinopsis', '')
 		editorial = form.get('editorial', '')
+		genero = form.get('genero', '')
+		autor = form.get('autor', '')
 		cursor = cls.database().cursor()
-		cursor.execute(sql % (name, isbn, pdate, vdate, imgpath, sinopsis, editorial, pdfpath))
+		cursor.execute(sql % (name, isbn, pdate, vdate, imgpath, sinopsis, editorial, genero, autor, pdfpath))
 		cls.database().commit()
 		return True
 
