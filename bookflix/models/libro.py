@@ -39,3 +39,32 @@ class Libro (object):
 		cls.database().commit()
 		return True
 
+	@classmethod
+	def edit(cls, form, pdfpath, imgpath, libro_id):
+		sql = """
+		UPDATE libro SET
+		nombre = '%s',
+		isbn = '%s',
+		fecha_publicacion = '%s',
+		fecha_vencimiento = '%s',
+		ruta_img = '%s',
+		sinopsis = '%s',
+		editorial = '%s',
+		genero = '%s',
+		autor = '%s',
+		ruta = '%s'
+		WHERE id = '%s'
+		"""
+		name = form.get('nombre', '')
+		isbn = form.get('isbn', '')
+		pdate = datetime.strptime(form["fechaPublicacion"], "%Y-%m-%d")
+		vdate = datetime.strptime(form["fechaVencimiento"], "%Y-%m-%d")
+		sinopsis = form.get('sinopsis', '')
+		editorial = form.get('editorial', '')
+		genero = form.get('genero', '')
+		autor = form.get('autor', '')
+		cursor = cls.database().cursor()
+		cursor.execute(sql % (name, isbn, pdate, vdate, imgpath, sinopsis, editorial, genero, autor, pdfpath, libro_id))
+		cls.database().commit()
+		return True
+

@@ -32,20 +32,43 @@ class BookController(AbstractController):
 		autores = Author.all()
 		return render_template ('libros/agregar.html', editoriales=editoriales, generos=generos, autores=autores)
 
+	def gen_path (self, field):
+		file = request.files[field]
+		name = file.filename
+		path =  config['UPLOAD_FOLDER'] + name
+		file.save (path)
+		return path
+
+	def check_path (self, libro, field, default):
+		if (request.files[field].filename != ''):
+			return self.gen_path (field)
+		else:
+			return libro[default]
+
 	@AbstractController.validate
 	def new_book(self):
-		
-		def gen_path (field):
-			file = request.files[field]
-			name = file.filename
-			path =  config['UPLOAD_FOLDER'] + name
-			file.save (path)
-			return path
-		
-		pdfpath = gen_path ('libro')
-		imgpath = gen_path ('portada')
+		pdfpath = self.gen_path ('libro')
+		imgpath = self.gen_path ('portada')
 		Libro.crear(request.form, pdfpath, imgpath)
 		return self.index()
+
+	@AbstractController.validate
+	def edit (self, libro_id):
+		libro = Libro.id (libro_id)
+		editoriales = Editorial.all()
+		generos = Genero.all()
+		autores = Author.all()
+		return render_template ('libros/editar.html', libro=libro, editoriales=editoriales, generos=generos, autores=autores)
+
+	@AbstractController.validate
+	def edit_book (self, libro_id):
+		libro = Libro.id (libro_id)
+		pdfpath = self.check_path (libro, 'libro', 'ruta')
+		imgpath = self.check_path (libro, 'portada', 'ruta_img')
+		Libro.edit(request.form, pdfpath, imgpath, libro_id)
+		return self.index()
+		
+		
 
 bookController = BookController()
 

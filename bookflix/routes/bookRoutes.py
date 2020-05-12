@@ -22,3 +22,11 @@ def libro_upload_file():
 def libro (libro_id):
 	return bookController.libro(libro_id)
 
+@app.route("/libro/edit/<libro_id>", methods=["GET"])
+def libro_edit (libro_id):
+	return bookController.edit(libro_id)
+
+@app.route("/libro/edit/<libro_id>", methods=["POST"])
+def libro_edit_file (libro_id):
+	return bookController.edit_book(libro_id)
+
