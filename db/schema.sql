@@ -121,7 +121,7 @@ CREATE TABLE `libro` (
 --
 
 INSERT INTO `libro` (`id`, `nombre`, `isbn`, `fecha_publicacion`, `fecha_vencimiento`, `ruta_img`, `sinopsis`, `editorial`, `genero`, `autor`, `ruta`) VALUES
-(1, 'test.pdf', '1234', '2010-01-01', '2021-01-01', './static/pdf/test.png', 'test', 1, 1, 1, './static/pdf/test.pdf');
+(1, 'test.pdf', '1234', '2010-01-01', '2021-01-01', '../static/pdf/test.jpg', 'test', 1, 1, 1, '../static/pdf/test.pdf');
 
 -- --------------------------------------------------------
 

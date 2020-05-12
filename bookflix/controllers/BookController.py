@@ -21,9 +21,13 @@ class BookController(AbstractController):
 
 	def libro(self, libro_id):
 		libro = Libro.id (libro_id)
-		path = libro["ruta"]
-		dir, name = os.path.split(path)
-		return send_from_directory(dir, name)
+		autor = Author.id (libro["autor"])
+		genero = Genero.encontrar_por_id (libro["genero"])
+		editorial = Editorial.id (libro["editorial"])
+		return render_template('libros/show.html', libro=libro, autor=autor, genero=genero, editorial=editorial)
+		#path = libro["ruta"]
+		#dir, name = os.path.split(path)
+		#return send_from_directory(dir, name)
 
 	@AbstractController.validate
 	def new (self):
