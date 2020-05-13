@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 11-05-2020 a las 16:09:04
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 13-05-2020 a las 04:44:35
 -- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.4.5
+-- Versión de PHP: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -61,6 +62,24 @@ INSERT INTO `autor` (`id`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `editorial`
+--
+
+CREATE TABLE `editorial` (
+  `id` int(6) NOT NULL,
+  `nombre` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `editorial`
+--
+
+INSERT INTO `editorial` (`id`, `nombre`) VALUES
+(1, 'test editorial');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `genero`
 --
 
@@ -77,24 +96,6 @@ CREATE TABLE `genero` (
 INSERT INTO `genero` (`id`, `nombre`, `activo`) VALUES
 (1, 'Drama', 1),
 (2, 'horror', 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `genero`
---
-
-CREATE TABLE `editorial` (
-  `id` int(6) NOT NULL,
-  `nombre` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `genero`
---
-
-INSERT INTO `editorial` (`id`, `nombre`) VALUES
-(1, 'test editorial');
 
 -- --------------------------------------------------------
 
@@ -185,23 +186,40 @@ CREATE TABLE `usuario` (
   `tarjetaPin` varchar(10) NOT NULL,
   `tarjetaFechaDeExpiracion` date NOT NULL,
   `fecha_de_nacimiento` date NOT NULL,
-  `plan` int(10) NOT NULL,
-  `cantPerfiles` int(6) NOT NULL
+  `plan_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `email`, `contraseña`, `tarjetaNumero`, `tarjetaPin`, `tarjetaFechaDeExpiracion`, `fecha_de_nacimiento`, `plan`, `cantPerfiles`) VALUES
-(1, 'admin', 'admin', 'admin@gmail.com', '1234', '100', '1212', '2020-05-31', '1999-08-30', 1, 4),
-(2, 'hugo', 'contrera', 'hugo@gmail.com', '1234', '12345', '123', '2020-05-31', '1998-08-30', 1, 4),
-(3, 'juan', 'perez', 'juanp@gmail.com', '1234', '4321', '1234', '2020-05-29', '1999-08-20', 1, 4),
-(4, 'julia', 'perez', 'juli@gmail.com', '1234', '1212', '1222', '2020-05-30', '1999-08-30', 1, 4);
+INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `email`, `contraseña`, `tarjetaNumero`, `tarjetaPin`, `tarjetaFechaDeExpiracion`, `fecha_de_nacimiento`, `plan_id`) VALUES
+(1, 'admin', 'admin', 'admin', 'admin', '100', '1212', '2020-05-31', '1999-08-30', 1),
+(2, 'hugo', 'contrera', 'hugo@gmail.com', '1234', '12345', '123', '2020-05-31', '1998-08-30', 1),
+(3, 'juan', 'perez', 'juanp@gmail.com', '1234', '4321', '1234', '2020-05-29', '1999-08-20', 1),
+(4, 'julia', 'perez', 'juli@gmail.com', '1234', '1212', '1222', '2020-05-30', '1999-08-30', 1);
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `autor`
+--
+ALTER TABLE `autor`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `editorial`
+--
+ALTER TABLE `editorial`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `genero`
+--
+ALTER TABLE `genero`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `libro`
@@ -228,26 +246,26 @@ ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `editorial`
---
-ALTER TABLE `editorial`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `genero`
---
-ALTER TABLE `genero`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `autor`
---
-ALTER TABLE `autor`
-  ADD PRIMARY KEY (`id`);
-
---
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `autor`
+--
+ALTER TABLE `autor`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `editorial`
+--
+ALTER TABLE `editorial`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `genero`
+--
+ALTER TABLE `genero`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `libro`
@@ -271,25 +289,7 @@ ALTER TABLE `plan`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT de la tabla `editorial`
---
-ALTER TABLE `editorial`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT de la tabla `genero`
---
-ALTER TABLE `genero`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT de la tabla `autor`
---
-ALTER TABLE `autor`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
