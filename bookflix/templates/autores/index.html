@@ -30,7 +30,7 @@
 				{% endif %}
 				<td><a href="{{ url_for('autor', autor_id=autor.id) }}">{{ autor.nombre }}</a></td>
 				{% if session["admin"] %}
-				<td align="right">
+				<td>
 					<a
 						class="material-icons btn btn-primary"
 						title="Ver"

@@ -17,7 +17,12 @@ class BookController(AbstractController):
 
 	def index(self):
 		libros = Libro.all()
-		return render_template('libros/index.html', libros=libros)
+		data = []
+		for libro in libros:
+			autor = Author.id(libro["autor"])
+			genero = Genero.encontrar_por_id(libro["genero"])
+			data.append({"libro":libro, "autor":autor, "genero":genero})
+		return render_template('libros/index.html', libros=data)
 
 	def libro(self, libro_id):
 		libro = Libro.id (libro_id)
