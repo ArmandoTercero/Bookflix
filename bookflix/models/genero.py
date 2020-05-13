@@ -51,6 +51,6 @@ class Genero (object):
 		"""
 		cursor = cls.database().cursor()
 		# cursor.execute(sql, list(data.values()))
-		cursor.execute(sql, (nombre, id))
+		cursor.execute(sql, (nombre.lower(), id))
 		cls.database().commit()
 		return True
