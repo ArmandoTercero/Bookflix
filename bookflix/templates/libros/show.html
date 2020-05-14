@@ -22,6 +22,9 @@
 				<p><a href="{{libro.ruta_img}}"> Portada </a></p>
 				<p><a href="{{libro.ruta}}"> Leer </a></p>
 				<p> Sinopsis: {{libro.sinopsis}} </p>
+				{% if session.admin %}
+				<p> Ativo: {{libro.activo}} </p>
+				{% endif %}
 			</div>
 		</div>
 	</div>

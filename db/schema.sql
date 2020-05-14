@@ -114,7 +114,8 @@ CREATE TABLE `libro` (
   `editorial` int(6) NOT NULL,
   `genero` int(6) NOT NULL,
   `autor` int(6) NOT NULL,
-  `ruta` text NOT NULL
+  `ruta` text NOT NULL,
+  `activo` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
