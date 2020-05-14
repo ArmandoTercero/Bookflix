@@ -44,7 +44,7 @@ class BookController(AbstractController):
 	def gen_path (self, field):
 		file = request.files[field]
 		name = file.filename
-		path =  config['UPLOAD_FOLDER'] + name
+		path =  config['UPLOAD_FOLDER'][1:] + name
 		file.save (path)
 		return path
 
