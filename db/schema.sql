@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-05-2020 a las 04:44:35
+-- Tiempo de generación: 14-05-2020 a las 02:29:34
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.3
 
@@ -204,6 +204,12 @@ INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `email`, `contraseña`, `tarj
 --
 
 --
+-- Indices de la tabla `anuncio`
+--
+ALTER TABLE `anuncio`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `autor`
 --
 ALTER TABLE `autor`
@@ -248,6 +254,12 @@ ALTER TABLE `usuario`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `anuncio`
+--
+ALTER TABLE `anuncio`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `autor`

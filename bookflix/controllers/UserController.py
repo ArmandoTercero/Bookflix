@@ -37,13 +37,18 @@ class UserController():
             errores.append(
                 'El email ya esta en uso, por favor seleccione otro.')
 
+        # El número de la tarjeta tiene que ser de 16 digitos
+        # El pin de la tiene que ser de 3 digitos
+        tarjetaNumero_valido = (request.form["tarjetaNumero"].__len__() != 16)
+        tarjetaPin_valido = (request.form["tarjetaPin"].__len__() != 3)
+
         # https://learnandlearn.com/python-programming/python-reference/python-get-current-date
         # Pregunto si la fecha de expiración ingresada para la tarjeta es mayor al día de hoy ...
         # ... con esto compruebo si es válida o no.
         feha_de_hoy = datetime.today()
         tarjetaFechaDeExpiracion = datetime.strptime(
             request.form["tarjetaFechaDeExpiracion"], "%Y-%m-%d")
-        if (feha_de_hoy >= tarjetaFechaDeExpiracion):
+        if (feha_de_hoy >= tarjetaFechaDeExpiracion) or tarjetaNumero_valido or tarjetaPin_valido:
             errores.append(
                 'Los datos proporcionados acerca la tarjeta de crédito no son válidos.')
 
