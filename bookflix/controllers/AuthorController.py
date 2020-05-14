@@ -21,17 +21,16 @@ class AuthorController(AbstractController):
 		return render_template('autores/show.html', autor=autor)
 
 	@AbstractController.validate
-	def create (self):#formulario
-		return render_template ('autores/agregar.html')
+	def create (self, errores = []):#formulario
+		return render_template ('autores/agregar.html', errores=errores)
 
 	@AbstractController.validate
 	def create_author (self):
 		name = request.form.get('nombre', '')
 		if Author.existe (name):#chequear que no existe
-			return render_template ('autores/error.html')
-		else:
-			Author.crear (name)
-			return self.index()
+			return self.create (["Ya existe un autor con ese nombre"])
+		Author.crear (name)
+		return self.index()
 
 	@AbstractController.validate
 	def edit (self, autor_id):#formulario
@@ -39,9 +38,10 @@ class AuthorController(AbstractController):
 
 	@AbstractController.validate
 	def edit_author (self, autor_id):
+		autor = Author.id (autor_id)
 		name = request.form.get('nombre', '')
-		if Author.existe (name):#chequear que no existe
-			return render_template ('autores/error.html')
+		if name != autor["nombre"] and Author.existe (name):#chequear que no existe
+			return self.create (["Ya existe un autor con ese nombre"])
 		else:
 			Author.edit (autor_id, name)
 			return self.index()

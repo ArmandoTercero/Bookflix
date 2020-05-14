@@ -17,6 +17,15 @@
 			<div class="card-body">
 				<span class="card-text">
 					<form method="POST" enctype="multipart/form-data">
+						{% if errores %}
+						<div class="alert alert-danger" role="alert">
+							<ul>
+								{% for error in errores %}
+								<li>{{ error }}</li>
+								{% endfor %}
+							</ul>
+						</div>
+						{% endif %}
 						<section class="form-group">
 							<label for="nombre"> Nuevo Nombre </label>
 							<input type="text" class="form-control form-control-lg rounded-0" name="nombre"

@@ -15,6 +15,13 @@ class Libro (object):
 		return cursor.fetchone()
 
 	@classmethod
+	def existe_isbn (cls, isbn):
+		sql = "SELECT * FROM libro WHERE isbn = '%s'"
+		cursor = cls.database().cursor()
+		cursor.execute(sql % isbn)
+		return not (cursor.fetchone() is None)
+
+	@classmethod
 	def all(cls):
 		sql = "SELECT * FROM libro"
 		cursor = cls.database().cursor()

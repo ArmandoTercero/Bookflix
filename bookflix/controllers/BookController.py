@@ -35,11 +35,11 @@ class BookController(AbstractController):
 		#return send_from_directory(dir, name)
 
 	@AbstractController.validate
-	def new (self):
+	def new (self, errores = []):
 		editoriales = Editorial.all()
 		generos = Genero.all()
 		autores = Author.all()
-		return render_template ('libros/agregar.html', editoriales=editoriales, generos=generos, autores=autores)
+		return render_template ('libros/agregar.html', editoriales=editoriales, generos=generos, autores=autores, errores=errores)
 
 	def gen_path (self, field):
 		file = request.files[field]
@@ -56,22 +56,28 @@ class BookController(AbstractController):
 
 	@AbstractController.validate
 	def new_book(self):
+		isbn = request.form.get('isbn', '')
+		if Libro.existe_isbn(isbn):
+			return self.new(["ISBN Repetido"])
 		pdfpath = self.gen_path ('libro')
 		imgpath = self.gen_path ('portada')
 		Libro.crear(request.form, pdfpath, imgpath)
 		return self.index()
 
 	@AbstractController.validate
-	def edit (self, libro_id):
+	def edit (self, libro_id, errores = []):
 		libro = Libro.id (libro_id)
 		editoriales = Editorial.all()
 		generos = Genero.all()
 		autores = Author.all()
-		return render_template ('libros/editar.html', libro=libro, editoriales=editoriales, generos=generos, autores=autores)
+		return render_template ('libros/editar.html', libro=libro, editoriales=editoriales, generos=generos, autores=autores, errores=errores)
 
 	@AbstractController.validate
 	def edit_book (self, libro_id):
 		libro = Libro.id (libro_id)
+		isbn = request.form.get('isbn', '')
+		if isbn != libro["isbn"] and Libro.existe_isbn(isbn):
+			return self.edit(libro_id, ["ISBN Repetido"])
 		pdfpath = self.check_path (libro, 'libro', 'ruta')
 		imgpath = self.check_path (libro, 'portada', 'ruta_img')
 		Libro.edit(request.form, pdfpath, imgpath, libro_id)

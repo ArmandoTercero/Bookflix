@@ -25,7 +25,7 @@ class Author (object):
 		sql = "SELECT * FROM autor WHERE nombre = '%s'"
 		cursor = cls.database().cursor()
 		cursor.execute(sql % name)
-		return (cursor.fetchone() is None)
+		return not (cursor.fetchone() is None)
 
 	@classmethod
 	def all(cls):
