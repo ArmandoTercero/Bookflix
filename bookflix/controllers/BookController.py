@@ -45,8 +45,9 @@ class BookController(AbstractController):
 		file = request.files[field]
 		name = file.filename
 		path =  config['UPLOAD_FOLDER'][1:] + name
+		dbpath =  config['UPLOAD_FOLDER'] + name
 		file.save (path)
-		return path
+		return dbpath
 
 	def check_path (self, libro, field, default):
 		if (request.files[field].filename != ''):
