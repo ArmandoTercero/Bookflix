@@ -37,6 +37,19 @@ class UserController():
             errores.append(
                 'El email ya esta en uso, por favor seleccione otro.')
 
+        contraseña = request.form["password"]
+        # https://kite.com/python/answers/how-to-check-if-a-string-contains-letters-in-python
+        tiene_letras = contraseña.lower().islower()
+        # https://stackoverflow.com/questions/5188792/how-to-check-a-string-for-specific-characters
+        tiene_numeros = '0' in contraseña or '1' in contraseña or '2' in contraseña or '3' in contraseña or '4' in contraseña or '5' in contraseña or '6' in contraseña or '7' in contraseña or '8' in contraseña or '9' in contraseña
+        tiene_simbolos = "'" in contraseña or '¿' in contraseña or '?' in contraseña or '¡' in contraseña or '!' in contraseña or '#' in contraseña or '@' in contraseña or '.' in contraseña or '-' in contraseña or '_' in contraseña
+        longitud_de_caracteres_valido = (contraseña.__len__() >= 8)
+        contraseña_valida = tiene_letras and tiene_numeros and tiene_simbolos and longitud_de_caracteres_valido
+        
+        if not contraseña_valida:
+            errores.append(
+                'Contraseña inválida.')
+
         # El número de la tarjeta tiene que ser de 16 digitos
         # El pin de la tiene que ser de 3 digitos
         tarjetaNumero_valido = (request.form["tarjetaNumero"].__len__() != 16)
