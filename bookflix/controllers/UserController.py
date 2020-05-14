@@ -86,17 +86,24 @@ class UserController():
         # Me fijo si existe el usuario ingresado y luego pregunto si la contraseña ingresada es correcta
         usuario = Usuario.encontrar_por_email(request.form["email"])
         perfiles = Perfiles.all()
-        if usuario and (usuario["contraseña"] == request.form["password"]):
+        if usuario:
+            # Luego de saber que el usuario buscado existe, pregunto si la contraseña es correcta
+            if (usuario["contraseña"] != request.form["password"]):
+                errores.append("Los datos ingresados son incorrectos.")
+                return render_template("login.html", errores=errores)
+
             session["id"] = usuario["id"]
 
             # session["perfil_id"] = request.form["perfil_id"] TODAVÍA NO HICIMOS NADA ACERCA DE LOS PERFILES
             session["admin"] = (usuario["email"] == "admin@gmail.com")
             # se conecta a perfiles
-            return render_template("/usuarios/perfiles.html", perfiles=perfiles, usuario=usuario)
 
-            # return self.index()
+            if session["admin"]:
+                return render_template('panel_de_control.html')
+            else:
+                return render_template("/usuarios/perfiles.html", perfiles=perfiles, usuario=usuario)
         else:
-            errores.append("Los datos ingresados son incorrectos.")
+            errores.append("No existe ninguna cuenta con el email ingresado.")
             return render_template("login.html", errores=errores)
 
     def logout(self):
