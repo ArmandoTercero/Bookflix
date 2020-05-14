@@ -43,16 +43,12 @@ class Perfiles (object):
     @classmethod
     def edit(cls, data):
         sql = """
-		UPDATE perfiles SET 
-        nombre = %s, 
-        foto = %s
-		WHERE id = %s
+			UPDATE perfiles
+			SET nombre = %s, foto = %s
+			WHERE perfiles.id = %s
 		"""
-        #nombre = data.get('nombre', '')
-        #foto = data.get('foto', '')
-        # print(data)
-        parametros = str(list(data.values())).strip('[]')
         cursor = cls.database().cursor()
-        cursor.execute(sql % parametros)
+        print(list(data.values()))
+        cursor.execute(sql, list(data.values()))
         cls.database().commit()
         return True

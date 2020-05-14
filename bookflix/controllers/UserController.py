@@ -45,7 +45,7 @@ class UserController():
         tiene_simbolos = "'" in contraseña or '¿' in contraseña or '?' in contraseña or '¡' in contraseña or '!' in contraseña or '#' in contraseña or '@' in contraseña or '.' in contraseña or '-' in contraseña or '_' in contraseña
         longitud_de_caracteres_valido = (contraseña.__len__() >= 8)
         contraseña_valida = tiene_letras and tiene_numeros and tiene_simbolos and longitud_de_caracteres_valido
-        
+
         if not contraseña_valida:
             errores.append(
                 'Contraseña inválida.')
@@ -155,9 +155,11 @@ class UserController():
         perfiles = Perfiles.encontrar_por_id(id_perfil)
         user = Usuario.encontrar_por_id(perfiles['id_usuario'])
         if request.method == 'POST':
+            # print(request.form)
             foto = request.form['foto']
             nombre = request.form['nombre']
-            Perfiles.edit(request.form)
+            Perfiles.edit(dict
+                          ([('nombre', nombre), ('foto', foto), ('id_perfil', id_perfil)]))
 
         return render_template("/usuarios/modificarPerfil.html", perfil=perfiles, usuario=user)
 
