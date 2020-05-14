@@ -194,7 +194,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `email`, `contraseña`, `tarjetaNumero`, `tarjetaPin`, `tarjetaFechaDeExpiracion`, `fecha_de_nacimiento`, `plan_id`) VALUES
-(1, 'admin', 'admin', 'admin', 'admin', '100', '1212', '2020-05-31', '1999-08-30', 1),
+(1, 'admin', 'admin', 'admin@gmail.com', 'admin', '100', '1212', '2020-05-31', '1999-08-30', 1),
 (2, 'hugo', 'contrera', 'hugo@gmail.com', '1234', '12345', '123', '2020-05-31', '1998-08-30', 1),
 (3, 'juan', 'perez', 'juanp@gmail.com', '1234', '4321', '1234', '2020-05-29', '1999-08-20', 1),
 (4, 'julia', 'perez', 'juli@gmail.com', '1234', '1212', '1222', '2020-05-30', '1999-08-30', 1);
