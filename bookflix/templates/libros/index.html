@@ -12,28 +12,21 @@
 	<table class="table table-striped">
 		<thead>
 			<tr>
-				{% if session["admin"] %}
 				<th scope="col">#</th>
-				{% endif %}
 				<th scope="col">Nombre</th>
 				<th scope="col">Genero</th>
 				<th scope="col">Autor</th>
-				{% if session["admin"] %}
 				<th scope="col">Acciones</th>
-				{% endif %}
 			</tr>
 		</thead>
 
 		<tbody>
 			{% for libro in libros %}
 			<tr>
-				{% if session["admin"] %}
 				<th scope="row">{{ libro.libro.id }}</th>
-				{% endif %}
 				<td><a href="{{ url_for('libro', libro_id=libro.libro.id) }}">{{ libro.libro.nombre }}</a></td>
 				<td>{{libro.genero.nombre}}</td>
 				<td><a href="{{ url_for('autor', autor_id=libro.autor.id) }}">{{ libro.autor.nombre }}</a></td>
-				{% if session["admin"] %}
 				<td>
 					<a
 						class="material-icons btn btn-primary"
@@ -47,7 +40,6 @@
 					>edit</a>
 					<a class="material-icons btn btn-danger disabled" title="Eliminar">delete</a>
 				</td>
-				{% endif %}
 			</tr>
 			{% endfor %}
 		</tbody>
