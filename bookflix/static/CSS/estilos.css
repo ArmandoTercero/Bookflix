@@ -76,9 +76,3 @@ body,
     border: 4px white solid;
     box-shadow: none;
 }
-
-p {
-    color: black;
-    font-weight: 700!important;
-    font-size: 20px;
-}

@@ -8,24 +8,40 @@
 
 {% block content %}
 
-	<div class="container p-5">
+	<div class="container p-2">
 		<div class="card mx-auto m-5" style="width: 40rem;">
 			<div class="card-header">
-				<h1 class="card-title">{{libro.nombre}}</h1>
+				<h1 class="card-title text-center">{{libro.nombre}}</h1>
 			</div>
 			
 			<div class="card-body">
-				<p> ISBN: {{libro.isbn}} </p>
-				<p> {{editorial.nombre}} </p>
-				<p><a href="{{ url_for('autor', autor_id=autor.id) }}"> {{autor.nombre}} </a></p>
-				<p> {{genero.nombre}} </p>
-				<p><a href="{{libro.ruta_img}}"> Portada </a></p>
-				<p><a href="{{libro.ruta}}"> Leer </a></p>
-				<p> Sinopsis: {{libro.sinopsis}} </p>
+				<p> <b>ISBN:</b> {{libro.isbn}} </p>
+				<p> <b>Editorial:</b> {{editorial.nombre}} </p>
+				<p> <b>Autor:</b> <a href="{{ url_for('autor', autor_id=autor.id) }}"> {{autor.nombre}} </a></p>
+				<p> <b>Genero:</b> {{genero.nombre}} </p>
 				{% if session.admin %}
-				<p> Ativo: {{libro.activo}} </p>
+					{% if libro.activo %}
+					<p><b>Estado:</b> Habilitado</p>
+					{% else %}
+					<p><b>Estado:</b> Deshabilitado</p>
+					{% endif %}
 				{% endif %}
+				<hr>
+
+				<div class="text-center">
+					<h2> Portada </h2>
+					<a href="{{libro.ruta_img}}">
+						<img src="{{libro.ruta_img}}" alt="Smiley face" width="250px" height="300px">
+					</a>
+				</div><hr>
+
+				<p> <b>Sinopsis:</b> {{libro.sinopsis}}</b></p><hr>
+				<h2 class="text-center"><a href="{{libro.ruta}}"> Leer </a></h2>
 			</div>
+		</div>
+
+		<div class="text-center pb-2">
+			<a href="{{ url_for('libro_index') }}" class="btn btn-primary">Volver</a>
 		</div>
 	</div>
 
