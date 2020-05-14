@@ -77,7 +77,7 @@ class UserController():
             session["id"] = usuario["id"]
 
             # session["perfil_id"] = request.form["perfil_id"] TODAVÍA NO HICIMOS NADA ACERCA DE LOS PERFILES
-            session["admin"] = (usuario["email"] == "admin")
+            session["admin"] = (usuario["email"] == "admin@gmail.com")
             # se conecta a perfiles
             return render_template("/usuarios/perfiles.html", perfiles=perfiles, usuario=usuario)
 
