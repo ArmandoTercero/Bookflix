@@ -142,11 +142,21 @@ class UserController():
     def crear_perfil(self, id):
         user = Usuario.encontrar_por_id(id)
         perfiles = Perfiles.all()
-        if request.method == 'POST':
-            foto = request.form['foto']
-            nombre = request.form['nombre']
-            Perfiles.crear(dict
-                           ([('nombre', nombre), ('foto', foto), ('id_usuario', id)]))
+        contador = 0
+        print('el id', id)
+        for perfil in perfiles:
+            if perfil['id_usuario'] == user['id']:
+                contador = contador + 1
+        print("contador", contador)
+        if contador < 4:
+            if request.method == 'POST':
+                foto = request.form['foto']
+                nombre = request.form['nombre']
+                Perfiles.crear(dict
+                               ([('nombre', nombre), ('foto', foto), ('id_usuario', id)]))
+        else:
+            print("Ya no puede agregar mas contactos!!!!!")
+            flash('Ya no puede agregar mas contactos!!!!!')
 
         return render_template("/usuarios/crearPerfil.html", perfiles=perfiles, usuario=user)
 
