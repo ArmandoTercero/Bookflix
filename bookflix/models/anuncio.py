@@ -16,13 +16,17 @@ class Anuncio (object):
 		return cursor.fetchall()
 
 	@classmethod
-	def crear(cls, data):
-		sql = """INSERT INTO anuncio
-		(titulo, contenido)
-		VALUES (%s)"""
-		parametros = str(list(data.values())).strip('[]')
+	def crear(cls, data, imgpath):
+		sql = """INSERT INTO
+		anuncio (titulo, contenido, fecha_de_publicacion, ruta)
+		VALUES ('%s', '%s', '%s', '%s')"""
+
+		titulo = data.get('titulo', '')
+		contenido = data.get('contenido', '')
+		fecha_de_publicacion = data.get('fecha_de_publicacion', '')
+
 		cursor = cls.database().cursor()
-		cursor.execute(sql % parametros)
+		cursor.execute(sql % (titulo, contenido, fecha_de_publicacion, imgpath))
 		cls.database().commit()
 		return True
 
@@ -34,13 +38,19 @@ class Anuncio (object):
 		return cursor.fetchone()
 
 	@classmethod
-	def edit(cls, data):
+	def edit(cls, data, imgpath):
 		sql = """
 			UPDATE anuncio
-			SET titulo = %s, contenido = %s
-			WHERE anuncio.id = %s
+			SET titulo = '%s', contenido = '%s', fecha_de_publicacion = '%s', ruta = '%s'
+			WHERE anuncio.id = '%s'
 		"""
+
+		titulo = data.get('titulo', '')
+		contenido = data.get('contenido', '')
+		fecha_de_publicacion = data.get('fecha_de_publicacion', '')
+		anuncio_id = data.get('anuncio_id', '')
+
 		cursor = cls.database().cursor()
-		cursor.execute(sql, list(data.values()))
+		cursor.execute(sql % (titulo, contenido, fecha_de_publicacion, imgpath, anuncio_id))
 		cls.database().commit()
 		return True

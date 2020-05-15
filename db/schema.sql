@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-05-2020 a las 02:29:34
+-- Tiempo de generación: 15-05-2020 a las 02:21:14
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.3
 
@@ -31,15 +31,17 @@ SET time_zone = "+00:00";
 CREATE TABLE `anuncio` (
   `id` int(6) NOT NULL,
   `titulo` varchar(255) NOT NULL,
-  `contenido` text NOT NULL
+  `contenido` text NOT NULL,
+  `fecha_de_publicacion` date NOT NULL DEFAULT current_timestamp(),
+  `ruta` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `anuncio`
 --
 
-INSERT INTO `anuncio` (`id`, `titulo`, `contenido`) VALUES
-(1, 'Nuevos libros!', 'Hay 200 nuevos libros listos para ser leídos, que estas esperando!');
+INSERT INTO `anuncio` (`id`, `titulo`, `contenido`, `fecha_de_publicacion`, `ruta`) VALUES
+(2, '¡Nuevo libro de harry potter!', 'Hemos agregado al catálogo del libro un nuevo libro de Harry Popotter, ¿qué estas esperando para leerlo?.', '2020-05-16', '../static/anuncios/51Vjb2qJwzL._SX331_BO1,204,203,200_.jpg');
 
 -- --------------------------------------------------------
 
@@ -122,8 +124,8 @@ CREATE TABLE `libro` (
 -- Volcado de datos para la tabla `libro`
 --
 
-INSERT INTO `libro` (`id`, `nombre`, `isbn`, `fecha_publicacion`, `fecha_vencimiento`, `ruta_img`, `sinopsis`, `editorial`, `genero`, `autor`, `ruta`) VALUES
-(1, 'test.pdf', '1234', '2010-01-01', '2021-01-01', '../static/pdf/test.jpg', 'test', 1, 1, 1, '../static/pdf/test.pdf');
+INSERT INTO `libro` (`id`, `nombre`, `isbn`, `fecha_publicacion`, `fecha_vencimiento`, `ruta_img`, `sinopsis`, `editorial`, `genero`, `autor`, `ruta`, `activo`) VALUES
+(1, 'test.pdf', '1234', '2010-01-01', '2021-01-01', '../static/pdf/test.jpg', 'test', 1, 1, 1, '../static/pdf/test.pdf', 1);
 
 -- --------------------------------------------------------
 
@@ -260,7 +262,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `anuncio`
 --
 ALTER TABLE `anuncio`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `autor`

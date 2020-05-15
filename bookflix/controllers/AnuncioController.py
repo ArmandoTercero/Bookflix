@@ -1,6 +1,9 @@
+from datetime import datetime
+
 from flask import request, render_template, session, abort
 from flask import send_from_directory, url_for
 from models.anuncio import Anuncio
+from config import config
 
 class AnuncioController():
 
@@ -11,11 +14,30 @@ class AnuncioController():
 		anuncios = Anuncio.all()
 		return render_template('anuncios/index.html', anuncios=anuncios)
 
+	def gen_path (self, field):
+		file = request.files[field]
+		name = file.filename
+		if name:
+			path = config['UPLOAD_FOLDER_ANUNCIOS'][1:] + name
+			dbpath = config['UPLOAD_FOLDER_ANUNCIOS'] + name
+			file.save(path)
+			return dbpath
+		else:
+			return ""
+
+	def check_path (self, anuncio, field, default):
+		if (request.files[field].filename != ''):
+			return self.gen_path (field)
+		else:
+			return anuncio[default]
+
 	def new(self):
 		if request.method == 'GET':
-			return render_template ('anuncios/new.html')
+			fecha_de_hoy = datetime.date(datetime.now())
+			return render_template ('anuncios/new.html', fecha_de_hoy=fecha_de_hoy)
 		elif request.method == 'POST':
-			Anuncio.crear(request.form)
+			imgpath = self.gen_path ('imagen')
+			Anuncio.crear(request.form, imgpath)
 			return self.index()
 
 	def edit(self):
@@ -23,7 +45,9 @@ class AnuncioController():
 			anuncio = Anuncio.encontrar_por_id(request.args.get("anuncio_id"))
 			return render_template ('anuncios/edit.html', anuncio=anuncio)
 		elif request.method == 'POST':
-			Anuncio.edit(request.form)
+			anuncio = Anuncio.encontrar_por_id(request.form["anuncio_id"])
+			imgpath = self.check_path (anuncio, 'imagen', 'ruta')
+			Anuncio.edit(request.form, imgpath)
 			return self.index()
 
 anuncioController = AnuncioController()
