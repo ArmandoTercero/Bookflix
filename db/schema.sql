@@ -116,7 +116,6 @@ CREATE TABLE `libro` (
   `editorial` int(6) NOT NULL,
   `genero` int(6) NOT NULL,
   `autor` int(6) NOT NULL,
-  `ruta` text NOT NULL,
   `activo` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -124,8 +123,33 @@ CREATE TABLE `libro` (
 -- Volcado de datos para la tabla `libro`
 --
 
-INSERT INTO `libro` (`id`, `nombre`, `isbn`, `fecha_publicacion`, `fecha_vencimiento`, `ruta_img`, `sinopsis`, `editorial`, `genero`, `autor`, `ruta`, `activo`) VALUES
-(1, 'test.pdf', '1234', '2010-01-01', '2021-01-01', '../static/pdf/test.jpg', 'test', 1, 1, 1, '../static/pdf/test.pdf', 1);
+INSERT INTO `libro` (`id`, `nombre`, `isbn`, `fecha_publicacion`, `fecha_vencimiento`, `ruta_img`, `sinopsis`, `editorial`, `genero`, `autor`, `activo`) VALUES
+(1, 'test.pdf', '1234', '2010-01-01', '2021-01-01', '../static/pdf/test.jpg', 'test', 1, 1, 1, 1);
+INSERT INTO `libro` (`id`, `nombre`, `isbn`, `fecha_publicacion`, `fecha_vencimiento`, `ruta_img`, `sinopsis`, `editorial`, `genero`, `autor`, `activo`) VALUES
+(2, 'test por capitulos', '12346', '2010-01-01', '2021-01-01', '../static/pdf/test.jpg', 'test', 1, 1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `libro`
+--
+
+CREATE TABLE `capitulo` (
+  `id` int(6) NOT NULL,
+  `libro_id` int(6) NOT NULL,
+  `ruta` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `libro`
+--
+
+INSERT INTO `capitulo` (`id`, `libro_id`, `ruta`) VALUES
+(1, 1, '../static/pdf/test.pdf');
+INSERT INTO `capitulo` (`id`, `libro_id`, `ruta`) VALUES
+(2, 2, '../static/pdf/test.pdf');
+INSERT INTO `capitulo` (`id`, `libro_id`, `ruta`) VALUES
+(3, 2, '../static/pdf/test.pdf');
 
 -- --------------------------------------------------------
 
