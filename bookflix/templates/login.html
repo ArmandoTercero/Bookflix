@@ -7,7 +7,7 @@
 
 {% block content %}
 	<div class="container p-5">
-		<div class="card mx-auto m-5" style="width: 30rem;">
+		<div class="card mx-auto mt-5 mr-5 ml-5" style="width: 30rem;">
 			<div class="card-header">
 				<h1 class="card-title">Iniciar Sesión</h1>
 			</div>
@@ -44,6 +44,13 @@
 					</form>
 				</span>
 			</div>
+		</div>
+
+		<div class="text-center small">
+			¿Primera vez aquí?<br>
+			<a href="{{ url_for('register') }}">
+				Registrate y utiliza nuestra página.
+			</a>
 		</div>
 	</div>
 {% endblock %}
