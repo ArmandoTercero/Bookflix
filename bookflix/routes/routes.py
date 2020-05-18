@@ -61,6 +61,10 @@ def crear_perfil(id):
 def modificar_perfil(id):
     return usercontroller.modificar_perfil(id)
 
+# ruta para ver los perfiles a partir de la información de la sesion
+@app.route("/ver_perfiles_con_sesion", methods=["GET"])
+def ver_perfiles_con_sesion():
+    return usercontroller.ver_perfiles_con_sesion()
 
 @app.route("/eliminar_perfil/<id>")
 def eliminar_perfil(id):

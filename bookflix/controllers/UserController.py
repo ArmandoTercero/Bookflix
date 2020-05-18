@@ -185,5 +185,8 @@ class UserController():
         Perfiles.eliminar(id_perfil)
         return redirect(url_for('ver_perfiles', id=user['id']))
 
+    # ver perfil de usuario sus datos
+    def ver_perfiles_con_sesion(self):
+        return redirect(url_for('ver_perfiles', id=session['id']))
 
 usercontroller = UserController()
