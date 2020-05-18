@@ -97,13 +97,16 @@ class BookController(AbstractController):
 		return self.index()
 
 	def ver_catalogo(self, libro_id):
-		libro = Libro.id(libro_id)
-		autor = Author.id(libro["autor"])
-		genero = Genero.encontrar_por_id(libro["genero"])
-		editorial = Editorial.id(libro["editorial"])
+		libro = Libro.id(libro_id) # esto hay que sacar todos los id
+		autores = Author.all()
+		generos = Genero.all()
+		editoriales = Editorial.all()
 		libros = Libro.all()
 		print(libros)
-		return render_template('libros/catalogo.html', libros=libros, autor=autor, genero=genero, editorial=editorial)
+		print(autores)
+		print(generos)
+		print(editoriales)
+		return render_template('libros/catalogo.html', libros=libros, autores=autores, generos=generos, editoriales=editoriales)
 
 
 bookController = BookController()

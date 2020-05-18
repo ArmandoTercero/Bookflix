@@ -6,6 +6,11 @@ from flask import request, render_template, session, redirect, url_for, flash
 from models.usuario import Usuario
 from models.plan import Plan
 from models.perfiles import Perfiles
+from models.libro import Libro
+from models.editorial import Editorial
+from models.genero import Genero
+from models.autor import Author
+from models.anuncio import Anuncio
 
 
 class UserController():
@@ -14,7 +19,11 @@ class UserController():
         pass
 
     def index(self):
-        return render_template('index.html')
+        libros = Libro.all()
+        editoriales = Editorial.all()
+        generos = Genero.all()
+        autores = Author.all()
+        return render_template('index.html', libros=libros, editoriales=editoriales, generos=generos, autores=autores)
 
     def panel_de_control(self):
         return render_template('panel_de_control.html')
@@ -184,6 +193,10 @@ class UserController():
         # print(user)
         Perfiles.eliminar(id_perfil)
         return redirect(url_for('ver_perfiles', id=user['id']))
+
+    def ver_anuncio(self):
+        anuncios = Anuncio.all()
+        return render_template("usuarios/anuncios.html", anuncios=anuncios)
 
 
 usercontroller = UserController()

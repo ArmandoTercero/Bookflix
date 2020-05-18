@@ -67,6 +67,11 @@ def eliminar_perfil(id):
     return usercontroller.eliminar_perfil(id)
 
 
+@app.route("/ver_anuncio")
+def ver_anuncio():
+    return usercontroller.ver_anuncio()
+
+
 # Borrar a futuro
 @app.route("/hello/<name>")
 def hello(name):
