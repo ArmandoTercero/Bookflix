@@ -198,5 +198,8 @@ class UserController():
         anuncios = Anuncio.all()
         return render_template("usuarios/anuncios.html", anuncios=anuncios)
 
+    # ver perfil de usuario sus datos
+    def ver_perfiles_con_sesion(self):
+        return redirect(url_for('ver_perfiles', id=session['id']))
 
 usercontroller = UserController()

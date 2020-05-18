@@ -16,8 +16,28 @@
 			{% if session['id'] %}
 				{% if session['admin'] %}
 					<a href="{{ url_for('panel_de_control') }}" class="btn btn-danger">Panel de control</a>
+					<a href="{{ url_for('logout') }}" class="btn btn-outline-light">Cerrar Sesión</a>
+				{% else %}
+					<!-- https://getbootstrap.com/docs/4.0/components/dropdowns/?https://getbootstrap.com/docs/4.0/components/dropdowns/? -->
+					<!-- <span class="material-icons">account_circle</span> -->
+					<div class="btn-group">
+						<button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span class="material-icons">account_circle</span>
+						</button>
+
+						<div class="dropdown-menu dropdown-menu-right text-center">
+							<a href="{{ url_for('ver_perfiles_con_sesion') }}" class="pl-3" style="color: black; display: flex; align-items: center;">
+								<span class="material-icons pr-1">search</span>
+								Ver perfiles
+							</a>
+							<hr>
+							<a href="{{ url_for('logout') }}" class="pl-3" style="color: black; display: flex; align-items: center;">
+								<span class="material-icons pr-1">close</span>
+								Cerrar Sesión
+							</a>
+						</div>
+					</div>
 				{% endif %}
-				<a href="{{ url_for('logout') }}" class="btn btn-outline-light">Cerrar Sesión</a>
 			{% else %}
 				<a href="{{ url_for('login') }}" class="btn btn-danger">Iniciar Sesión</a>
 			{% endif %}
