@@ -96,8 +96,8 @@ class BookController(AbstractController):
 		Libro.edit(request.form, imgpath, libro_id)
 		return self.index()
 
-	def ver_catalogo(self, libro_id):
-		libro = Libro.id(libro_id) # esto hay que sacar todos los id
+	def ver_catalogo(self):
+		
 		autores = Author.all()
 		generos = Genero.all()
 		editoriales = Editorial.all()

@@ -1,22 +1,26 @@
 {% extends "layout.html" %}
 {% block title %}Bookflix{% endblock %}
 
+
+
 {% block head %}
 {{ super() }}
 {% endblock %}
 
 {% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul>
+  {% for message in messages %}
+  <li>{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
 <div class="conteiner">
   <h1 class="titulo text-center pt-5 mt-5"> Crear Perfil </h1>
-  {% with messages = get_flashed_message %}
-  {% if messages %}
-  {% for message in messages %}
-  <div>
-    <p>{{ message }}</p>
-  </div>
-  {% endfor %}
-  {% endif %}
-  {% endwith %}
 
 </div>
 <form action="/crear_perfil/{{ usuario.id }}" method="POST" class="titulo text-center pt-5 mt-5">
