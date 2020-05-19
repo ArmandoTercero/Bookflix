@@ -23,7 +23,14 @@ class UserController():
         editoriales = Editorial.all()
         generos = Genero.all()
         autores = Author.all()
-        return render_template('index.html', libros=libros, editoriales=editoriales, generos=generos, autores=autores)
+        cant = 0
+        mostrar = []
+        for libro in libros:
+            if cant < 6:
+                mostrar.append(libro)
+            cant = cant + 1
+        
+        return render_template('index.html', libros=mostrar, editoriales=editoriales, generos=generos, autores=autores)
 
     def panel_de_control(self):
         return render_template('panel_de_control.html')
@@ -151,23 +158,42 @@ class UserController():
     def crear_perfil(self, id):
         user = Usuario.encontrar_por_id(id)
         perfiles = Perfiles.all()
+        planes = Plan.all()
+        print(planes[0])
         contador = 0
         print('el id', id)
-        for perfil in perfiles:
-            if perfil['id_usuario'] == user['id']:
-                contador = contador + 1
-        print("contador", contador)
-        if contador < 4:
-            if request.method == 'POST':
-                foto = request.form['foto']
-                nombre = request.form['nombre']
-                Perfiles.crear(dict
-                               ([('nombre', nombre), ('foto', foto), ('id_usuario', id)]))
+        if user['plan_id'] == 2:
+            for perfil in perfiles:
+                if perfil['id_usuario'] == user['id']:
+                    contador = contador + 1
+            print("contador", contador)
+            if contador < 4:
+                if request.method == 'POST':
+                    foto = request.form['foto']
+                    nombre = request.form['nombre']
+                    Perfiles.crear(dict
+                                   ([('nombre', nombre), ('foto', foto), ('id_usuario', id)]))
+            else:
+                print("Ya no puede agregar mas contactos!!!!!")
+                flash('Ya no puede agregar mas contactos!!!!!')
+            return render_template("/usuarios/crearPerfil.html", perfiles=perfiles, usuario=user)
         else:
-            print("Ya no puede agregar mas contactos!!!!!")
-            flash('Ya no puede agregar mas contactos!!!!!')
+            if user['plan_id'] == 1:
+                for perfil in perfiles:
+                    if perfil['id_usuario'] == user['id']:
+                        contador = contador + 1
+            print("contador", contador)
+            if contador < 2:
+                if request.method == 'POST':
+                    foto = request.form['foto']
+                    nombre = request.form['nombre']
+                    Perfiles.crear(dict
+                                   ([('nombre', nombre), ('foto', foto), ('id_usuario', id)]))
+            else:
+                print("Ya no puede agregar mas contactos!!!!!")
+                flash('Ya no puede agregar mas contactos!!!!!')
 
-        return render_template("/usuarios/crearPerfil.html", perfiles=perfiles, usuario=user)
+            return render_template("/usuarios/crearPerfil.html", perfiles=perfiles, usuario=user)
 
     # modificar un perfil
     def modificar_perfil(self, id_perfil):
@@ -201,5 +227,6 @@ class UserController():
     # ver perfil de usuario sus datos
     def ver_perfiles_con_sesion(self):
         return redirect(url_for('ver_perfiles', id=session['id']))
+
 
 usercontroller = UserController()
