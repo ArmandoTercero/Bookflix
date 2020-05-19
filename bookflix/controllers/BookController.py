@@ -102,10 +102,7 @@ class BookController(AbstractController):
 		generos = Genero.all()
 		editoriales = Editorial.all()
 		libros = Libro.all()
-		print(libros)
-		print(autores)
-		print(generos)
-		print(editoriales)
+		
 		return render_template('libros/catalogo.html', libros=libros, autores=autores, generos=generos, editoriales=editoriales)
 
 

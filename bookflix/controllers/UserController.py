@@ -29,7 +29,7 @@ class UserController():
             if cant < 6:
                 mostrar.append(libro)
             cant = cant + 1
-        
+
         return render_template('index.html', libros=mostrar, editoriales=editoriales, generos=generos, autores=autores)
 
     def panel_de_control(self):
@@ -148,7 +148,6 @@ class UserController():
 
     # ver perfiles de usuario
     def ver_perfiles(self, id):
-        # print(id)
         user = Usuario.encontrar_por_id(id)
         perfiles = Perfiles.all()
 
@@ -200,7 +199,6 @@ class UserController():
         perfiles = Perfiles.encontrar_por_id(id_perfil)
         user = Usuario.encontrar_por_id(perfiles['id_usuario'])
         if request.method == 'POST':
-            # print(request.form)
             foto = request.form['foto']
             nombre = request.form['nombre']
             Perfiles.edit(dict
@@ -210,13 +208,9 @@ class UserController():
 
     # eliminar perfil
     def eliminar_perfil(self, id_perfil):
-        perfiles = Perfiles.encontrar_por_id(
-            id_perfil)  # el perfil completo con ese id
-        # todos los datos del usuario dueño de ese perfil
+        perfiles = Perfiles.encontrar_por_id(id_perfil)
+
         user = Usuario.encontrar_por_id(perfiles['id_usuario'])
-        # print(user['id'])
-        # print(perfiles)
-        # print(user)
         Perfiles.eliminar(id_perfil)
         return redirect(url_for('ver_perfiles', id=user['id']))
 
