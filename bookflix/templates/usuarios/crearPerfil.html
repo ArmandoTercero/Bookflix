@@ -24,7 +24,7 @@
 
 </div>
 <form action="/crear_perfil/{{ usuario.id }}" method="POST" class="titulo text-center pt-5 mt-5">
-  <input type="text" name="nombre" placeholder="nombre">
+  <input type="text" name="nombre" placeholder="{{ usuario.nombre }}">
   <select name="foto">
     <option>../../static/img/img1.png</option>
     <option>../../static/img/img2.png</option>

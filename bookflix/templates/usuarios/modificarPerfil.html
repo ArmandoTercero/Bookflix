@@ -18,7 +18,7 @@
   </div>
   <div>
     <form action="/modificar_perfil/{{ perfil.id }}" method="POST" class="titulo text-center pt-5 mt-5">
-      <input type="text" name="nombre" placeholder="Nuevo Nombre">
+      <input type="text" name="nombre" placeholder="{{ perfil.nombre }}">
       <select name="foto">
         <option>../../static/img/img1.png</option>
         <option>../../static/img/img2.png</option>
