@@ -84,12 +84,14 @@ class UserController():
         if errores:
             # Solo entra aca si el arreglo tiene elementos, osea que hay errores.
             planes = Plan.all()
-            return render_template('registrar.html', planes=planes, errores=errores)
+            usuario = request.form
+            return render_template('registrar.html', planes=planes, errores=errores, usuario=usuario)
         else:
             # Solo entra aca si el arreglo esta vacio, esto significa que no hay ...
             # ... errores y el registro se realiza de forma exitosa.
             usuario = Usuario.crear(request.form)
-            return self.index()
+            mensaje_de_exito = "Enhorabuena, ¡Su usuario fue creado con exito!"
+            return render_template("login.html", mensaje_de_exito=mensaje_de_exito)
 
     # Login GET
     def login(self):

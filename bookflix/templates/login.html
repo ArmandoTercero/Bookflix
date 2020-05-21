@@ -24,6 +24,14 @@
 							</ul>
 						</div>
 						{% endif %}
+
+						{% if mensaje_de_exito %}
+						<div class="alert alert-success" role="alert">
+							<ul>
+								<li>{{ mensaje_de_exito }}</li>
+							</ul>
+						</div>
+						{% endif %}
 						
 						<section class="form-group">
 							<label for="email"> Email </label>
