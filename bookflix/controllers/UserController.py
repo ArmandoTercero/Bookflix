@@ -84,14 +84,12 @@ class UserController():
         if errores:
             # Solo entra aca si el arreglo tiene elementos, osea que hay errores.
             planes = Plan.all()
-            usuario = request.form
-            return render_template('registrar.html', planes=planes, errores=errores, usuario=usuario)
+            return render_template('registrar.html', planes=planes, errores=errores)
         else:
             # Solo entra aca si el arreglo esta vacio, esto significa que no hay ...
             # ... errores y el registro se realiza de forma exitosa.
             usuario = Usuario.crear(request.form)
-            mensaje_de_exito = "Enhorabuena, ¡Su usuario fue creado con exito!"
-            return render_template("login.html", mensaje_de_exito=mensaje_de_exito)
+            return self.index()
 
     # Login GET
     def login(self):
@@ -157,6 +155,7 @@ class UserController():
 
     # crear un perfil
     def crear_perfil(self, id):
+        errores = []
         user = Usuario.encontrar_por_id(id)
         perfiles = Perfiles.all()
         planes = Plan.all()
@@ -170,14 +169,18 @@ class UserController():
             print("contador", contador)
             if contador < 4:
                 if request.method == 'POST':
-                    foto = request.form['foto']
-                    nombre = request.form['nombre']
-                    Perfiles.crear(dict
-                                   ([('nombre', nombre), ('foto', foto), ('id_usuario', id)]))
+                    if Perfiles.existe_perfil_con_nombre(request.form["nombre"]):
+                        errores.append("Ya existe un perfil con el nombre especificado.")
+                        print("Ya existe un perfil con el nombre especificado.")                        
+                    else:
+                        foto = request.form['foto']
+                        nombre = request.form['nombre']
+                        Perfiles.crear(dict
+                                       ([('nombre', nombre), ('foto', foto), ('id_usuario', id)]))
             else:
                 print("Ya no puede agregar mas contactos!!!!!")
                 flash('Ya no puede agregar mas contactos!!!!!')
-            return render_template("/usuarios/crearPerfil.html", perfiles=perfiles, usuario=user)
+            return render_template("/usuarios/crearPerfil.html", perfiles=perfiles, usuario=user, errores=errores)
         else:
             if user['plan_id'] == 1:
                 for perfil in perfiles:
@@ -186,27 +189,37 @@ class UserController():
             print("contador", contador)
             if contador < 2:
                 if request.method == 'POST':
-                    foto = request.form['foto']
-                    nombre = request.form['nombre']
-                    Perfiles.crear(dict
-                                   ([('nombre', nombre), ('foto', foto), ('id_usuario', id)]))
+                    if Perfiles.existe_perfil_con_nombre(request.form["nombre"]):
+                        errores.append("Ya existe un perfil con el nombre especificado.")
+                        print("Ya existe un perfil con el nombre especificado.")                        
+                    else:
+                        foto = request.form['foto']
+                        nombre = request.form['nombre']
+                        Perfiles.crear(dict
+                                       ([('nombre', nombre), ('foto', foto), ('id_usuario', id)]))
             else:
                 print("Ya no puede agregar mas contactos!!!!!")
                 flash('Ya no puede agregar mas contactos!!!!!')
 
-            return render_template("/usuarios/crearPerfil.html", perfiles=perfiles, usuario=user)
+            return render_template("/usuarios/crearPerfil.html", perfiles=perfiles, usuario=user, errores=errores)
 
     # modificar un perfil
     def modificar_perfil(self, id_perfil):
+        errores = []
         perfiles = Perfiles.encontrar_por_id(id_perfil)
         user = Usuario.encontrar_por_id(perfiles['id_usuario'])
         if request.method == 'POST':
-            foto = request.form['foto']
-            nombre = request.form['nombre']
-            Perfiles.edit(dict
+            if Perfiles.existe_perfil_con_nombre(request.form["nombre"]):
+                errores.append("Ya existe un perfil con el nombre especificado.")
+                print("Ya existe un perfil con el nombre especificado.")
+                
+            else:
+                foto = request.form['foto']
+                nombre = request.form['nombre']
+                Perfiles.edit(dict
                           ([('nombre', nombre), ('foto', foto), ('id_perfil', id_perfil)]))
 
-        return render_template("/usuarios/modificarPerfil.html", perfil=perfiles, usuario=user)
+        return render_template("/usuarios/modificarPerfil.html", perfil=perfiles, usuario=user, errores=errores)
 
     # eliminar perfil
     def eliminar_perfil(self, id_perfil):

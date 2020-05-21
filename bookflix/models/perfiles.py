@@ -52,3 +52,15 @@ class Perfiles (object):
         cursor.execute(sql, list(data.values()))
         cls.database().commit()
         return True
+
+    @classmethod
+    def existe_perfil_con_nombre(cls, nombre):
+        sql = """
+		SELECT *
+		FROM perfiles p
+		WHERE p.nombre = %s
+		"""
+        cursor = cls.database().cursor()
+        cursor.execute(sql, (nombre))
+
+        return cursor.rowcount > 0

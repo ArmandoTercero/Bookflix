@@ -24,7 +24,16 @@
 
 </div>
 <form action="/crear_perfil/{{ usuario.id }}" method="POST" class="titulo text-center pt-5 mt-5">
-  <input type="text" name="nombre" placeholder="{{ usuario.nombre }}">
+  {% if errores %}
+  <div class="alert alert-danger" role="alert">
+    <ul>
+      {% for error in errores %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  <input type="text" name="nombre" placeholder="Nombre de Perfil">
   <select name="foto">
     <option>../../static/img/img1.png</option>
     <option>../../static/img/img2.png</option>
