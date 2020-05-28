@@ -18,6 +18,7 @@ from routes import bookRoutes
 from routes import authorRoutes
 from routes import anuncioRoutes
 from routes import generoRoutes
+from routes import editorialRoutes
 
 if __name__ == "__main__":
 	app.run()

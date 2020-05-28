@@ -50,7 +50,6 @@ class Genero (object):
 			WHERE genero.id = %s
 		"""
 		cursor = cls.database().cursor()
-		# cursor.execute(sql, list(data.values()))
 		cursor.execute(sql, (nombre.lower(), id))
 		cls.database().commit()
 		return True

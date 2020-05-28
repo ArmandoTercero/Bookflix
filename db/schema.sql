@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-05-2020 a las 02:21:14
+-- Tiempo de generación: 28-05-2020 a las 20:13:47
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.3
 
@@ -64,20 +64,43 @@ INSERT INTO `autor` (`id`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `capitulo`
+--
+
+CREATE TABLE `capitulo` (
+  `id` int(6) NOT NULL,
+  `libro_id` int(6) NOT NULL,
+  `ruta` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `capitulo`
+--
+
+INSERT INTO `capitulo` (`id`, `libro_id`, `ruta`) VALUES
+(1, 1, '../static/pdf/test.pdf'),
+(2, 2, '../static/pdf/test.pdf'),
+(3, 2, '../static/pdf/test.pdf');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `editorial`
 --
 
 CREATE TABLE `editorial` (
   `id` int(6) NOT NULL,
-  `nombre` varchar(255) NOT NULL
+  `nombre` varchar(255) NOT NULL,
+  `activo` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `editorial`
 --
 
-INSERT INTO `editorial` (`id`, `nombre`) VALUES
-(1, 'test editorial');
+INSERT INTO `editorial` (`id`, `nombre`, `activo`) VALUES
+(1, 'test editorial', 1),
+(3, 'alba', 1);
 
 -- --------------------------------------------------------
 
@@ -124,32 +147,8 @@ CREATE TABLE `libro` (
 --
 
 INSERT INTO `libro` (`id`, `nombre`, `isbn`, `fecha_publicacion`, `fecha_vencimiento`, `ruta_img`, `sinopsis`, `editorial`, `genero`, `autor`, `activo`) VALUES
-(1, 'test.pdf', '1234', '2010-01-01', '2021-01-01', '../static/pdf/test.jpg', 'test', 1, 1, 1, 1);
-INSERT INTO `libro` (`id`, `nombre`, `isbn`, `fecha_publicacion`, `fecha_vencimiento`, `ruta_img`, `sinopsis`, `editorial`, `genero`, `autor`, `activo`) VALUES
+(1, 'test.pdf', '1234', '2010-01-01', '2021-01-01', '../static/pdf/test.jpg', 'test', 1, 1, 1, 1),
 (2, 'test por capitulos', '12346', '2010-01-01', '2021-01-01', '../static/pdf/test.jpg', 'test', 1, 1, 1, 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `libro`
---
-
-CREATE TABLE `capitulo` (
-  `id` int(6) NOT NULL,
-  `libro_id` int(6) NOT NULL,
-  `ruta` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `libro`
---
-
-INSERT INTO `capitulo` (`id`, `libro_id`, `ruta`) VALUES
-(1, 1, '../static/pdf/test.pdf');
-INSERT INTO `capitulo` (`id`, `libro_id`, `ruta`) VALUES
-(2, 2, '../static/pdf/test.pdf');
-INSERT INTO `capitulo` (`id`, `libro_id`, `ruta`) VALUES
-(3, 2, '../static/pdf/test.pdf');
 
 -- --------------------------------------------------------
 
@@ -298,7 +297,7 @@ ALTER TABLE `autor`
 -- AUTO_INCREMENT de la tabla `editorial`
 --
 ALTER TABLE `editorial`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `genero`
@@ -310,7 +309,7 @@ ALTER TABLE `genero`
 -- AUTO_INCREMENT de la tabla `libro`
 --
 ALTER TABLE `libro`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `perfiles`
