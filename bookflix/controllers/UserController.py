@@ -239,5 +239,11 @@ class UserController():
     def ver_perfiles_con_sesion(self):
         return redirect(url_for('ver_perfiles', id=session['id']))
 
+    # ver perfil de usuario sus datos
+    def usuario_detalles(self):
+        usuario = Usuario.encontrar_por_id(session['id'])
+        perfiles_creados = Usuario.cantidad_de_perfiles_creados_por_el_usuario_con_id(session['id'])
+        plan = Plan.encontrar_por_id(usuario['plan_id'])
+        return render_template('usuarios/detalles.html', usuario=usuario, plan=plan, perfiles_creados=perfiles_creados)
 
 usercontroller = UserController()

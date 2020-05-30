@@ -22,13 +22,17 @@
 					<!-- <span class="material-icons">account_circle</span> -->
 					<div class="btn-group">
 						<button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<span class="material-icons">account_circle</span>
+							<span class="material-icons">person</span>
 						</button>
 
 						<div class="dropdown-menu dropdown-menu-right text-center">
-							<a href="{{ url_for('ver_perfiles_con_sesion') }}" class="pl-3" style="color: black; display: flex; align-items: center;">
+							<a href="{{ url_for('ver_perfiles_con_sesion') }}" class="pl-3 pb-1" style="color: black; display: flex; align-items: center;">
 								<span class="material-icons pr-1">search</span>
-								Ver perfiles
+								Mis perfiles
+							</a>
+							<a href="{{ url_for('usuario_detalles') }}" class="pl-3" style="color: black; display: flex; align-items: center;">
+								<span class="material-icons pr-1">settings</span>
+								Configuración
 							</a>
 							<hr>
 							<a href="{{ url_for('logout') }}" class="pl-3" style="color: black; display: flex; align-items: center;">

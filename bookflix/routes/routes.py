@@ -70,6 +70,10 @@ def ver_perfiles_con_sesion():
 def eliminar_perfil(id):
     return usercontroller.eliminar_perfil(id)
 
+# Ruta para que un usuario pueda visualizar sus detalles de su cuenta
+@app.route("/usuario_detalles", methods=["GET"])
+def usuario_detalles():
+    return usercontroller.usuario_detalles()
 
 @app.route("/ver_anuncio")
 def ver_anuncio():

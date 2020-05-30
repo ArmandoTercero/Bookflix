@@ -47,3 +47,11 @@ class Usuario (object):
 		cursor = cls.database().cursor()
 		cursor.execute(sql, (email))
 		return cursor.fetchone()
+
+	# Esta función devuelve la cantidad de perfiles creados que tiene un usuario
+	@classmethod
+	def cantidad_de_perfiles_creados_por_el_usuario_con_id(cls, id):
+		sql = "SELECT COUNT(*) FROM perfiles AS p WHERE p.id_usuario=%s"
+		cursor = cls.database().cursor()
+		cursor.execute(sql, (id))
+		return cursor.fetchone()['COUNT(*)']

@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block title %}Bookflix{% endblock %}
+
+{% block head %}
+	{{ super() }}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container p-5">
+	<h1> Información de la cuenta: </h1>
+	{% for i in usuario %}
+		<p><b>{{i}}</b>: {{usuario[i]}}</p>
+	{% endfor %}
+	
+	<br><hr><br>
+
+	<h1> Detalles de la suscripción actual: </h1>
+	{% for i in plan %}
+		<p><b>{{i}}</b>: {{plan[i]}}</p>
+	{% endfor %}
+
+	{% if perfiles_creados == 0 %}
+		<p><b>Usted no tiene perfiles creados por el momento.</b></p>
+	{% elif perfiles_creados == 1 %}
+		<p><b>Actualmente tiene 1 perfil creado.</b></p>
+	{% else %}
+		<p><b>Actualmente tiene {{ perfiles_creados }} perfiles creados.</b></p>
+	{% endif %}
+</div>
+
+{% endblock %}
