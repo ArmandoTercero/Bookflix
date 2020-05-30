@@ -9,6 +9,23 @@ class Libro (object):
 		return get_db()
 
 	@classmethod
+	def search (cls, sql):
+		cursor = cls.database().cursor()
+		cursor.execute(sql)
+		libros = cursor.fetchall()
+		return libros
+
+	@classmethod
+	def search_autor(cls, name):
+		sql = "SELECT * FROM autor AS a, libro AS l WHERE a.nombre LIKE '%%%s%%' AND l.autor = a.id"
+		return cls.search (sql % name)
+
+	@classmethod
+	def search_name(cls, name):
+		sql = "SELECT * FROM libro WHERE nombre LIKE '%%%s%%'"
+		return cls.search (sql % name)
+
+	@classmethod
 	def id(cls, libro_id):
 		sql = "SELECT * FROM libro WHERE id = %s"
 		cursor = cls.database().cursor()

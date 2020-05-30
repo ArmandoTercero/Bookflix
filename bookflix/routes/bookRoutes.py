@@ -22,6 +22,16 @@ def libro_upload_file():
     return bookController.new_book()
 
 
+@app.route("/libro/search", methods=["GET"])
+def libro_search():
+    return bookController.search()
+
+
+@app.route("/libro/search", methods=["POST"])
+def libro_search_text():
+    return bookController.search_book()
+
+
 @app.route("/libro/<libro_id>", methods=["GET"])
 def libro(libro_id):
     return bookController.libro(libro_id)

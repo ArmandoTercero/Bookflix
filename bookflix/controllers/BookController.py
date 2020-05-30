@@ -18,6 +18,20 @@ class BookController(AbstractController):
 	def __init__(self):
 		pass
 
+	def search (self):
+		return render_template('libros/search.html')
+
+	def search_book (self):
+		criterios = {"autor": Libro.search_autor, "nombre": Libro.search_name}
+		criterio = request.form.get('criterio', '')
+		if criterio in criterios:
+			texto = request.form.get('texto', '')
+			libros = criterios[criterio](texto)
+			autores = Author.all()
+			generos = Genero.all()
+			editoriales = Editorial.all()
+			return render_template('libros/catalogo.html', libros=libros, autores=autores, generos=generos, editoriales=editoriales)
+
 	def index(self):
 		libros = Libro.all()
 		data = []
