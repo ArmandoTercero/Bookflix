@@ -89,3 +89,7 @@ def hello(name):
 @app.route("/user/<id>")
 def user_id(id):
     return usercontroller.user_id(id)
+
+@app.route("/modificar_plan", methods=["GET", "POST"])
+def modificar_plan():
+    return usercontroller.modificar_plan()

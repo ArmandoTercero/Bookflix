@@ -55,3 +55,15 @@ class Usuario (object):
 		cursor = cls.database().cursor()
 		cursor.execute(sql, (id))
 		return cursor.fetchone()['COUNT(*)']
+
+	@classmethod
+	def modificar_plan_id(cls, id, plan_id):
+		sql = """
+			UPDATE usuario
+			SET plan_id = %s
+			WHERE usuario.id = %s
+		"""
+		cursor = cls.database().cursor()
+		cursor.execute(sql, (plan_id, id))
+		cls.database().commit()
+		return True

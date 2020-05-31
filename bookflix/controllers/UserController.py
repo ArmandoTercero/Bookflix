@@ -246,4 +246,38 @@ class UserController():
         plan = Plan.encontrar_por_id(usuario['plan_id'])
         return render_template('usuarios/detalles.html', usuario=usuario, plan=plan, perfiles_creados=perfiles_creados)
 
+    # Ruta para poder visualizar el formulario de cambio de plan de un usuario
+    def modificar_plan(self):
+        if request.method == 'GET':
+            planes = Plan.all()
+            usuario = Usuario.encontrar_por_id(session['id'])
+            plan_del_usuario = Plan.encontrar_por_id(usuario['plan_id'])
+            return render_template('usuarios/modificar_plan.html', planes=planes, id_plan_del_usuario=plan_del_usuario['id'])
+
+        elif request.method == 'POST':
+            errores = []
+            cantidad_perfiles_del_usuario = Plan.numero_de_perfiles_del_usuario_con_id(session['id'])['COUNT(*)']
+            plan_nuevo = Plan.encontrar_por_id(request.form['plan_id'])
+            
+            if (plan_nuevo['perfiles_max'] >= cantidad_perfiles_del_usuario):
+                # Solo entra aca cuando el usuario puede cambiar de plan
+                Usuario.modificar_plan_id(session['id'], plan_nuevo['id'])
+
+                usuario = Usuario.encontrar_por_id(session['id'])
+                perfiles_creados = Usuario.cantidad_de_perfiles_creados_por_el_usuario_con_id(session['id'])
+                plan = Plan.encontrar_por_id(usuario['plan_id'])
+                mensaje_de_exito = "Enhorabuena, ¡Su plan fue actualizado con exito!"
+                return render_template('usuarios/detalles.html', usuario=usuario, plan=plan, perfiles_creados=perfiles_creados, mensaje_de_exito = mensaje_de_exito)
+            else:
+                # Solo entra aca cuando el usuario tiene más perfiles creados de los que permite el plan nuevo.
+                # Por lo tanto no se puede cambiar el plan
+                planes = Plan.all()
+                usuario = Usuario.encontrar_por_id(session['id'])
+                plan_del_usuario = Plan.encontrar_por_id(usuario['plan_id'])
+
+                perfiles_a_borrar = abs(plan_nuevo['perfiles_max'] - cantidad_perfiles_del_usuario)
+                errores.append("El usuario actual excede la cantidad maxima de perfiles permitidos, debera borrar " + str(perfiles_a_borrar) + " perfil/es para poder realizar el cambio.")
+                return render_template('usuarios/modificar_plan.html', planes=planes, id_plan_del_usuario=plan_del_usuario['id'], errores=errores)
+
+
 usercontroller = UserController()

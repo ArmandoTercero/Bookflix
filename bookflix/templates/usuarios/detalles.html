@@ -9,13 +9,22 @@
 {% block content %}
 
 <div class="container p-5">
+	{% if mensaje_de_exito %}
+	<div class="alert alert-success" role="alert">
+		<ul>
+			<li>{{ mensaje_de_exito }}</li>
+		</ul>
+	</div>
+	{% endif %}
+
 	<h1>Cuenta</h1>
 
 	<hr style="border: 1px solid;">
 
 	<div>
 		<div class="row">
-			<div class="col-4">
+			<div class="col-4 text-center pt-5">
+				<h5>INFORMACIÓN</h5>
 			</div>
 
 			<div class="col-8">
@@ -31,15 +40,15 @@
 
 	<div>
 		<div class="row">
-			<div class="col-4">
-				<h5>INFORMACIÓN DEL PLAN</h5>
+			<div class="col-4 text-center pt-5">
+				<h5>PLAN</h5>
 			</div>
 			<div class="col-8">
 				<p><b>Tipo de plan:</b> {{ plan.nombre | capitalize }}</p>
 				<p><b>Precio actual:</b> ${{ plan.precio }}</p>
 				<p><b>Cantidad de perfiles permitidos por el tipo de plan:</b> {{ plan.perfiles_max }}</p>
 				
-				<a href="#">
+				<a href="{{ url_for('modificar_plan') }}">
 					Cambiar plan
 				</a>
 			</div>
@@ -50,8 +59,8 @@
 
 	<div>
 		<div class="row">
-			<div class="col-4">
-				<h5>INFORMACIÓN DE LOS PERFILES</h5>
+			<div class="col-4 text-center pt-5">
+				<h5>PERFILES</h5>
 			</div>
 			<div class="col-8">
 				{% if perfiles_creados == 0 %}
