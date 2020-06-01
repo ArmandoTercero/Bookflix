@@ -26,6 +26,16 @@ class Libro (object):
 		return cls.search (sql % name)
 
 	@classmethod
+	def search_editorial(cls, name):
+		sql = "SELECT * FROM editorial AS e, libro AS l WHERE e.nombre LIKE '%%%s%%' AND l.editorial = e.id"
+		return cls.search (sql % name)
+
+	@classmethod
+	def search_genero(cls, name):
+		sql = "SELECT * FROM genero AS g, libro AS l WHERE g.nombre LIKE '%%%s%%' AND l.genero = g.id"
+		return cls.search (sql % name)
+
+	@classmethod
 	def id(cls, libro_id):
 		sql = "SELECT * FROM libro WHERE id = %s"
 		cursor = cls.database().cursor()

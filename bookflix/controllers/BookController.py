@@ -22,7 +22,12 @@ class BookController(AbstractController):
 		return render_template('libros/search.html')
 
 	def search_book (self):
-		criterios = {"autor": Libro.search_autor, "nombre": Libro.search_name}
+		criterios = {
+			"autor": Libro.search_autor,
+			"nombre": Libro.search_name,
+			"editorial": Libro.search_editorial,
+			"genero": Libro.search_genero
+		}
 		criterio = request.form.get('criterio', '')
 		if criterio in criterios:
 			texto = request.form.get('texto', '')
