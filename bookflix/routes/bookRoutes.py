@@ -50,3 +50,11 @@ def libro_edit_file(libro_id):
 @app.route("/ver_catalogo", methods=["GET", "POST"])
 def ver_catalogo():
     return bookController.ver_catalogo()
+
+@app.route("/libro/habilitar/<libro_id>", methods=["GET"])
+def libro_habilitar(libro_id):
+    return bookController.habilitar(libro_id)
+
+@app.route("/libro/deshabilitar/<libro_id>", methods=["GET"])
+def libro_deshabilitar(libro_id):
+    return bookController.deshabilitar(libro_id)

@@ -36,6 +36,7 @@
 				<th scope="col">Nombre</th>
 				<th scope="col">Genero</th>
 				<th scope="col">Autor</th>
+				<th scope="col">Activo</th>
 				<th scope="col">Acciones</th>
 			</tr>
 		</thead>
@@ -48,17 +49,38 @@
 				<td>{{libro.genero.nombre}}</td>
 				<td><a href="{{ url_for('autor', autor_id=libro.autor.id) }}">{{ libro.autor.nombre }}</a></td>
 				<td>
+					{% if libro.libro.activo == 1 %}
+						Habilitado
+					{% else %}
+						Deshabilitado
+					{% endif %}
+				</td>
+				<td>
 					<a
 						class="material-icons btn btn-primary"
 						title="Ver"
 						href="{{ url_for('libro', libro_id=libro.libro.id) }}"
 					>visibility</a>
+
 					<a
 						class="material-icons btn btn-info"
 						title="Editar"
 						href="{{ url_for('libro_edit', libro_id=libro.libro.id) }}"
 					>edit</a>
-					<a class="material-icons btn btn-danger disabled" title="Eliminar">delete</a>
+
+					{% if libro.libro.activo == 1 %}
+					<a
+						class="material-icons btn btn-danger"
+						title="Eliminar"
+						href="{{ url_for('libro_deshabilitar', libro_id=libro.libro.id) }}"
+					>delete</a>
+					{% else %}
+					<a
+						class="material-icons btn btn-success"
+						title="Eliminar"
+						href="{{ url_for('libro_habilitar', libro_id=libro.libro.id) }}"
+					>delete_forever</a>
+					{% endif %}
 				</td>
 			</tr>
 			{% endfor %}

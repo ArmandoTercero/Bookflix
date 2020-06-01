@@ -92,3 +92,18 @@ class Libro (object):
 		cls.commit (form, sql, imgpath, (libro_id,))
 		return True
 
+	@classmethod
+	def habilitar(cls, libro_id):
+		sql = "UPDATE libro SET activo = 1 WHERE libro.id = %s"
+		cursor = cls.database().cursor()
+		cursor.execute(sql, (libro_id))
+		cls.database().commit()
+		return True
+
+	@classmethod
+	def deshabilitar(cls, libro_id):
+		sql = "UPDATE libro SET activo = 0 WHERE libro.id = %s"
+		cursor = cls.database().cursor()
+		cursor.execute(sql, (libro_id))
+		cls.database().commit()
+		return True

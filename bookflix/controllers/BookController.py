@@ -119,5 +119,12 @@ class BookController(AbstractController):
 		
 		return render_template('libros/catalogo.html', libros=libros, autores=autores, generos=generos, editoriales=editoriales)
 
+	def habilitar(self, libro_id):
+		Libro.habilitar(libro_id)
+		return self.index()
+
+	def deshabilitar(self, libro_id):
+		Libro.deshabilitar(libro_id)
+		return self.index()
 
 bookController = BookController()
