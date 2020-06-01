@@ -19,6 +19,7 @@ from routes import authorRoutes
 from routes import anuncioRoutes
 from routes import generoRoutes
 from routes import editorialRoutes
+from routes import vistaPreviaRoutes
 
 if __name__ == "__main__":
 	app.run()
