@@ -70,6 +70,7 @@ INSERT INTO `autor` (`id`, `nombre`) VALUES
 CREATE TABLE `capitulo` (
   `id` int(6) NOT NULL,
   `libro_id` int(6) NOT NULL,
+  `fecha_publicacion` date NOT NULL,
   `ruta` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -78,9 +79,9 @@ CREATE TABLE `capitulo` (
 --
 
 INSERT INTO `capitulo` (`id`, `libro_id`, `ruta`) VALUES
-(1, 1, '../static/pdf/test.pdf'),
-(2, 2, '../static/pdf/test.pdf'),
-(3, 2, '../static/pdf/test.pdf');
+(1, 1, '2020-01-01', '../static/pdf/test.pdf'),
+(2, 2, '2020-01-01', '../static/pdf/test.pdf'),
+(3, 2, '2020-01-01', '../static/pdf/test.pdf');
 
 -- --------------------------------------------------------
 
@@ -242,6 +243,12 @@ ALTER TABLE `autor`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `capitulo`
+--
+ALTER TABLE `capitulo`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `editorial`
 --
 ALTER TABLE `editorial`
@@ -291,6 +298,12 @@ ALTER TABLE `anuncio`
 -- AUTO_INCREMENT de la tabla `autor`
 --
 ALTER TABLE `autor`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `capitulo`
+--
+ALTER TABLE `capitulo`
   MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --

@@ -32,10 +32,10 @@ class Capitulo (object):
 		return cursor.fetchall()
 
 	@classmethod
-	def crear(cls, libro_id, ruta):
-		sql = "INSERT INTO capitulo (libro_id, ruta) VALUES ('%s', '%s')"
+	def crear(cls, libro_id, pdate, ruta):
+		sql = "INSERT INTO capitulo (libro_id, fecha_publicacion, ruta) VALUES ('%s', '%s', '%s')"
 		cursor = cls.database().cursor()
-		cursor.execute(sql % (libro_id, ruta))
+		cursor.execute(sql % (libro_id, pdate, ruta))
 		cls.database().commit()
 		return True
 

@@ -20,6 +20,7 @@ from routes import anuncioRoutes
 from routes import generoRoutes
 from routes import editorialRoutes
 from routes import vistaPreviaRoutes
+from routes import capituloRoutes
 
 if __name__ == "__main__":
 	app.run()
