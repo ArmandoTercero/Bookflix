@@ -78,7 +78,7 @@ CREATE TABLE `capitulo` (
 -- Volcado de datos para la tabla `capitulo`
 --
 
-INSERT INTO `capitulo` (`id`, `libro_id`, `ruta`) VALUES
+INSERT INTO `capitulo` (`id`, `libro_id`, `fecha_publicacion`, `ruta`) VALUES
 (1, 1, '2020-01-01', '../static/pdf/test.pdf'),
 (2, 2, '2020-01-01', '../static/pdf/test.pdf'),
 (3, 2, '2020-01-01', '../static/pdf/test.pdf');
