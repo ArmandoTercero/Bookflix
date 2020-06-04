@@ -7,45 +7,111 @@
 
 
 {% block content %}
-
-	<div class="container p-2">
-		<div class="card mx-auto m-5" style="width: 40rem;">
+<div class="container">
+	<div class="row">
+		<!-- Información del libro -->
+		<div class="card mx-auto m-5" style="width: 60rem;">
 			<div class="card-header">
-				<h1 class="card-title text-center">{{libro.nombre}}</h1>
+				<h1 class="card-title text-center">{{ libro.nombre | capitalize }}</h1>
 			</div>
 			
-			<div class="card-body">
-				<p> <b>ISBN:</b> {{libro.isbn}} </p>
-				<p> <b>Editorial:</b> {{editorial.nombre}} </p>
-				<p> <b>Autor:</b> <a href="{{ url_for('autor', autor_id=autor.id) }}"> {{autor.nombre}} </a></p>
-				<p> <b>Genero:</b> {{genero.nombre}} </p>
-				{% if session.admin %}
-					{% if libro.activo %}
-					<p><b>Estado:</b> Habilitado</p>
-					{% else %}
-					<p><b>Estado:</b> Deshabilitado</p>
+			<div class="d-flex">
+				<div class="col-6" style="border-right: solid black; border-width: 1px; border-color: gray;">
+					<div class="text-center">
+						<h2> Portada </h2>
+						<a href="{{libro.ruta_img}}">
+							<img src="{{libro.ruta_img}}" alt="Smiley face" width="250px" height="300px">
+						</a>
+					</div>
+				</div>
+
+				<div class="col-6">
+					<h2 class="pb-2 text-center"> Información del libro </h2>
+
+					<p> <b>ISBN:</b> {{libro.isbn}} </p>
+					<p> <b>Editorial:</b> {{editorial.nombre}} </p>
+					<p> <b>Autor:</b> <a href="{{ url_for('autor', autor_id=autor.id) }}"> {{autor.nombre}} </a></p>
+					<p> <b>Genero:</b> {{genero.nombre}} </p>
+					{% if session.admin %}
+						{% if libro.activo %}
+						<p><b>Estado:</b> Habilitado</p>
+						{% else %}
+						<p><b>Estado:</b> Deshabilitado</p>
+						{% endif %}
 					{% endif %}
-				{% endif %}
-				<hr>
-
-				<div class="text-center">
-					<h2> Portada </h2>
-					<a href="{{libro.ruta_img}}">
-						<img src="{{libro.ruta_img}}" alt="Smiley face" width="250px" height="300px">
-					</a>
-				</div><hr>
-
-				<p> <b>Sinopsis:</b> {{libro.sinopsis}}</b></p><hr>
-				<!-- <h2 class="text-center"><a href="{{libro.ruta}}"> Leer </a></h2> -->
-				{% for capitulo in libro.capitulos %}
-						<h2 class="text-center"><a href="#"> Leer Capitulo (Proximamente) </a></h2>
-				{% endfor %}
+				</div>
 			</div>
 		</div>
 
-		<div class="text-center pb-2">
-			<a href="{{ url_for('libro_index') }}" class="btn btn-primary">Volver</a>
+		<!-- Información de los capitulos -->
+		<div class="card mx-auto" style="width: 60rem;">
+			<div class="card-header d-flex justify-content-between"">
+				<div>
+					{% if capitulos|length == 1 %}
+						<h1 class="card-title">Leer Libro Entero</h1>
+					{% else %}
+						<h1 class="card-title">Leer por capítulos</h1>
+					{% endif %}
+				</div>
+
+				<div>
+					{% if session['admin'] %}						
+					<a class="btn btn-success btn-lg text-right disabled" href="#">
+						Agregar un capítulo
+						<i class="material-icons" style="vertical-align:middle">add_to_queue</i>
+					</a>
+					{% endif %}
+				</div>
+			</div>
+			
+			<!-- Información que muestro en el caso de un libro entero (osea solo tiene 1 capítulo) -->
+			{% if capitulos|length == 1 %}
+			<h2 class="text-center p-5">
+				El libro actualmente esta subido entero en un solo arhivo
+				<hr>
+				<a class="btn btn-primary" href="{{ capitulos[0].ruta }}" style="font-size: 25px;"> Leer </a>
+			</h2>
+
+			<!-- Información que muestro en el caso de un libro por capítulos (osea tiene 2 o más capítulos) -->
+			{% else %}
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">Número de capítulo</th>
+						<th scope="col">Fecha de publicación</th>
+						<th scope="col">Acciones</th>
+					</tr>
+				</thead>
+		
+				<tbody>
+					{% for capitulo in capitulos %}
+					<tr>
+						<!-- https://stackoverflow.com/questions/35343881/jinja-loop-index-does-not-print -->
+						<th scope="row">{{ loop.index }}</th>
+						<td>{{ capitulo.fecha_publicacion }}</td>
+						<td>
+							<a
+								class="btn btn-primary"
+								title="Ver"
+								href="{{capitulo.ruta}}"
+							>
+							<!-- https://stackoverflow.com/questions/22545325/how-to-vertically-align-text-with-icon-font -->
+							<span class="material-icons" style="vertical-align:middle;">visibility</span>
+							Leer
+							</a>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{% endif %}
 		</div>
+
 	</div>
+</div>
+
+<div class="text-center p-5">
+	<a href="{{ url_for('libro_index') }}" class="btn btn-primary">Volver</a>
+</div>
 
 {% endblock %}

@@ -51,7 +51,15 @@ class BookController(AbstractController):
 		autor = Author.id(libro["autor"])
 		genero = Genero.encontrar_por_id(libro["genero"])
 		editorial = Editorial.id(libro["editorial"])
-		return render_template('libros/show.html', libro=libro, autor=autor, genero=genero, editorial=editorial)
+		capitulos = Capitulo.libro(libro_id)
+		return render_template(
+			'libros/show.html',
+			libro=libro,
+			autor=autor,
+			genero=genero,
+			editorial=editorial,
+			capitulos=capitulos
+		)
 
 	@AbstractController.validate
 	def new(self, errores=[]):
