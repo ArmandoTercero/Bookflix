@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 28-05-2020 a las 20:13:47
+-- Servidor: localhost
+-- Tiempo de generación: 06-06-2020 a las 01:08:32
 -- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.4.3
+-- Versión de PHP: 7.4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -226,6 +225,30 @@ INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `email`, `contraseña`, `tarj
 (3, 'juan', 'perez', 'juanp@gmail.com', '1234', '4321', '1234', '2020-05-29', '1999-08-20', 1),
 (4, 'julia', 'perez', 'juli@gmail.com', '1234', '1212', '1222', '2020-05-30', '1999-08-30', 1);
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `vista_previa`
+--
+
+CREATE TABLE `vista_previa` (
+  `id` int(10) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `descripcion` text NOT NULL,
+  `video` varchar(50) NOT NULL,
+  `pdf` varchar(50) NOT NULL,
+  `imagen` varchar(50) NOT NULL,
+  `fecha_de_publicacion` date NOT NULL,
+  `activa` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `vista_previa`
+--
+
+INSERT INTO `vista_previa` (`id`, `nombre`, `descripcion`, `video`, `pdf`, `imagen`, `fecha_de_publicacion`, `activa`) VALUES
+(1, 'vista1', 'Esta es la descripcion de la vista 1', 'www.youtube.com', 'leer', 'hola', '2020-06-05', 1);
+
 --
 -- Índices para tablas volcadas
 --
@@ -285,6 +308,12 @@ ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `vista_previa`
+--
+ALTER TABLE `vista_previa`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -304,7 +333,7 @@ ALTER TABLE `autor`
 -- AUTO_INCREMENT de la tabla `capitulo`
 --
 ALTER TABLE `capitulo`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `editorial`
@@ -341,6 +370,12 @@ ALTER TABLE `plan`
 --
 ALTER TABLE `usuario`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `vista_previa`
+--
+ALTER TABLE `vista_previa`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
