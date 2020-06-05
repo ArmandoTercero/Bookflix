@@ -19,7 +19,7 @@
 
 		<div class="text-right">
 			<p>¡Desde aquí puedes ir a un formulario para añadir nuevas Vistas previas!</p>
-			<a class="btn btn-success btn-lg disabled" href="#" role="button">
+			<a class="btn btn-success btn-lg" href="{{ url_for('vista_previa_new') }}" role="button">
 				Crear una vista previa
 				<i class="material-icons" style="vertical-align:middle">add_to_queue</i>
 			</a>
@@ -35,8 +35,8 @@
 		<thead>
 			<tr>
 				<th scope="col">#</th>
-				<th scope="col">Título</th>
-				<th scope="col">Fecha de Publicacion</th>
+				<th scope="col">Nombre</th>
+				<th scope="col">Descripcion</th>
 				<th scope="col">Activa</th>
 				<th scope="col" colspan="3">Acciones</th>
 			</tr>
@@ -46,10 +46,10 @@
             {% for vista_previa in vistas_previas %}
             <tr>
                 <th scope="row">{{ vista_previa.id }}</th>
-                <td>{{ vista_previa.titulo }}</td>
-                <td>{{ vista_previa.fecha_de_publicacion }}</td>
+                <td>{{ vista_previa.nombre }}</td>
+                <td>{{ vista_previa.descripcion }}</td>
                 <td>
-                    {% if vista_previa.activo == 1 %}
+                    {% if vista_previa.activa == 1 %}
                         Habilitado
                     {% else %}
                         Deshabilitado
@@ -71,9 +71,9 @@
                 </td>
                 <td>
                     <a
-                        class="material-icons btn btn-danger disabled"
+                        class="material-icons btn btn-danger"
                         title="Eliminar"
-                        href="#"
+                        href="{{ url_for('vista_previa_eliminar', id=vista_previa.id) }}"
                     >delete</a>
                 </td>
             </tr>
