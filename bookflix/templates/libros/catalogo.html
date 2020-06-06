@@ -58,8 +58,16 @@
 
                 <p> <b>Sinopsis:</b> {{libro.sinopsis}}</b></p>
                 <hr>
-                <!-- <h2 class="text-center"><a href="{{libro.ruta}}"> Leer </a></h2> -->
-                <h2 class="text-center"><a href="#"> Leer (Proximamente) </a></h2>
+                <div class="text-center">
+                    <a
+                        class="btn btn-primary"
+                        title="Ver"
+                        href="{{ url_for('libro', libro_id=libro.id) }}"
+                    >
+                        <span class="material-icons" style="vertical-align:middle;">visibility</span>
+                        Detalles
+                    </a>
+                </div>
             </div>
         </div>
         {% endfor %}

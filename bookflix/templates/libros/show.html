@@ -111,7 +111,11 @@
 </div>
 
 <div class="text-center p-5">
-	<a href="{{ url_for('libro_index') }}" class="btn btn-primary">Volver</a>
+	{% if session.admin %}
+		<a href="{{ url_for('libro_index') }}" class="btn btn-primary">Volver</a>
+	{% else %}
+		<a href="{{ url_for('index') }}" class="btn btn-primary">Volver</a>
+	{% endif %}
 </div>
 
 {% endblock %}
