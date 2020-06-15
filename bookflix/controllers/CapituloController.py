@@ -1,5 +1,5 @@
 from flask import request, render_template, session
-from flask import send_from_directory, url_for
+from flask import send_file, send_from_directory, url_for
 # from app.models.AuthModel import authmodel
 # from app.helpers.Utility import sendResponse
 from controllers.AbstractController import AbstractController
@@ -15,10 +15,11 @@ class CapituloController(AbstractController):
 
 	def capitulo (self, capitulo_id):
 		capitulo = Capitulo.id(capitulo_id)
-		#TODO:
-		#crear relacion de leyendo, o actualizar la relacion si ya existe
-		#devolver pdf
-		return 0
+		libro_id = capitulo["libro_id"]
+		#perfil_id = session["perfil_id"]
+		perfil_id = 1#placeholder
+		Capitulo.update_leyendo (libro_id, capitulo_id, perfil_id)
+		return send_file(capitulo["ruta"][3:])
 
 	@AbstractController.validate
 	def new(self, libro_id, errores=[]):

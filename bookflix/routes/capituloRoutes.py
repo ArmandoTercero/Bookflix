@@ -19,5 +19,5 @@ def capitulo_upload_file(libro_id):
 
 @app.route("/capitulo/<capitulo_id>", methods=["GET"])
 def capitulo(capitulo_id):
-    return capituloController.libro(capitulo_id)
+    return capituloController.capitulo(capitulo_id)
 

@@ -93,7 +93,7 @@
 							<a
 								class="btn btn-primary"
 								title="Ver"
-								href="{{capitulo.ruta}}"
+								href="{{ url_for('capitulo', capitulo_id=capitulo.id) }}"
 							>
 							<!-- https://stackoverflow.com/questions/22545325/how-to-vertically-align-text-with-icon-font -->
 							<span class="material-icons" style="vertical-align:middle;">visibility</span>
