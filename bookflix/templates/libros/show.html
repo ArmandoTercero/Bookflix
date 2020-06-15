@@ -56,10 +56,22 @@
 
 				<div>
 					{% if session['admin'] %}						
-					<a class="btn btn-success btn-lg text-right disabled" href="#">
+					<a class="btn btn-success btn-lg text-right" href="{{ url_for('capitulo_upload', libro_id=libro.id) }}">
 						Agregar un capítulo
 						<i class="material-icons" style="vertical-align:middle">add_to_queue</i>
 					</a>
+					{% else %}
+					{% if leido %}
+					<a class="btn btn-danger btn-lg text-right disabled" href="#">
+						Libro ya leído
+						<i class="material-icons" style="vertical-align:middle">loop</i>
+					</a>
+					{% else %}
+					<a class="btn btn-success btn-lg text-right" href="{{ url_for('libro_leido', libro_id=libro.id) }}">
+						Marcar como leído
+						<i class="material-icons" style="vertical-align:middle">add_to_queue</i>
+					</a>
+					{% endif %}
 					{% endif %}
 				</div>
 			</div>

@@ -3,27 +3,6 @@ from db import get_db
 class Capitulo (object):
 
 	@classmethod
-	def leyendo(cls, libro_id, perfil_id):
-		sql = "SELECT * FROM leyendo WHERE libro_id = %s AND perfil_id = %s"
-		cursor = cls.database().cursor()
-		cursor.execute(sql % (libro_id, perfil_id))
-		return cursor.fetchone()
-
-	@classmethod
-	def update_leyendo (cls, libro_id, capitulo_id, perfil_id):
-		leyendo = cls.leyendo (libro_id, perfil_id)
-		if (leyendo):
-			sql = "UPDATE leyendo SET capitulo_id = %s WHERE id = %s"
-			sql %= (capitulo_id, leyendo["id"])
-		else:
-			sql = "INSERT INTO leyendo (libro_id, capitulo_id, perfil_id) VALUES ('%s', '%s', '%s')"
-			sql %= (libro_id, capitulo_id, perfil_id)
-		cursor = cls.database().cursor()
-		cursor.execute(sql)
-		cls.database().commit()
-		return True
-
-	@classmethod
 	def database(cls):
 		return get_db()
 

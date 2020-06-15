@@ -189,12 +189,31 @@ CREATE TABLE `leyendo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `genero`
+-- Volcado de datos para la tabla `leyendo`
 --
 
 INSERT INTO `leyendo` (`id`, `libro_id`, `capitulo_id`, `perfil_id`) VALUES
 (1, 1, 1, 1),
 (2, 2, 3, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `leido`
+--
+
+CREATE TABLE `leido` (
+  `id` int(6) NOT NULL,
+  `libro_id` int(6) NOT NULL,
+  `perfil_id` int(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `leido`
+--
+
+INSERT INTO `leido` (`id`, `libro_id`, `perfil_id`) VALUES
+(2, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -323,6 +342,12 @@ ALTER TABLE `leyendo`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `leido`
+--
+ALTER TABLE `leido`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `plan`
 --
 ALTER TABLE `plan`
@@ -390,6 +415,12 @@ ALTER TABLE `perfiles`
 -- AUTO_INCREMENT de la tabla `leyendo`
 --
 ALTER TABLE `leyendo`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `leido`
+--
+ALTER TABLE `leido`
   MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --

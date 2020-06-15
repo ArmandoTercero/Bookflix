@@ -18,7 +18,7 @@ class CapituloController(AbstractController):
 		libro_id = capitulo["libro_id"]
 		#perfil_id = session["perfil_id"]
 		perfil_id = 1#placeholder
-		Capitulo.update_leyendo (libro_id, capitulo_id, perfil_id)
+		Libro.update_leyendo (libro_id, capitulo_id, perfil_id)
 		return send_file(capitulo["ruta"][3:])
 
 	@AbstractController.validate
