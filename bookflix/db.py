@@ -8,7 +8,7 @@ def get_db():
 		g.db = pymysql.connect(
 			host = 'localhost',
 			user = 'root',
-			password = 'L8v4fbyDZAmDYSfYKDTQJEz2Wyvy68VF',
+			password = '',
 			db = 'bookflix',
 			cursorclass = pymysql.cursors.DictCursor
 		)
