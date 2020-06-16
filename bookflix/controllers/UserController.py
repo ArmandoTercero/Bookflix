@@ -155,57 +155,66 @@ class UserController():
 
         return render_template("/usuarios/perfiles.html", perfiles=perfiles, usuario=user)
 
-    # crear un perfil
+    # crear un perfil funciona falta redireccionar a la pagina ver_perfil
     def crear_perfil(self, id):
         errores = []
+        p = []
         user = Usuario.encontrar_por_id(id)
         perfiles = Perfiles.all()
         planes = Plan.all()
-        print(planes[0])
         contador = 0
-        print('el id', id)
+        ok = False
         if user['plan_id'] == 2:
-            for perfil in perfiles:
+            for perfil in perfiles:   #cuento cuantos perfiles tengo y los guardo en otro arreglo
                 if perfil['id_usuario'] == user['id']:
                     contador = contador + 1
-            print("contador", contador)
+                    p.append(perfil)
+            print(p)
             if contador < 4:
                 if request.method == 'POST':
-                    if Perfiles.existe_perfil_con_nombre(request.form["nombre"]):
+                    for per in p:
+                        if per['nombre'] == request.form["nombre"]:
+                            ok = True
+                    if ok == True:
                         errores.append("Ya existe un perfil con el nombre especificado.")
-                        print("Ya existe un perfil con el nombre especificado.")                        
+                                               
                     else:
                         foto = request.form['foto']
                         nombre = request.form['nombre']
                         Perfiles.crear(dict
                                        ([('nombre', nombre), ('foto', foto), ('id_usuario', id)]))
             else:
-                print("Ya no puede agregar mas contactos!!!!!")
+                
                 flash('Ya no puede agregar mas contactos!!!!!')
-            return render_template("/usuarios/crearPerfil.html", perfiles=perfiles, usuario=user, errores=errores)
+            return render_template("/usuarios/crearPerfil.html", usuario=user, errores=errores)
+            #return redirect(url_for('ver_perfiles', id=session['id'], errores=errores))
         else:
             if user['plan_id'] == 1:
                 for perfil in perfiles:
                     if perfil['id_usuario'] == user['id']:
                         contador = contador + 1
-            print("contador", contador)
+                        p.append(perfil)
+            
             if contador < 2:
                 if request.method == 'POST':
-                    if Perfiles.existe_perfil_con_nombre(request.form["nombre"]):
+                    for per in p:
+                        if per['nombre'] == request.form["nombre"]:
+                            ok = True
+                    if ok == True:
                         errores.append("Ya existe un perfil con el nombre especificado.")
-                        print("Ya existe un perfil con el nombre especificado.")                        
+                                                
                     else:
                         foto = request.form['foto']
                         nombre = request.form['nombre']
                         Perfiles.crear(dict
                                        ([('nombre', nombre), ('foto', foto), ('id_usuario', id)]))
             else:
-                print("Ya no puede agregar mas contactos!!!!!")
+                
                 flash('Ya no puede agregar mas contactos!!!!!')
+            
+            return render_template("/usuarios/crearPerfil.html", p=p, usuario=user, errores=errores)
 
-            return render_template("/usuarios/crearPerfil.html", perfiles=perfiles, usuario=user, errores=errores)
-
-    # modificar un perfil
+    # modificar un perfil arreglar
     def modificar_perfil(self, id_perfil):
         errores = []
         perfiles = Perfiles.encontrar_por_id(id_perfil)
@@ -223,13 +232,12 @@ class UserController():
 
         return render_template("/usuarios/modificarPerfil.html", perfil=perfiles, usuario=user, errores=errores)
 
-    # eliminar perfil
+    # eliminar perfil 
     def eliminar_perfil(self, id_perfil):
+        print("el id perfil es", id_perfil)
         perfiles = Perfiles.encontrar_por_id(id_perfil)
-
-        user = Usuario.encontrar_por_id(perfiles['id_usuario'])
         Perfiles.eliminar(id_perfil)
-        return redirect(url_for('ver_perfiles', id=user['id']))
+        return redirect(url_for('ver_perfiles', id=session['id']))
 
     def ver_anuncio(self):
         anuncios = Anuncio.all()

@@ -44,9 +44,10 @@ class VistaPrevia (object):
         return cursor.fetchone()
 
     @classmethod
-    def eliminar(cls, id):  # falta implementar
+    def eliminar(cls, id):  
         sql = """ DELETE FROM vista_previa WHERE id = %s"""
         cursor = cls.database().cursor()
         cursor.execute(sql, (str(id)))
         cls.database().commit()
         return True
+#falta implementar el modificar vista previa

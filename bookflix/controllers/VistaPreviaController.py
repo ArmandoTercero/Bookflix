@@ -16,16 +16,30 @@ class VistaPreviaController():
         return render_template('vistas_previas/index.html', vistas_previas=vistas_previas)
 
     def new(self):
+        errores = []
+        fecha_de_hoy = datetime.date(datetime.now())
         if request.method == 'GET':
-            return render_template('vistas_previas/new.html')
+            
+            return render_template('vistas_previas/new.html', fecha_de_hoy=fecha_de_hoy)
         elif request.method == 'POST':
-            VistaPrevia.crear(request.form)
-            return self.index()
+            formulario = request.form
+            print(formulario)   #si el pdf lo hago de tipo file en el html no me puedo fijar si esta vacio
+            if formulario['video'] == '' and formulario['pdf'] == '':
+                errores.append("Es obligatorio agregar un pdf o un video")
+                return render_template('vistas_previas/new.html', errores=errores, fecha_de_hoy=fecha_de_hoy)
+            else:
+                VistaPrevia.crear(formulario)
+                return self.index()
 
     def delete(self, id):
         vistas_previas = VistaPrevia.all()
         vista = VistaPrevia.eliminar(id)
         return render_template('vistas_previas/index.html', vistas_previas=vistas_previas)
+    
+    def modificar(self, id): #example arreglar construir esto bien empezando por el html!!!
+        vista_previa = VistaPrevia.encontrar_por_id(id)
+        print(vista_previa)
+        return render_template('vistas_previas/edit.html', vista_previa=vista_previa)
 
 
 vistaPreviaController = VistaPreviaController()

@@ -19,3 +19,8 @@ def vista_previa_new():
 @app.route("/vista_previa/eliminar/<string:id>", methods=["POST", "GET"])
 def vista_previa_eliminar(id):
     return vistaPreviaController.delete(id)
+
+# ruta modificar vista previa
+@app.route("/vista_previa/modificar/<id>", methods=["GET", "POST"])
+def vista_previa_modificar(id):
+    return vistaPreviaController.modificar(id)

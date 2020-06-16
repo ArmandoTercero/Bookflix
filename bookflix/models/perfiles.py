@@ -8,10 +8,10 @@ class Perfiles (object):
         return get_db()
 
     @classmethod
-    def encontrar_por_id(cls, perfiles_id):
-        sql = "SELECT * FROM perfiles WHERE id = %s"
+    def encontrar_por_id(cls, id):
+        sql = "SELECT * FROM perfiles WHERE id_usuario = %s"
         cursor = cls.database().cursor()
-        cursor.execute(sql, (perfiles_id))
+        cursor.execute(sql, (id))
         return cursor.fetchone()
 
     @classmethod
