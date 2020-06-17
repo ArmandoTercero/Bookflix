@@ -81,11 +81,11 @@ class BookController(AbstractController):
 		)
 
 	@AbstractController.validate
-	def new(self, errores=[]):
+	def new(self, errores=[], old={}):
 		editoriales = Editorial.all()
 		generos = Genero.all()
 		autores = Author.all()
-		return render_template('libros/agregar.html', editoriales=editoriales, generos=generos, autores=autores, errores=errores)
+		return render_template('libros/agregar.html', editoriales=editoriales, generos=generos, autores=autores, errores=errores, old=old)
 
 	def gen_path(self, field):
 		file = request.files[field]
@@ -112,7 +112,7 @@ class BookController(AbstractController):
 		if vdate <= pdate:
 			errores.append("Fecha de vencimiento incorrecta")
 		if (len(errores) != 0):
-			return self.new (errores)
+			return self.new (errores, request.form)
 		imgpath = self.gen_path('portada')
 		Libro.crear(request.form, imgpath)
 		return self.index()
