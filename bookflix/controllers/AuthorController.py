@@ -5,6 +5,7 @@ from flask import send_from_directory, url_for
 from controllers.AbstractController import AbstractController
 from models.autor import Author
 from models.libro import Libro
+from models.genero import Genero
 from config import config
 
 class AuthorController(AbstractController):
@@ -18,7 +19,13 @@ class AuthorController(AbstractController):
 
 	def autor (self, autor_id):
 		autor = Author.id (autor_id)
-		return render_template('autores/show.html', autor=autor)
+		libros = Author.libros(autor_id)
+		data = []
+		for libro in libros:
+			autor = Author.id(libro["autor"])
+			genero = Genero.encontrar_por_id(libro["genero"])
+			data.append({"libro": libro, "autor": autor, "genero": genero})
+		return render_template('autores/show.html', autor=autor, libros = data)
 
 	@AbstractController.validate
 	def create (self, errores = []):#formulario
