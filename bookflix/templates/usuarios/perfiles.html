@@ -17,7 +17,7 @@
             {% for perfil in perfiles %}
             {% if usuario.id == perfil.id_usuario %}
             <div class="col-md-2 mr-4 text-center">
-                <a href="{{ url_for('index') }}" class="perfil"> <img src="{{ perfil.foto }}" class="img1" width="130px"
+                <a href="{{ url_for('perfil', perfil_id=perfil.id) }}" class="perfil"> <img src="{{ perfil.foto }}" class="img1" width="130px"
                         alt=""></a>
                 <p class="text-center">{{ perfil.nombre }}</p>
                 <a href="/modificar_perfil/{{ perfil.id }}" class="btn btn-danger"> Modificar Perfil </a>

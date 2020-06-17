@@ -16,9 +16,12 @@ class CapituloController(AbstractController):
 	def capitulo (self, capitulo_id):
 		capitulo = Capitulo.id(capitulo_id)
 		libro_id = capitulo["libro_id"]
-		#perfil_id = session["perfil_id"]
-		perfil_id = 1#placeholder
-		Libro.update_leyendo (libro_id, capitulo_id, perfil_id)
+		if "perfil_id" in session:
+			perfil_id = session["perfil_id"]
+			print ("perfil: ", perfil_id, "leyendo: ", capitulo_id)
+			Libro.update_leyendo (libro_id, capitulo_id, perfil_id)
+		else:
+			print ("no hay perfil en session")
 		return send_file(capitulo["ruta"][3:])
 
 	@AbstractController.validate

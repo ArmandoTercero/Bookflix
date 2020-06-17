@@ -18,7 +18,9 @@ class UserController():
     def __init__(self):
         pass
 
-    def index(self):
+    def index(self, perfil_id = None):
+        if perfil_id != None:
+            session ["perfil_id"] = perfil_id
         libros = Libro.all()
         editoriales = Editorial.all()
         generos = Genero.all()

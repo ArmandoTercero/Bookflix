@@ -1,4 +1,4 @@
-from flask import request, render_template, session, abort
+from flask import request, render_template, session, abort, redirect
 from flask import send_from_directory, url_for
 # from app.models.AuthModel import authmodel
 # from app.helpers.Utility import sendResponse
@@ -19,10 +19,10 @@ class BookController(AbstractController):
 		pass
 
 	def leido (self, libro_id):
-		#perfil_id = session["perfil_id"]
-		perfil_id = 1#placeholder
-		Libro.update_leido (libro_id, perfil_id)
-		return self.libro(libro_id)
+		if "perfil_id" in session:
+			perfil_id = session["perfil_id"]
+			Libro.update_leido (libro_id, perfil_id)
+		return redirect (url_for("libro", libro_id=libro_id))
 
 	def search (self):
 		return render_template('libros/search.html')
@@ -69,7 +69,11 @@ class BookController(AbstractController):
 		genero = Genero.encontrar_por_id(libro["genero"])
 		editorial = Editorial.id(libro["editorial"])
 		capitulos = Capitulo.libro(libro_id)
-		leido = Libro.leido (libro_id, 1)#session[perfil_id]
+		if "perfil_id" in session:
+			perfil_id = session["perfil_id"]
+			leido = Libro.leido (libro_id, perfil_id)
+		else:
+			leido = None
 		return render_template(
 			'libros/show.html',
 			libro=libro,

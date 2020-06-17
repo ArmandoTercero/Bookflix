@@ -11,6 +11,9 @@ from controllers.UserController import usercontroller
 def index():
     return usercontroller.index()
 
+@app.route("/<perfil_id>", methods=["GET"])
+def perfil(perfil_id):
+    return usercontroller.index(perfil_id)
 
 @app.route("/panel_de_control", methods=["GET"])
 def panel_de_control():

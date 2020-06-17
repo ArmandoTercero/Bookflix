@@ -81,7 +81,7 @@
 			<h2 class="text-center p-5">
 				El libro actualmente esta subido entero en un solo arhivo
 				<hr>
-				<a class="btn btn-primary" href="{{ capitulos[0].ruta }}" style="font-size: 25px;"> Leer </a>
+				<a class="btn btn-primary" href="{{ url_for('capitulo', capitulo_id=capitulos[0].id) }}" style="font-size: 25px;"> Leer </a>
 			</h2>
 
 			<!-- Información que muestro en el caso de un libro por capítulos (osea tiene 2 o más capítulos) -->

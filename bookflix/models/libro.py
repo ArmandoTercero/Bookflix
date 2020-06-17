@@ -10,10 +10,13 @@ class Libro (object):
 
 	@classmethod
 	def all_leyendo (cls, perfil_id):
-		sql = "SELECT * FROM leyendo WHERE perfil_id = %s"
+		#sql = "SELECT libro_id FROM leyendo WHERE perfil_id = %s"
+		sql = "SELECT l.* FROM leyendo AS r, libro AS l WHERE r.perfil_id = %s AND l.id = r.libro_id"
 		cursor = cls.database().cursor()
 		cursor.execute(sql % perfil_id)
-		return cursor.fetchall()
+		libros = cursor.fetchall()
+		print (libros)
+		return libros
 
 	@classmethod
 	def leyendo(cls, libro_id, perfil_id):
