@@ -1,4 +1,4 @@
-from flask import request, render_template, session
+from flask import request, render_template, session, abort
 from flask import send_from_directory, url_for
 # from app.models.AuthModel import authmodel
 # from app.helpers.Utility import sendResponse
@@ -27,6 +27,12 @@ class BookController(AbstractController):
 	def search (self):
 		return render_template('libros/search.html')
 
+	def catalogo (self, libros):
+		autores = Author.all()
+		generos = Genero.all()
+		editoriales = Editorial.all()
+		return render_template('libros/catalogo.html', libros=libros, autores=autores, generos=generos, editoriales=editoriales)
+
 	def search_book (self):
 		criterios = {
 			"autor": Libro.search_autor,
@@ -38,10 +44,15 @@ class BookController(AbstractController):
 		if criterio in criterios:
 			texto = request.form.get('texto', '')
 			libros = criterios[criterio](texto)
-			autores = Author.all()
-			generos = Genero.all()
-			editoriales = Editorial.all()
-			return render_template('libros/catalogo.html', libros=libros, autores=autores, generos=generos, editoriales=editoriales)
+			return self.catalogo (libros)
+			
+	
+	def leyendo (self):
+		if not "perfil_id" in session:
+			abort(403)
+		perfil_id = session["perfil_id"]
+		libros = Libro.all_leyendo (perfil_id)
+		return self.catalogo (libros)
 
 	def index(self):
 		libros = Libro.all()
@@ -132,13 +143,8 @@ class BookController(AbstractController):
 		return self.index()
 
 	def ver_catalogo(self):
-		
-		autores = Author.all()
-		generos = Genero.all()
-		editoriales = Editorial.all()
 		libros = Libro.all()
-		
-		return render_template('libros/catalogo.html', libros=libros, autores=autores, generos=generos, editoriales=editoriales)
+		return self.catalogo(libros)
 
 	def habilitar(self, libro_id):
 		Libro.habilitar(libro_id)

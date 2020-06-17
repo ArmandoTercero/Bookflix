@@ -9,6 +9,13 @@ class Libro (object):
 		return get_db()
 
 	@classmethod
+	def all_leyendo (cls, perfil_id):
+		sql = "SELECT * FROM leyendo WHERE perfil_id = %s"
+		cursor = cls.database().cursor()
+		cursor.execute(sql % perfil_id)
+		return cursor.fetchall()
+
+	@classmethod
 	def leyendo(cls, libro_id, perfil_id):
 		sql = "SELECT * FROM leyendo WHERE libro_id = %s AND perfil_id = %s"
 		cursor = cls.database().cursor()
