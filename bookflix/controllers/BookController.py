@@ -28,6 +28,8 @@ class BookController(AbstractController):
 		return render_template('libros/search.html')
 
 	def catalogo (self, libros):
+		if not session["admin"]:
+			libros = [libro for libro in libros if libro["activo"] == 1]
 		autores = Author.all()
 		generos = Genero.all()
 		editoriales = Editorial.all()

@@ -7,10 +7,10 @@ class AbstractController():
 
 	def validate (func):
 		def val (*args, **kwargs):
-			if not "admin" in session:
-				abort (401)
-			else:
+			if "admin" in session and session["admin"]:
 				return func (*args, **kwargs)
+			else:
+				abort(401)
 		return val
 
 
