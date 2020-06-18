@@ -121,7 +121,7 @@ class BookController(AbstractController):
 			return self.new (errores, request.form)
 		imgpath = self.gen_path('portada')
 		Libro.crear(request.form, imgpath)
-		return self.index()
+		return redirect (url_for("libro_index"))
 
 	@AbstractController.validate
 	def edit(self, libro_id, errores=[]):
@@ -146,7 +146,7 @@ class BookController(AbstractController):
 			return self.edit (libro_id, errores)
 		imgpath = self.check_path(libro, 'portada', 'ruta_img')
 		Libro.edit(request.form, imgpath, libro_id)
-		return self.index()
+		return redirect (url_for("libro_index"))
 
 	def ver_catalogo(self):
 		libros = Libro.all()
@@ -154,10 +154,10 @@ class BookController(AbstractController):
 
 	def habilitar(self, libro_id):
 		Libro.habilitar(libro_id)
-		return self.index()
+		return redirect (url_for("libro_index"))
 
 	def deshabilitar(self, libro_id):
 		Libro.deshabilitar(libro_id)
-		return self.index()
+		return redirect (url_for("libro_index"))
 
 bookController = BookController()

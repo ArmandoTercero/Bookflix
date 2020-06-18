@@ -1,4 +1,4 @@
-from flask import request, render_template, session
+from flask import request, render_template, session, redirect
 from flask import send_file, send_from_directory, url_for
 # from app.models.AuthModel import authmodel
 # from app.helpers.Utility import sendResponse
@@ -47,6 +47,6 @@ class CapituloController(AbstractController):
 			return self.new (libro_id, errores)
 		pdfpath = self.gen_path('archivo')
 		Capitulo.crear(libro_id, pdate, pdfpath)
-		return bookController.libro(libro_id)
+		return redirect (url_for("libro", libro_id=libro_id))
 
 capituloController = CapituloController()
