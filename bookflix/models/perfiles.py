@@ -11,8 +11,15 @@ class Perfiles (object):
     def encontrar_por_id(cls, id_perfil):
         sql = "SELECT * FROM perfiles WHERE perfiles.id = %s"
         cursor = cls.database().cursor()
-        cursor.execute(sql % (id_perfil))
+        cursor.execute(sql % id_perfil)
         return cursor.fetchone()
+
+    @classmethod
+    def user_id (cls, user_id):
+        sql = "SELECT * FROM perfiles WHERE id_usuario = %s"
+        cursor = cls.database().cursor()
+        cursor.execute(sql % user_id)
+        return cursor.fetchall()
 
     @classmethod
     def all(cls):
@@ -24,8 +31,8 @@ class Perfiles (object):
     @classmethod
     def crear(cls, data):
         sql = """INSERT INTO perfiles
-		(nombre, foto, id_usuario)
-		VALUES (%s)"""
+        (nombre, foto, id_usuario)
+        VALUES (%s)"""
         parametros = str(list(data.values())).strip('[]')
         cursor = cls.database().cursor()
         cursor.execute(sql % parametros)
@@ -43,10 +50,10 @@ class Perfiles (object):
     @classmethod
     def edit(cls, nombre, foto, id_perfil):
         sql = """
-			UPDATE perfiles
-			SET nombre = '%s', foto = '%s'
-			WHERE id = %s
-		"""
+            UPDATE perfiles
+            SET nombre = '%s', foto = '%s'
+            WHERE id = %s
+        """
         cursor = cls.database().cursor()
         cursor.execute(sql % (nombre, foto, id_perfil))
         cls.database().commit()
@@ -55,10 +62,10 @@ class Perfiles (object):
     @classmethod
     def existe_perfil_con_nombre(cls, nombre):
         sql = """
-		SELECT *
-		FROM perfiles p
-		WHERE p.nombre = %s
-		"""
+        SELECT *
+        FROM perfiles p
+        WHERE p.nombre = %s
+        """
         cursor = cls.database().cursor()
         cursor.execute(sql, (nombre))
 

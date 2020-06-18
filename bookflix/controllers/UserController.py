@@ -153,9 +153,10 @@ class UserController():
     # ver perfiles de usuario
     def ver_perfiles(self, id):
         user = Usuario.encontrar_por_id(id)
-        perfiles = Perfiles.all()
+        perfiles = Perfiles.user_id(id)
+        plan = Plan.encontrar_por_id (user["plan_id"])
 
-        return render_template("/usuarios/perfiles.html", perfiles=perfiles, usuario=user)
+        return render_template("/usuarios/perfiles.html", perfiles=perfiles, usuario=user, plan=plan)
 
     # crear un perfil funciona falta redireccionar a la pagina ver_perfil
     def crear_perfil(self, id):
