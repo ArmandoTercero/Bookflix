@@ -71,7 +71,7 @@ class BookController(AbstractController):
 		genero = Genero.encontrar_por_id(libro["genero"])
 		editorial = Editorial.id(libro["editorial"])
 		capitulos = Capitulo.libro(libro_id)
-		if "perfil_id" in session:
+		if "perfil_id" in session and not session["admin"]:
 			perfil_id = session["perfil_id"]
 			leido = Libro.leido (libro_id, perfil_id)
 		else:
