@@ -8,10 +8,10 @@ class Perfiles (object):
         return get_db()
 
     @classmethod
-    def encontrar_por_id(cls, id):
-        sql = "SELECT * FROM perfiles WHERE id_usuario = %s"
+    def encontrar_por_id(cls, id_perfil):
+        sql = "SELECT * FROM perfiles WHERE perfiles.id = %s"
         cursor = cls.database().cursor()
-        cursor.execute(sql, (id))
+        cursor.execute(sql % (id_perfil))
         return cursor.fetchone()
 
     @classmethod
@@ -41,15 +41,14 @@ class Perfiles (object):
         return True
 
     @classmethod
-    def edit(cls, data):
+    def edit(cls, nombre, foto, id_perfil):
         sql = """
 			UPDATE perfiles
-			SET nombre = %s, foto = %s
-			WHERE perfiles.id = %s
+			SET nombre = '%s', foto = '%s'
+			WHERE id = %s
 		"""
         cursor = cls.database().cursor()
-        print(list(data.values()))
-        cursor.execute(sql, list(data.values()))
+        cursor.execute(sql % (nombre, foto, id_perfil))
         cls.database().commit()
         return True
 

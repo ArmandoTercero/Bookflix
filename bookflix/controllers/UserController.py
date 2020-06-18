@@ -18,9 +18,9 @@ class UserController():
     def __init__(self):
         pass
 
-    def index(self, perfil_id = None):
+    def index(self, perfil_id=None):
         if perfil_id != None:
-            session ["perfil_id"] = perfil_id
+            session["perfil_id"] = perfil_id
         libros = Libro.all()
         editoriales = Editorial.all()
         generos = Genero.all()
@@ -167,7 +167,7 @@ class UserController():
         contador = 0
         ok = False
         if user['plan_id'] == 2:
-            for perfil in perfiles:   #cuento cuantos perfiles tengo y los guardo en otro arreglo
+            for perfil in perfiles:  # cuento cuantos perfiles tengo y los guardo en otro arreglo
                 if perfil['id_usuario'] == user['id']:
                     contador = contador + 1
                     p.append(perfil)
@@ -178,63 +178,77 @@ class UserController():
                         if per['nombre'] == request.form["nombre"]:
                             ok = True
                     if ok == True:
-                        errores.append("Ya existe un perfil con el nombre especificado.")
-                                               
+                        errores.append(
+                            "Ya existe un perfil con el nombre especificado.")
+
                     else:
                         foto = request.form['foto']
                         nombre = request.form['nombre']
                         Perfiles.crear(dict
                                        ([('nombre', nombre), ('foto', foto), ('id_usuario', id)]))
+                        return redirect(url_for('ver_perfiles', id=session['id']))
             else:
-                
+
                 flash('Ya no puede agregar mas contactos!!!!!')
             return render_template("/usuarios/crearPerfil.html", usuario=user, errores=errores)
-            #return redirect(url_for('ver_perfiles', id=session['id'], errores=errores))
+            # return redirect(url_for('ver_perfiles', id=session['id'], errores=errores))
         else:
             if user['plan_id'] == 1:
                 for perfil in perfiles:
                     if perfil['id_usuario'] == user['id']:
                         contador = contador + 1
                         p.append(perfil)
-            
+
             if contador < 2:
                 if request.method == 'POST':
                     for per in p:
                         if per['nombre'] == request.form["nombre"]:
                             ok = True
                     if ok == True:
-                        errores.append("Ya existe un perfil con el nombre especificado.")
-                                                
+                        errores.append(
+                            "Ya existe un perfil con el nombre especificado.")
+
                     else:
                         foto = request.form['foto']
                         nombre = request.form['nombre']
                         Perfiles.crear(dict
                                        ([('nombre', nombre), ('foto', foto), ('id_usuario', id)]))
+                        return redirect(url_for('ver_perfiles', id=session['id']))
             else:
-                
+
                 flash('Ya no puede agregar mas contactos!!!!!')
-            
+
             return render_template("/usuarios/crearPerfil.html", p=p, usuario=user, errores=errores)
 
-    # modificar un perfil arreglar
+    # modificar un perfil
     def modificar_perfil(self, id_perfil):
         errores = []
-        perfiles = Perfiles.encontrar_por_id(id_perfil)
-        user = Usuario.encontrar_por_id(perfiles['id_usuario'])
-        if request.method == 'POST':
-            if Perfiles.existe_perfil_con_nombre(request.form["nombre"]):
-                errores.append("Ya existe un perfil con el nombre especificado.")
-                print("Ya existe un perfil con el nombre especificado.")
-                
-            else:
-                foto = request.form['foto']
-                nombre = request.form['nombre']
-                Perfiles.edit(dict
-                          ([('nombre', nombre), ('foto', foto), ('id_perfil', id_perfil)]))
+        arreglo = []
+        perfil = Perfiles.encontrar_por_id(id_perfil)
+        user = Usuario.encontrar_por_id(session['id'])
+        ok = False
+        perfiles = Perfiles.all()
+        for p in perfiles:
+            if p['id_usuario'] == user['id']:
+                arreglo.append(p)
+        if request.method == 'GET':
+            return render_template("/usuarios/modificarPerfil.html", perfil=perfil, usuario=user, errores=errores)
 
-        return render_template("/usuarios/modificarPerfil.html", perfil=perfiles, usuario=user, errores=errores)
+        else:
+            if request.method == 'POST':
+                for a in arreglo:
+                    if a['nombre'] == request.form['nombre']:
+                        ok = True
+                if ok == True:
+                    errores.append("ya existe el nombre especificado.")
+                else:
+                    nombre = request.form['nombre']
+                    foto = request.form['foto']
+                    Perfiles.edit(nombre, foto, id_perfil)
+                    return redirect(url_for('ver_perfiles', id=session['id']))
 
-    # eliminar perfil 
+    # eliminar perfil
+
     def eliminar_perfil(self, id_perfil):
         print("el id perfil es", id_perfil)
         perfiles = Perfiles.encontrar_por_id(id_perfil)
@@ -252,7 +266,8 @@ class UserController():
     # ver perfil de usuario sus datos
     def usuario_detalles(self):
         usuario = Usuario.encontrar_por_id(session['id'])
-        perfiles_creados = Usuario.cantidad_de_perfiles_creados_por_el_usuario_con_id(session['id'])
+        perfiles_creados = Usuario.cantidad_de_perfiles_creados_por_el_usuario_con_id(
+            session['id'])
         plan = Plan.encontrar_por_id(usuario['plan_id'])
         return render_template('usuarios/detalles.html', usuario=usuario, plan=plan, perfiles_creados=perfiles_creados)
 
@@ -266,18 +281,20 @@ class UserController():
 
         elif request.method == 'POST':
             errores = []
-            cantidad_perfiles_del_usuario = Plan.numero_de_perfiles_del_usuario_con_id(session['id'])['COUNT(*)']
+            cantidad_perfiles_del_usuario = Plan.numero_de_perfiles_del_usuario_con_id(
+                session['id'])['COUNT(*)']
             plan_nuevo = Plan.encontrar_por_id(request.form['plan_id'])
-            
+
             if (plan_nuevo['perfiles_max'] >= cantidad_perfiles_del_usuario):
                 # Solo entra aca cuando el usuario puede cambiar de plan
                 Usuario.modificar_plan_id(session['id'], plan_nuevo['id'])
 
                 usuario = Usuario.encontrar_por_id(session['id'])
-                perfiles_creados = Usuario.cantidad_de_perfiles_creados_por_el_usuario_con_id(session['id'])
+                perfiles_creados = Usuario.cantidad_de_perfiles_creados_por_el_usuario_con_id(
+                    session['id'])
                 plan = Plan.encontrar_por_id(usuario['plan_id'])
                 mensaje_de_exito = "Enhorabuena, ¡Su plan fue actualizado con exito!"
-                return render_template('usuarios/detalles.html', usuario=usuario, plan=plan, perfiles_creados=perfiles_creados, mensaje_de_exito = mensaje_de_exito)
+                return render_template('usuarios/detalles.html', usuario=usuario, plan=plan, perfiles_creados=perfiles_creados, mensaje_de_exito=mensaje_de_exito)
             else:
                 # Solo entra aca cuando el usuario tiene más perfiles creados de los que permite el plan nuevo.
                 # Por lo tanto no se puede cambiar el plan
@@ -285,8 +302,10 @@ class UserController():
                 usuario = Usuario.encontrar_por_id(session['id'])
                 plan_del_usuario = Plan.encontrar_por_id(usuario['plan_id'])
 
-                perfiles_a_borrar = abs(plan_nuevo['perfiles_max'] - cantidad_perfiles_del_usuario)
-                errores.append("El usuario actual excede la cantidad maxima de perfiles permitidos, debera borrar " + str(perfiles_a_borrar) + " perfil/es para poder realizar el cambio.")
+                perfiles_a_borrar = abs(
+                    plan_nuevo['perfiles_max'] - cantidad_perfiles_del_usuario)
+                errores.append("El usuario actual excede la cantidad maxima de perfiles permitidos, debera borrar " +
+                               str(perfiles_a_borrar) + " perfil/es para poder realizar el cambio.")
                 return render_template('usuarios/modificar_plan.html', planes=planes, id_plan_del_usuario=plan_del_usuario['id'], errores=errores)
 
 
