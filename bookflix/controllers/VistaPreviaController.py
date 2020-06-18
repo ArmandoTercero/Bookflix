@@ -30,7 +30,8 @@ class VistaPreviaController():
             #print(imgpath)
             if formulario['video'] == '' and pdfpath == '':
                 errores.append("Es obligatorio agregar un pdf o un video")
-                return render_template('vistas_previas/new.html', errores=errores, fecha_de_hoy=fecha_de_hoy)
+                vista = request.form
+                return render_template('vistas_previas/new.html', errores=errores, fecha_de_hoy=fecha_de_hoy, vista=vista)
             else:
                 VistaPrevia.crear(formulario, pdfpath, imgpath)
                 return self.index()
@@ -38,7 +39,8 @@ class VistaPreviaController():
     def delete(self, id):
         vistas_previas = VistaPrevia.all()
         vista = VistaPrevia.eliminar(id)
-        return render_template('vistas_previas/index.html', vistas_previas=vistas_previas)
+        #return render_template('vistas_previas/index.html', vistas_previas=vistas_previas)
+        return redirect(url_for('vista_previa_index', vistas_previas=vistas_previas))
 
     def modificar(self, id):
         vista_previa = VistaPrevia.encontrar_por_id(id)

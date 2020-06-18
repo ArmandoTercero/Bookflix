@@ -24,24 +24,35 @@
 			<span class="card-text">
 				<form method="POST" enctype="multipart/form-data">
 					{% if errores %}
-						<div class="alert alert-danger" role="alert">
-							<ul>
-								{% for error in errores %}
-								<li>{{ error }}</li>
-								{% endfor %}
-							</ul>
-						</div>
+					<div class="alert alert-danger" role="alert">
+						<ul>
+							{% for error in errores %}
+							<li>{{ error }}</li>
+							{% endfor %}
+						</ul>
+					</div>
 					{% endif %}
+
 					<section class="form-group">
-						<label for="nombre"> Nombre * </label>
+						<label for="nombre"> Nombre </label>
+						{% if not vista %}
 						<input type="text" class="form-control form-control-lg rounded-0" name="nombre" id="nombre"
 							required>
+						{% else %}
+						<input type="text" class="form-control form-control-lg rounded-0" name="nombre" id="nombre"
+							required value="{{vista.nombre}}">
+						{% endif %}
 					</section>
 
 					<section class="form-group">
 						<label for="descripcion"> Descripcion </label>
-						<textarea type="text" class="form-control form-control-lg rounded-0" name="descripcion"
-							id="descripcion"></textarea>
+						{% if not vista %}
+						<input type="text" class="form-control form-control-lg rounded-0" name="descripcion"
+							id="descripcion">
+						{% else %}
+						<input type="text" class="form-control form-control-lg rounded-0" name="descripcion"
+							id="descripcion" value="{{vista.descripcion}}">
+						{% endif %}
 					</section>
 
 					<section class="form-group">
@@ -51,8 +62,8 @@
 
 					<section class="form-group">
 						<label for="video"> Video * </label>
-						<textarea type="text" class="form-control form-control-lg rounded-0" name="video"
-							id="video"></textarea>
+						<input type="text" class="form-control form-control-lg rounded-0" name="video"
+							id="video">
 					</section>
 
 					<section class="form-group">
