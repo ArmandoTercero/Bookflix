@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from flask import request, render_template, session, abort
+from flask import request, render_template, session, abort, redirect
 from flask import send_from_directory, url_for, redirect
 from models.anuncio import Anuncio
 from config import config
@@ -55,7 +55,7 @@ class AnuncioController():
         print("hola")
         anuncios = Anuncio.all()
         anuncio = Anuncio.eliminar(id)
-        return render_template('anuncios/index.html', anuncios=anuncios)
+        return redirect (url_for("anuncio_index"))
 
 
 anuncioController = AnuncioController()
