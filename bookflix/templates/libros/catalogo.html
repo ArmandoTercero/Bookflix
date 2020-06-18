@@ -29,7 +29,11 @@
 
                 {% for autor in autores %}
                 {% if libro.autor == autor.id %}
-                <p> <b>Autor:</b> <a href="{{ url_for('autor', autor_id=autor.id) }}"> {{autor.nombre}} </a></p>
+                <p> <b>Autor:</b>
+				{% if session.admin %}<a href="{{ url_for('autor', autor_id=autor.id) }}"> {{autor.nombre}} </a>
+				{% else %} {{autor.nombre}}
+				{% endif %}
+				</p>
                 {% endif %}
                 {% endfor%}
 

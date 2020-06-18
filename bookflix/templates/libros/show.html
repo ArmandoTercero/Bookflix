@@ -30,7 +30,11 @@
 
 					<p> <b>ISBN:</b> {{libro.isbn}} </p>
 					<p> <b>Editorial:</b> {{editorial.nombre}} </p>
-					<p> <b>Autor:</b> <a href="{{ url_for('autor', autor_id=autor.id) }}"> {{autor.nombre}} </a></p>
+					<p> <b>Autor:</b>
+					{% if session.admin %}<a href="{{ url_for('autor', autor_id=autor.id) }}"> {{autor.nombre}} </a>
+					{% else %} {{autor.nombre}}
+					{% endif %}
+					</p>
 					<p> <b>Genero:</b> {{genero.nombre}} </p>
 					{% if session.admin %}
 						{% if libro.activo %}
