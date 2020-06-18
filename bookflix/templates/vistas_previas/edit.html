@@ -23,7 +23,15 @@
 		<div class="card-body">
 			<span class="card-text">
 				<form method="POST" enctype="multipart/form-data">
-					
+					{% if errores %}
+						<div class="alert alert-danger" role="alert">
+							<ul>
+								{% for error in errores %}
+								<li>{{ error }}</li>
+								{% endfor %}
+							</ul>
+						</div>
+					{% endif %}
 					
 					<section class="form-group">
 						<label for="nombre"> Nombre </label>
@@ -34,19 +42,19 @@
 					<section class="form-group">
 						<label for="descripcion"> Descripcion </label>
 						<input type="text" class="form-control form-control-lg rounded-0" name="descripcion"
-							id="descripcion" required value="{{vista_previa.descripcion}}">
+							id="descripcion"  value="{{vista_previa.descripcion}}">
                     </section>
                     
                     <section class="form-group">
 						<label for="video"> Video </label>
 						<input type="text" class="form-control form-control-lg rounded-0" name="video"
-							id="video" required value="{{vista_previa.video}}">
+							id="video"  value="{{vista_previa.video}}">
                     </section>
                     
                     <section class="form-group">
 						<label for="pdf"> Pdf </label>
-						<input type="text" class="form-control form-control-lg rounded-0" name="pdf"
-							id="pdf" required value="{{vista_previa.pdf}}">
+						<input type="file" class="form-control form-control-lg rounded-0" name="pdf"
+							id="pdf"  value="{{vista_previa.pdf}}">
 					</section>
                     
 
@@ -62,12 +70,7 @@
 							id="imagen">
                     </section>
                     
-                    <section class="form-group">
-						<label for="activa"> Activa(1) No activa(0) </label>
-						<input type="text" class="form-control form-control-lg rounded-0" name="activa"
-							id="activa" required value="{{vista_previa.activa}}">
-                    </section>
-
+                   
 					<div class="text-right">
 						<a href="{{ url_for('vista_previa_index') }}" class="btn btn-white">Cancelar</a>
 						<button type="submit" class="btn btn-primary">Modificar</button>

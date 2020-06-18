@@ -17,7 +17,7 @@ class VistaPrevia (object):
         return cursor.fetchall()
 
     @classmethod
-    def crear(cls, data):
+    def crear(cls, data, pdfpath, imgpath):
         sql = """INSERT INTO
 		vista_previa (nombre, descripcion, video, pdf, imagen, fecha_de_publicacion, activa)
 		VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')"""
@@ -25,10 +25,10 @@ class VistaPrevia (object):
         nombre = data.get('nombre', '')
         descripcion = data.get('descripcion', '')
         video = data.get('video', '')
-        pdf = data.get('pdf', '')
-        imagen = data.get('imagen', '')
+        pdf = pdfpath
+        imagen = imgpath
         fecha_de_publicacion = data.get('fecha_de_publicacion', '')
-        activa = data.get('activa', '')
+        activa = 1
 
         cursor = cls.database().cursor()
         cursor.execute(
@@ -52,13 +52,13 @@ class VistaPrevia (object):
         return True
 
     @classmethod
-    def edit(cls, nombre, descripcion, video, pdf, fecha_de_publicacion, activa, id):
+    def edit(cls, nombre, descripcion, video, pdfpath, imgpath, fecha_de_publicacion, id):
         sql = """
 			UPDATE vista_previa
-			SET nombre = '%s', descripcion = '%s', video = '%s', pdf = '%s', fecha_de_publicacion = '%s', activa = '%s'
+			SET nombre = '%s', descripcion = '%s', video = '%s', pdf = '%s', imagen = '%s', fecha_de_publicacion = '%s'
 			WHERE vista_previa.id = '%s'
 		"""
         cursor = cls.database().cursor()
-        cursor.execute(sql % (nombre, descripcion, video, pdf, fecha_de_publicacion, activa ,id))
+        cursor.execute(sql % (nombre, descripcion, video, pdfpath, imgpath, fecha_de_publicacion, id))
         cls.database().commit()
         return True
