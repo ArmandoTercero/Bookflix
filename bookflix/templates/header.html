@@ -37,15 +37,15 @@
 							</a>
 							{% if session['perfil_id'] %}
 								<hr>
-								<a href="{{ url_for('usuario_detalles') }}" class="pl-3" style="color: black; display: flex; align-items: center;">
+								<a href="{{ url_for('leyendo') }}" class="pl-3" style="color: black; display: flex; align-items: center;">
 									<span class="material-icons pr-1">visibility</span>
 									Leyendo
 								</a>
-								<a href="{{ url_for('usuario_detalles') }}" class="pl-3" style="color: black; display: flex; align-items: center;">
+								<a href="{{ url_for('leidos') }}" class="pl-3" style="color: black; display: flex; align-items: center;">
 									<span class="material-icons pr-1">playlist_add_check</span>
 									Leidos
 								</a>
-								<a href="{{ url_for('usuario_detalles') }}" class="pl-3" style="color: black; display: flex; align-items: center;">
+								<a href="{{ url_for('favorito') }}" class="pl-3" style="color: black; display: flex; align-items: center;">
 									<span class="material-icons pr-1">stars</span>
 									Favoritos
 								</a>
