@@ -9,6 +9,21 @@ class Libro (object):
 		return get_db()
 
 	@classmethod
+	def completo (cls, libro_id):
+		sql = "UPDATE libro SET completo = 1 WHERE id = %s"
+		cursor = cls.database().cursor()
+		cursor.execute(sql % libro_id)
+		cls.database().commit()
+		return True
+
+	@classmethod
+	def all_leidos (cls, perfil_id):
+		sql = "SELECT l.* FROM leido AS r, libro AS l WHERE r.perfil_id = %s AND l.id = r.libro_id"
+		cursor = cls.database().cursor()
+		cursor.execute(sql % perfil_id)
+		return cursor.fetchall()
+
+	@classmethod
 	def all_leyendo (cls, perfil_id):
 		#sql = "SELECT libro_id FROM leyendo WHERE perfil_id = %s"
 		sql = "SELECT l.* FROM leyendo AS r, libro AS l WHERE r.perfil_id = %s AND l.id = r.libro_id"

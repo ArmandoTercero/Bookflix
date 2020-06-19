@@ -55,6 +55,10 @@ def ver_catalogo():
 def leyendo():
     return bookController.leyendo()
 
+@app.route("/leidos", methods=["GET"])
+def leidos():
+    return bookController.leidos()
+
 @app.route("/favorito", methods=["GET"])
 def favorito():
     return bookController.favorito()

@@ -70,6 +70,13 @@ class BookController(AbstractController):
 		libros = Libro.all_favorito (perfil_id)
 		return self.catalogo (libros)
 
+	def leidos (self):
+		if not "perfil_id" in session:
+			abort(403)
+		perfil_id = session["perfil_id"]
+		libros = Libro.all_leidos (perfil_id)
+		return self.catalogo (libros)
+
 	def index(self):
 		libros = Libro.all()
 		data = []
@@ -91,6 +98,7 @@ class BookController(AbstractController):
 			favorito = Libro.favorito (libro_id, perfil_id)
 		else:
 			leido = None
+			favorito = None
 		return render_template(
 			'libros/show.html',
 			libro=libro,

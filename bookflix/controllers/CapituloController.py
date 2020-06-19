@@ -28,6 +28,27 @@ class CapituloController(AbstractController):
 	def new(self, libro_id, errores=[]):
 		return render_template('capitulos/agregar.html', errores=errores)
 
+	@AbstractController.validate
+	def new_capitulo(self, libro_id):
+		errores = self.upload(libro_id)
+		if (len(errores) == 0):
+			return redirect (url_for("libro", libro_id=libro_id))
+		else:
+			return self.new (libro_id, errores)
+
+	@AbstractController.validate
+	def new_completo(self, libro_id, errores=[]):
+		return render_template('capitulos/agregar.html', errores=errores)
+
+	@AbstractController.validate
+	def new_completo_capitulo(self, libro_id):
+		errores = self.upload(libro_id)
+		if (len(errores) == 0):
+			Libro.completo(libro_id)
+			return redirect (url_for("libro", libro_id=libro_id))
+		else:
+			return self.new_completo (libro_id, errores)
+
 	def gen_path(self, field):
 		file = request.files[field]
 		name = file.filename
@@ -37,16 +58,15 @@ class CapituloController(AbstractController):
 		return dbpath
 
 	@AbstractController.validate
-	def new_capitulo(self, libro_id):
+	def upload(self, libro_id):
 		libro = Libro.id (libro_id)
 		pdate = datetime.strptime(request.form["fechaPublicacion"], "%Y-%m-%d")
 		errores = []
 		if pdate.date() < libro["fecha_publicacion"]:
 			errores.append("Fecha de publicacion incorrecta")
-		if (len(errores) != 0):
-			return self.new (libro_id, errores)
-		pdfpath = self.gen_path('archivo')
-		Capitulo.crear(libro_id, pdate, pdfpath)
-		return redirect (url_for("libro", libro_id=libro_id))
+		if (len(errores) == 0):
+			pdfpath = self.gen_path('archivo')
+			Capitulo.crear(libro_id, pdate, pdfpath)
+		return errores #redirect (url_for("libro", libro_id=libro_id))
 
 capituloController = CapituloController()
