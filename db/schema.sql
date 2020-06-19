@@ -199,6 +199,26 @@ INSERT INTO `leyendo` (`id`, `libro_id`, `capitulo_id`, `perfil_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `favorito`
+--
+
+CREATE TABLE `favorito` (
+  `id` int(6) NOT NULL,
+  `libro_id` int(6) NOT NULL,
+  `perfil_id` int(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `favorito`
+--
+
+INSERT INTO `favorito` (`id`, `libro_id`, `perfil_id`) VALUES
+(1, 1, 1),
+(2, 2, 3);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `leido`
 --
 
@@ -342,6 +362,12 @@ ALTER TABLE `leyendo`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `favorito`
+--
+ALTER TABLE `favorito`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `leido`
 --
 ALTER TABLE `leido`
@@ -415,6 +441,12 @@ ALTER TABLE `perfiles`
 -- AUTO_INCREMENT de la tabla `leyendo`
 --
 ALTER TABLE `leyendo`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `favorito`
+--
+ALTER TABLE `favorito`
   MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --

@@ -14,9 +14,7 @@ class Libro (object):
 		sql = "SELECT l.* FROM leyendo AS r, libro AS l WHERE r.perfil_id = %s AND l.id = r.libro_id"
 		cursor = cls.database().cursor()
 		cursor.execute(sql % perfil_id)
-		libros = cursor.fetchall()
-		print (libros)
-		return libros
+		return cursor.fetchall()
 
 	@classmethod
 	def leyendo(cls, libro_id, perfil_id):
@@ -24,6 +22,36 @@ class Libro (object):
 		cursor = cls.database().cursor()
 		cursor.execute(sql % (libro_id, perfil_id))
 		return cursor.fetchone()
+
+	@classmethod
+	def all_favorito (cls, perfil_id):
+		sql = "SELECT l.* FROM favorito AS r, libro AS l WHERE r.perfil_id = %s AND l.id = r.libro_id"
+		cursor = cls.database().cursor()
+		cursor.execute(sql % perfil_id)
+		return cursor.fetchall()
+
+	@classmethod
+	def favorito(cls, libro_id, perfil_id):
+		sql = "SELECT * FROM favorito WHERE libro_id = %s AND perfil_id = %s"
+		cursor = cls.database().cursor()
+		cursor.execute(sql % (libro_id, perfil_id))
+		return cursor.fetchone()
+
+	@classmethod
+	def agregar_favorito (cls, libro_id, perfil_id):
+		sql = "INSERT INTO favorito (libro_id, perfil_id) VALUES ('%s', '%s')"
+		cursor = cls.database().cursor()
+		cursor.execute(sql % (libro_id, perfil_id))
+		cls.database().commit()
+		return True
+
+	@classmethod
+	def eliminar_favorito (cls, libro_id, perfil_id):
+		sql = "DELETE FROM favorito WHERE libro_id = %s AND perfil_id = %s"
+		cursor = cls.database().cursor()
+		cursor.execute(sql % (libro_id, perfil_id))
+		cls.database().commit()
+		return True
 
 	@classmethod
 	def update_leyendo (cls, libro_id, capitulo_id, perfil_id):

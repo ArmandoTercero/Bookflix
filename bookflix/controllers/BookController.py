@@ -24,6 +24,14 @@ class BookController(AbstractController):
 			Libro.update_leido (libro_id, perfil_id)
 		return redirect (url_for("libro", libro_id=libro_id))
 
+	def agregar_fav (self, libro_id):
+		Libro.agregar_favorito (libro_id, session["perfil_id"])
+		return redirect (url_for("libro", libro_id=libro_id))
+
+	def eliminar_fav (self, libro_id):
+		Libro.eliminar_favorito (libro_id, session["perfil_id"])
+		return redirect (url_for("libro", libro_id=libro_id))
+
 	def search (self):
 		return render_template('libros/search.html')
 
@@ -47,13 +55,19 @@ class BookController(AbstractController):
 			texto = request.form.get('texto', '')
 			libros = criterios[criterio](texto)
 			return self.catalogo (libros)
-			
-	
+
 	def leyendo (self):
 		if not "perfil_id" in session:
 			abort(403)
 		perfil_id = session["perfil_id"]
 		libros = Libro.all_leyendo (perfil_id)
+		return self.catalogo (libros)
+
+	def favorito (self):
+		if not "perfil_id" in session:
+			abort(403)
+		perfil_id = session["perfil_id"]
+		libros = Libro.all_favorito (perfil_id)
 		return self.catalogo (libros)
 
 	def index(self):
@@ -74,6 +88,7 @@ class BookController(AbstractController):
 		if "perfil_id" in session and not session["admin"]:
 			perfil_id = session["perfil_id"]
 			leido = Libro.leido (libro_id, perfil_id)
+			favorito = Libro.favorito (libro_id, perfil_id)
 		else:
 			leido = None
 		return render_template(
@@ -83,7 +98,8 @@ class BookController(AbstractController):
 			genero=genero,
 			editorial=editorial,
 			capitulos=capitulos,
-			leido=leido
+			leido=leido,
+			favorito=favorito
 		)
 
 	@AbstractController.validate

@@ -76,6 +76,17 @@
 						<i class="material-icons" style="vertical-align:middle">add_to_queue</i>
 					</a>
 					{% endif %}
+					{% if favorito %}
+					<a class="btn btn-danger btn-lg text-right" href="{{ url_for('eliminar_favorito', libro_id=libro.id) }}">
+						Eliminar de favoritos
+						<i class="material-icons" style="vertical-align:middle">star</i>
+					</a>
+					{% else %}
+					<a class="btn btn-success btn-lg text-right" href="{{ url_for('agregar_favorito', libro_id=libro.id) }}">
+						Agregar a favoritos
+						<i class="material-icons" style="vertical-align:middle">star</i>
+					</a>
+					{% endif %}
 					{% endif %}
 				</div>
 			</div>

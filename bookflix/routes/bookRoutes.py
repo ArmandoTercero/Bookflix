@@ -55,6 +55,18 @@ def ver_catalogo():
 def leyendo():
     return bookController.leyendo()
 
+@app.route("/favorito", methods=["GET"])
+def favorito():
+    return bookController.favorito()
+
+@app.route("/favorito/new/<libro_id>", methods=["GET"])
+def agregar_favorito(libro_id):
+    return bookController.agregar_fav(libro_id)
+
+@app.route("/favorito/del/<libro_id>", methods=["GET"])
+def eliminar_favorito(libro_id):
+    return bookController.eliminar_fav(libro_id)
+
 @app.route("/libro/habilitar/<libro_id>", methods=["GET"])
 def libro_habilitar(libro_id):
     return bookController.habilitar(libro_id)
