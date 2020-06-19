@@ -19,8 +19,6 @@
 					<a href="{{ url_for('panel_de_control') }}" class="btn btn-danger">Panel de control</a>
 					<a href="{{ url_for('logout') }}" class="btn btn-outline-light">Cerrar Sesión</a>
 				{% else %}
-					<a href="{{ url_for('leyendo') }}" class="btn btn-danger">Leyendo</a>
-					<a href="{{ url_for('favorito') }}" class="btn btn-danger">Favoritos</a>
 					<!-- https://getbootstrap.com/docs/4.0/components/dropdowns/?https://getbootstrap.com/docs/4.0/components/dropdowns/? -->
 					<!-- <span class="material-icons">account_circle</span> -->
 					<div class="btn-group">
@@ -37,6 +35,17 @@
 								<span class="material-icons pr-1">settings</span>
 								Configuración
 							</a>
+							{% if session['perfil_id'] %}
+								<hr>
+								<a href="{{ url_for('usuario_detalles') }}" class="pl-3" style="color: black; display: flex; align-items: center;">
+									<span class="material-icons pr-1">visibility</span>
+									Leyendo
+								</a>
+								<a href="{{ url_for('usuario_detalles') }}" class="pl-3" style="color: black; display: flex; align-items: center;">
+									<span class="material-icons pr-1">stars</span>
+									Favoritos
+								</a>
+							{% endif %}
 							<hr>
 							<a href="{{ url_for('logout') }}" class="pl-3" style="color: black; display: flex; align-items: center;">
 								<span class="material-icons pr-1">close</span>

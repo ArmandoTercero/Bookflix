@@ -129,6 +129,7 @@ class UserController():
     def logout(self):
         session.pop("id", None)
         session.pop("admin", None)
+        session.pop("perfil_id", None)
         return self.index()
 
     def hello(self, name):
