@@ -121,7 +121,7 @@ class UserController():
             if session["admin"]:
                 return render_template('panel_de_control.html')
             else:
-                return render_template("/usuarios/perfiles.html", perfiles=perfiles, usuario=usuario)
+                return redirect (url_for("ver_perfiles"))
         else:
             errores.append("No existe ninguna cuenta con el email ingresado.")
             return render_template("login.html", errores=errores)
