@@ -12,6 +12,9 @@
 		<div class="card mx-auto m-5" style="width: 60rem;">
 			<div class="card-header">
 				<h1 class="card-title text-center">{{ autor.nombre | capitalize }}</h1>
+				{% if autor.activo == 0 %}
+				<h4 class="card-title text-center">Deshabilitado</h4>
+				{% endif %}
 			</div>
 		</div>
 

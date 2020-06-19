@@ -54,7 +54,19 @@
 						title="Editar"
 						href="{{ url_for('autor_edit', autor_id=autor.id) }}"
 					>edit</a>
-					<a class="material-icons btn btn-danger disabled" title="Eliminar">delete</a>
+					{% if autor.activo == 1 %}
+					<a
+						class="material-icons btn btn-danger" title="Eliminar"
+						title="Eliminar"
+						href="{{ url_for('autor_deshabilitar', autor_id=autor.id) }}"
+					>delete</a>
+					{% else %}
+					<a
+						class="material-icons btn btn-success" title="Activar"
+						title="Activar"
+						href="{{ url_for('autor_habilitar', autor_id=autor.id) }}"
+					>check</a>
+					{% endif %}
 				</td>
 			</tr>
 			{% endfor %}

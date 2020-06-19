@@ -1,4 +1,4 @@
-from flask import request, render_template, session, abort
+from flask import request, render_template, session, abort, redirect
 from flask import send_from_directory, url_for
 #from app.models.AuthModel import authmodel
 #from app.helpers.Utility import sendResponse
@@ -52,6 +52,16 @@ class AuthorController(AbstractController):
 		else:
 			Author.edit (autor_id, name)
 			return self.index()
+
+	@AbstractController.validate
+	def habilitar(self, autor_id):
+		Author.habilitar(autor_id)
+		return redirect (url_for("autor_index"))
+
+	@AbstractController.validate
+	def deshabilitar(self, autor_id):
+		Author.deshabilitar(autor_id)
+		return redirect (url_for("autor_index"))
 
 authorController = AuthorController()
 

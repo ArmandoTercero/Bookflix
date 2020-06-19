@@ -114,7 +114,7 @@ class BookController(AbstractController):
 	def new(self, errores=[], old={}):
 		editoriales = Editorial.all()
 		generos = Genero.all()
-		autores = Author.all()
+		autores = Author.all_active()
 		return render_template('libros/agregar.html', editoriales=editoriales, generos=generos, autores=autores, errores=errores, old=old)
 
 	def gen_path(self, field):
@@ -152,7 +152,7 @@ class BookController(AbstractController):
 		libro = Libro.id(libro_id)
 		editoriales = Editorial.all()
 		generos = Genero.all()
-		autores = Author.all()
+		autores = Author.all_active()
 		return render_template('libros/editar.html', libro=libro, editoriales=editoriales, generos=generos, autores=autores, errores=errores)
 
 	@AbstractController.validate

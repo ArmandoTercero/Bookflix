@@ -30,3 +30,11 @@ def autor_edit_post (autor_id):
 def autor (autor_id):
 	return authorController.autor(autor_id)
 
+@app.route("/autor/habilitar/<autor_id>", methods=["GET"])
+def autor_habilitar(autor_id):
+    return authorController.habilitar(autor_id)
+
+@app.route("/autor/deshabilitar/<autor_id>", methods=["GET"])
+def autor_deshabilitar(autor_id):
+    return authorController.deshabilitar(autor_id)
+

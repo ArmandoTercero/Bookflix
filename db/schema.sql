@@ -50,7 +50,8 @@ INSERT INTO `anuncio` (`id`, `titulo`, `contenido`, `fecha_de_publicacion`, `rut
 
 CREATE TABLE `autor` (
   `id` int(6) NOT NULL,
-  `nombre` text NOT NULL
+  `nombre` text NOT NULL,
+  `activo` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
