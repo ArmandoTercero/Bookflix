@@ -59,11 +59,19 @@
 				</div>
 
 				<div>
-					{% if session['admin'] %}						
+					{% if session['admin'] %}
+					{% if libro.completo == 0 %}
 					<a class="btn btn-success btn-lg text-right" href="{{ url_for('capitulo_upload', libro_id=libro.id) }}">
 						Agregar un capítulo
 						<i class="material-icons" style="vertical-align:middle">add_to_queue</i>
 					</a>
+					{% endif %}
+					{% if capitulos|length == 0 %}
+					<a class="btn btn-success btn-lg text-right" href="{{ url_for('capitulo_completo', libro_id=libro.id) }}">
+						Agregar libro completo
+						<i class="material-icons" style="vertical-align:middle">add_to_queue</i>
+					</a>
+					{% endif %}
 					{% else %}
 					{% if leido %}
 					<a class="btn btn-danger btn-lg text-right disabled" href="#">
@@ -92,7 +100,7 @@
 			</div>
 			
 			<!-- Información que muestro en el caso de un libro entero (osea solo tiene 1 capítulo) -->
-			{% if capitulos|length == 1 %}
+			{% if libro.completo == 1 %}
 			<h2 class="text-center p-5">
 				El libro actualmente esta subido entero en un solo arhivo
 				<hr>
