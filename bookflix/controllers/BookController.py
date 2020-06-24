@@ -8,6 +8,7 @@ from models.editorial import Editorial
 from models.genero import Genero
 from models.autor import Author
 from models.capitulo import Capitulo
+from models.reseña import Reseña
 from config import config
 from datetime import datetime
 import os
@@ -91,7 +92,12 @@ class BookController(AbstractController):
 		autor = Author.id(libro["autor"])
 		genero = Genero.encontrar_por_id(libro["genero"])
 		editorial = Editorial.id(libro["editorial"])
+		reseñas = Reseña.reseñas_de_un_libro_con_id(libro_id)
 		capitulos = Capitulo.libro(libro_id)
+		perfil_tiene_reseña = False
+		if Libro.el_perfil_dio_una_reseña_al_libro(session['perfil_id'], libro_id):
+			perfil_tiene_reseña = True
+
 		if "perfil_id" in session and not session["admin"]:
 			perfil_id = session["perfil_id"]
 			leido = Libro.leido (libro_id, perfil_id)
@@ -107,7 +113,9 @@ class BookController(AbstractController):
 			editorial=editorial,
 			capitulos=capitulos,
 			leido=leido,
-			favorito=favorito
+			favorito=favorito,
+			reseñas=reseñas,
+			perfil_tiene_reseña=perfil_tiene_reseña
 		)
 
 	@AbstractController.validate

@@ -1,0 +1,77 @@
+from db import get_db
+
+class Reseña (object):
+
+	@classmethod
+	def database(cls):
+		return get_db()
+
+	# Devuelve todas las reseñas
+	@classmethod
+	def all(cls):
+		sql = "SELECT * FROM reseña"
+
+		cursor = cls.database().cursor()
+		cursor.execute(sql)
+
+		return cursor.fetchall()
+
+	# https://stackoverflow.com/questions/9387839/mysql-if-not-null-then-display-1-else-display-0
+	# https://stackoverflow.com/questions/20840505/show-null-values-that-does-not-match-with-another-table-sql-server
+	# Devuelve todas las reseñas junto con nuevos campos que es el id, nombre y foto del que creo la reseña
+	# Si alguno de los campos de id, nombre o foto no existen van a mostrar un valor por defecto
+	@classmethod
+	def reseñas_de_un_libro_con_id(cls, id_libro):
+		sql = """
+			SELECT IF(p.nombre IS NULL, '-1', p.id) AS perfil_id, IF(p.nombre IS NULL, '[No está disponible]', p.nombre) AS perfil_nombre, IF(p.foto IS NULL, '../../static/img/noavatar.jpg', p.foto) AS perfil_foto, r.*
+			FROM reseña AS r
+			LEFT JOIN perfiles AS p ON (p.id = r.perfil_id)
+            WHERE r.libro_id = %s
+		"""
+
+		cursor = cls.database().cursor()
+		cursor.execute(sql, (id_libro))
+
+		return cursor.fetchall()
+
+	@classmethod
+	def new(cls, id_perfil, id_libro, calificacion, comentario):
+		sql = """
+			INSERT INTO reseña (id_perfil, id_libro, calificacion, comentario)
+			VALUES (%s, %s, %s, %s)
+		"""
+		cursor = cls.database().cursor()
+		cursor.execute(sql, (id_perfil, id_libro, calificacion, comentario))
+		cls.database().commit()
+		return True
+
+	@classmethod
+	def edit(cls, id_reseña, id_perfil, id_libro, calificacion, comentario):
+		sql = """
+			UPDATE reseña
+			SET id_perfil = %s, id_libro = %s, calificacion = %s, comentario = %s
+			WHERE reseña.id = %s
+		"""
+		cursor = cls.database().cursor()
+		cursor.execute(sql, (id_perfil, id_libro, calificacion, comentario, id_reseña))
+		cls.database().commit()
+		return True
+
+	@classmethod
+	def delete(cls, id_reseña):
+		sql = """
+			UPDATE reseña
+			SET id_perfil = %s
+			WHERE reseña.id = %s
+		"""
+		cursor = cls.database().cursor()
+		cursor.execute(sql, (-1, id_reseña))
+		cls.database().commit()
+		return True
+
+	@classmethod
+	def encontrar_por_id(cls, id_reseña):
+		sql = "SELECT * FROM reseña WHERE id = %s"
+		cursor = cls.database().cursor()
+		cursor.execute(sql, (id_reseña))		
+		return cursor.fetchone()

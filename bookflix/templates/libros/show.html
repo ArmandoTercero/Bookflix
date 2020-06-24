@@ -143,6 +143,71 @@
 		</div>
 
 	</div>
+	<br><br><br><br>
+	<div class="">
+		{% if not perfil_tiene_reseña %}
+		<a href="#" class="btn btn-primary float-right">Añadir una reseña</a>
+		{% endif %}
+		<h1 class="text-center">Reseñas</h1>
+	</div>
+	<hr>
+	{% if reseñas %}
+		{% for reseña in reseñas %}
+		{% if session["perfil_id"] == reseña.perfil_id %}
+			<div style="background-color: #ffff66;">
+				<div class="float-left">
+					<img src="{{reseña.perfil_foto}}" alt="Foto de perfil" width="20px" height="20px" class="mr-2">
+					<b>{{reseña.perfil_nombre}}</b> <small class="text-secondary">(reseña escrita por ti)</small>
+				</div>
+
+				<div class="float-right">
+					<!-- [ {{reseña.calificacion}} / 5 ] -->
+					{% for i in range(reseña.calificacion) %}
+						<span class="material-icons pr-1">star</span>
+					{% endfor %}
+					{% for i in range((5 - reseña.calificacion)) %}
+						<span class="material-icons pr-1">star_border</span>
+					{% endfor %}
+				</div>
+				<br>
+
+				<div class="container m-2">
+					{{reseña.comentario}}
+				</div>
+			</div>
+			<hr>
+		{% endif %}
+		{% endfor %}
+
+		{% for reseña in reseñas %}
+			{% if session["perfil_id"] != reseña.perfil_id %}
+			<div>
+				<div class="float-left">
+					<img src="{{reseña.perfil_foto}}" alt="Foto de perfil" width="20px" height="20px" class="mr-2">
+					<b>{{reseña.perfil_nombre}}</b>
+				</div>
+
+				<div class="float-right">
+					<!-- [ {{reseña.calificacion}} / 5 ] -->
+					{% for i in range(reseña.calificacion) %}
+						<span class="material-icons pr-1">star</span>
+					{% endfor %}
+					{% for i in range((5 - reseña.calificacion)) %}
+						<span class="material-icons pr-1">star_border</span>
+					{% endfor %}
+				</div>
+				<br>
+
+				<div class="container m-2">
+					{{reseña.comentario}}
+				</div>
+				<hr>
+			</div>
+			{% endif %}
+		{% endfor %}
+	{% else %}
+	Este libro no tiene reseñas, por lo tanto no hay reseñas para ver.
+	{% endif %}
 </div>
 
 <div class="text-center p-5">

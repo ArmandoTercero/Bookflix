@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 06-06-2020 a las 01:08:32
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 24-06-2020 a las 01:53:16
 -- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.4.5
+-- Versión de PHP: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -58,8 +59,8 @@ CREATE TABLE `autor` (
 -- Volcado de datos para la tabla `autor`
 --
 
-INSERT INTO `autor` (`id`, `nombre`) VALUES
-(1, 'test author');
+INSERT INTO `autor` (`id`, `nombre`, `activo`) VALUES
+(1, 'test author', 1);
 
 -- --------------------------------------------------------
 
@@ -106,6 +107,26 @@ INSERT INTO `editorial` (`id`, `nombre`, `activo`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `favorito`
+--
+
+CREATE TABLE `favorito` (
+  `id` int(6) NOT NULL,
+  `libro_id` int(6) NOT NULL,
+  `perfil_id` int(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `favorito`
+--
+
+INSERT INTO `favorito` (`id`, `libro_id`, `perfil_id`) VALUES
+(1, 1, 1),
+(2, 2, 3);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `genero`
 --
 
@@ -122,6 +143,46 @@ CREATE TABLE `genero` (
 INSERT INTO `genero` (`id`, `nombre`, `activo`) VALUES
 (1, 'Drama', 1),
 (2, 'horror', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `leido`
+--
+
+CREATE TABLE `leido` (
+  `id` int(6) NOT NULL,
+  `libro_id` int(6) NOT NULL,
+  `perfil_id` int(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `leido`
+--
+
+INSERT INTO `leido` (`id`, `libro_id`, `perfil_id`) VALUES
+(2, 1, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `leyendo`
+--
+
+CREATE TABLE `leyendo` (
+  `id` int(6) NOT NULL,
+  `libro_id` int(6) NOT NULL,
+  `capitulo_id` int(6) NOT NULL,
+  `perfil_id` int(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `leyendo`
+--
+
+INSERT INTO `leyendo` (`id`, `libro_id`, `capitulo_id`, `perfil_id`) VALUES
+(1, 1, 1, 1),
+(2, 2, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -148,9 +209,9 @@ CREATE TABLE `libro` (
 -- Volcado de datos para la tabla `libro`
 --
 
-INSERT INTO `libro` (`id`, `nombre`, `isbn`, `fecha_publicacion`, `fecha_vencimiento`, `ruta_img`, `sinopsis`, `editorial`, `genero`, `autor`, `activo`) VALUES
-(1, 'test.pdf', '1234', '2010-01-01', '2021-01-01', '../static/pdf/test.jpg', 'test', 1, 1, 1, 1),
-(2, 'test por capitulos', '12346', '2010-01-01', '2021-01-01', '../static/pdf/test.jpg', 'test', 1, 1, 1, 1);
+INSERT INTO `libro` (`id`, `nombre`, `isbn`, `fecha_publicacion`, `fecha_vencimiento`, `ruta_img`, `sinopsis`, `editorial`, `genero`, `autor`, `completo`, `activo`) VALUES
+(1, 'test.pdf', '1234', '2010-01-01', '2021-01-01', '../static/pdf/test.jpg', 'test', 1, 1, 1, 0, 1),
+(2, 'test por capitulos', '12346', '2010-01-01', '2021-01-01', '../static/pdf/test.jpg', 'test', 1, 1, 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -180,66 +241,6 @@ INSERT INTO `perfiles` (`id`, `nombre`, `foto`, `id_usuario`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `leyendo`
---
-
-CREATE TABLE `leyendo` (
-  `id` int(6) NOT NULL,
-  `libro_id` int(6) NOT NULL,
-  `capitulo_id` int(6) NOT NULL,
-  `perfil_id` int(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `leyendo`
---
-
-INSERT INTO `leyendo` (`id`, `libro_id`, `capitulo_id`, `perfil_id`) VALUES
-(1, 1, 1, 1),
-(2, 2, 3, 2);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `favorito`
---
-
-CREATE TABLE `favorito` (
-  `id` int(6) NOT NULL,
-  `libro_id` int(6) NOT NULL,
-  `perfil_id` int(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `favorito`
---
-
-INSERT INTO `favorito` (`id`, `libro_id`, `perfil_id`) VALUES
-(1, 1, 1),
-(2, 2, 3);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `leido`
---
-
-CREATE TABLE `leido` (
-  `id` int(6) NOT NULL,
-  `libro_id` int(6) NOT NULL,
-  `perfil_id` int(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `leido`
---
-
-INSERT INTO `leido` (`id`, `libro_id`, `perfil_id`) VALUES
-(2, 1, 2);
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `plan`
 --
 
@@ -257,6 +258,30 @@ CREATE TABLE `plan` (
 INSERT INTO `plan` (`id`, `nombre`, `precio`, `perfiles_max`) VALUES
 (1, 'basico', 250, 2),
 (2, 'familiar', 400, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `reseña`
+--
+
+CREATE TABLE `reseña` (
+  `id` int(10) NOT NULL,
+  `perfil_id` int(11) NOT NULL,
+  `libro_id` int(11) NOT NULL,
+  `calificacion` tinyint(4) NOT NULL,
+  `comentario` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `reseña`
+--
+
+INSERT INTO `reseña` (`id`, `perfil_id`, `libro_id`, `calificacion`, `comentario`) VALUES
+(1, 1, 1, 1, '1'),
+(2, 6, 1, 2, '2'),
+(3, 6, 2, 3, '3'),
+(4, 4, 2, 4, '4');
 
 -- --------------------------------------------------------
 
@@ -340,9 +365,27 @@ ALTER TABLE `editorial`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `favorito`
+--
+ALTER TABLE `favorito`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `genero`
 --
 ALTER TABLE `genero`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `leido`
+--
+ALTER TABLE `leido`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `leyendo`
+--
+ALTER TABLE `leyendo`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -358,27 +401,15 @@ ALTER TABLE `perfiles`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `leyendo`
---
-ALTER TABLE `leyendo`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `favorito`
---
-ALTER TABLE `favorito`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `leido`
---
-ALTER TABLE `leido`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indices de la tabla `plan`
 --
 ALTER TABLE `plan`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `reseña`
+--
+ALTER TABLE `reseña`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -422,9 +453,27 @@ ALTER TABLE `editorial`
   MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT de la tabla `favorito`
+--
+ALTER TABLE `favorito`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `genero`
 --
 ALTER TABLE `genero`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `leido`
+--
+ALTER TABLE `leido`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `leyendo`
+--
+ALTER TABLE `leyendo`
   MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
@@ -440,28 +489,16 @@ ALTER TABLE `perfiles`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT de la tabla `leyendo`
---
-ALTER TABLE `leyendo`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT de la tabla `favorito`
---
-ALTER TABLE `favorito`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT de la tabla `leido`
---
-ALTER TABLE `leido`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT de la tabla `plan`
 --
 ALTER TABLE `plan`
   MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `reseña`
+--
+ALTER TABLE `reseña`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`

@@ -221,3 +221,17 @@ class Libro (object):
 		cursor.execute(sql, (libro_id))
 		cls.database().commit()
 		return True
+
+	@classmethod
+	def el_perfil_dio_una_reseña_al_libro(cls, id_perfil, id_libro):
+		sql = """
+			SELECT l.*
+			FROM libro AS l
+			INNER JOIN reseña AS r ON r.libro_id = l.id
+			INNER JOIN perfiles AS p ON r.perfil_id = p.id
+			WHERE p.id=%s AND l.id=%s
+		"""
+		cursor = cls.database().cursor()
+		cursor.execute(sql, (id_perfil, id_libro))
+
+		return cursor.rowcount > 0
