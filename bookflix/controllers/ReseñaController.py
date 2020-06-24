@@ -10,7 +10,7 @@ class ReseñaController():
 
 	# Llama al indice de bookRoutes
 	def index(self, id_libro):
-		BookController.libro(id_libro)
+		return BookController.libro(self, id_libro)
 
 	def new(self):
 		if request.method == 'GET':
@@ -27,8 +27,8 @@ class ReseñaController():
 			Reseña.edit(request.form["id_reseña"], request.form["id_perfil"], request.form["id_libro"], request.form["calificacion"], request.form["comentario"])
 			return self.index(request.form["id_libro"])
 
-	def delete(self):
-		Reseña.eliminar(request.form["id_reseña"])
-		return self.index(request.form["id_libro"])
+	def delete(self, libro_id, reseña_id, perfil_id):
+		Reseña.delete(libro_id, reseña_id, perfil_id)
+		return self.index(libro_id)
 
 reseñaController = ReseñaController()

@@ -21,6 +21,7 @@ from routes import generoRoutes
 from routes import editorialRoutes
 from routes import vistaPreviaRoutes
 from routes import capituloRoutes
+from routes import reseñaRoutes
 
 if __name__ == "__main__":
 	app.run()

@@ -58,14 +58,13 @@ class Reseña (object):
 		return True
 
 	@classmethod
-	def delete(cls, id_reseña):
+	def delete(cls, libro_id, reseña_id, perfil_id):
 		sql = """
-			UPDATE reseña
-			SET id_perfil = %s
-			WHERE reseña.id = %s
+			DELETE FROM reseña
+			WHERE id = %s
 		"""
 		cursor = cls.database().cursor()
-		cursor.execute(sql, (-1, id_reseña))
+		cursor.execute(sql, (reseña_id))
 		cls.database().commit()
 		return True
 
