@@ -95,13 +95,13 @@ class BookController(AbstractController):
 		reseñas = Reseña.reseñas_de_un_libro_con_id(libro_id)
 		capitulos = Capitulo.libro(libro_id)
 		perfil_tiene_reseña = False
-		if Libro.el_perfil_dio_una_reseña_al_libro(session['perfil_id'], libro_id):
-			perfil_tiene_reseña = True
 
 		if "perfil_id" in session and not session["admin"]:
 			perfil_id = session["perfil_id"]
 			leido = Libro.leido (libro_id, perfil_id)
 			favorito = Libro.favorito (libro_id, perfil_id)
+			if Libro.el_perfil_dio_una_reseña_al_libro(session['perfil_id'], libro_id):
+				perfil_tiene_reseña = True
 		else:
 			leido = None
 			favorito = None
