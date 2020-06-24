@@ -8,8 +8,7 @@ class ReseñaController():
 	def __init__(self):
 		pass
 
-	# Indice copiado de bookRoutes
-	# ========Agregar reseñas y también en la ruta de libro==================================================================================================
+	# Llama al indice de bookRoutes
 	def index(self, id_libro):
 		BookController.libro(id_libro)
 
