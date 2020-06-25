@@ -145,8 +145,10 @@
 	</div>
 	<br><br><br><br>
 	<div class="">
-		{% if not perfil_tiene_reseña %}
-		<a href="#" class="btn btn-primary float-right">Añadir una reseña</a>
+		{% if session["perfil_id"] %}
+			{% if not perfil_tiene_reseña %}
+			<a href="{{ url_for('reseña_new', libro_id=libro.id) }}" class="btn btn-primary float-right">Añadir una reseña</a>
+			{% endif %}
 		{% endif %}
 		<h1 class="text-center">Reseñas</h1>
 	</div>
@@ -176,7 +178,7 @@
 				</div>
 
 				<div class="float-right">
-					<a class="btn m-0 p-0 text-primary" href="#">Editar</a> |
+					<a class="btn m-0 p-0 text-primary" href="{{ url_for('reseña_editar', reseña_id=reseña.id) }}">Editar</a> |
 					<a class="btn m-0 p-0 text-primary" data-toggle="modal" data-target="#exampleModal">Borrar</a>
 				</div>
 				<br>
@@ -199,7 +201,7 @@
 						</div>
 
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 							<a class="btn btn-danger" href="{{ url_for('reseña_eliminar', libro_id=reseña.libro_id, reseña_id=reseña.id, perfil_id=reseña.perfil_id) }}">Borrar</a>
 						</div>
 					</div>
@@ -226,9 +228,19 @@
 					{% endfor %}
 				</div>
 				<br>
-
 				<div class="container m-2">
+				<!-- Pregunto si la reseña es spoiler -->
+				{% if not reseña.spoiler %}
 					{{reseña.comentario}}
+				{% else %}
+				<script>
+					$(function () {
+						$('[data-toggle="popover"]').popover()
+					})
+				</script>
+
+				<button type="button" class="btn btn-danger" data-toggle="popover" title="Reseña" data-content="{{reseña.comentario}}">Spoiler</button>
+				{% endif %}
 				</div>
 				<hr>
 			</div>

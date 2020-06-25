@@ -35,25 +35,26 @@ class Reseña (object):
 		return cursor.fetchall()
 
 	@classmethod
-	def new(cls, id_perfil, id_libro, calificacion, comentario):
+	def new(cls, perfil_id, id_libro, calificacion, comentario, spoiler):
 		sql = """
-			INSERT INTO reseña (id_perfil, id_libro, calificacion, comentario)
-			VALUES (%s, %s, %s, %s)
+			INSERT INTO reseña (perfil_id, libro_id, calificacion, comentario, spoiler)
+			VALUES (%s, %s, %s, %s, %s)
 		"""
 		cursor = cls.database().cursor()
-		cursor.execute(sql, (id_perfil, id_libro, calificacion, comentario))
+		cursor.execute(sql, (perfil_id, id_libro, calificacion, comentario, spoiler))
 		cls.database().commit()
 		return True
 
 	@classmethod
-	def edit(cls, id_reseña, id_perfil, id_libro, calificacion, comentario):
+	def edit(cls, reseña_id, calificacion, comentario, spoiler):
 		sql = """
 			UPDATE reseña
-			SET id_perfil = %s, id_libro = %s, calificacion = %s, comentario = %s
+			SET calificacion = %s, comentario = %s, spoiler = %s
 			WHERE reseña.id = %s
 		"""
+		
 		cursor = cls.database().cursor()
-		cursor.execute(sql, (id_perfil, id_libro, calificacion, comentario, id_reseña))
+		cursor.execute(sql, (calificacion, comentario, spoiler, reseña_id))
 		cls.database().commit()
 		return True
 
