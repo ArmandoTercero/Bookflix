@@ -58,7 +58,7 @@
 					<input type="text" hidden value="{{reseña['id']}}" id="reseña_id" name="reseña_id">
 
 					<div class="text-right">
-						<a href="{{ url_for('libro', libro_id=reseña.libro_id) }}" class="btn btn-white">Cancelar</a>
+						<a href="/ver_catalogo" class="btn btn-white">Cancelar</a>
 						<button href="{{ url_for('reseña_editar', libro_id=reseña.libro_id) }}" type="submit" class="btn btn-primary">Aceptar</button>
 					</div>
 				</form>
