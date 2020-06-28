@@ -235,3 +235,17 @@ class Libro (object):
 		cursor.execute(sql, (id_perfil, id_libro))
 
 		return cursor.rowcount > 0
+
+	@classmethod
+	def el_perfil_leyo_el_libro(cls, id_perfil, id_libro):
+		sql = """
+			SELECT l.*
+			FROM libro AS l
+			INNER JOIN leido AS lei ON l.id = lei.libro_id
+			INNER JOIN perfiles AS p ON lei.perfil_id = p.id
+			WHERE p.id=%s AND l.id=%s
+		"""
+		cursor = cls.database().cursor()
+		cursor.execute(sql, (id_perfil, id_libro))
+
+		return cursor.rowcount > 0
