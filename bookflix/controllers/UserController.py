@@ -243,6 +243,8 @@ class UserController():
                         ok = True
                 if ok == True:
                     errores.append("ya existe el nombre especificado.")
+                    nombre = request.form['nombre']
+                    return render_template("/usuarios/modificarPerfil.html", perfil=perfil, usuario=user, errores=errores, nombre=nombre)
                 else:
                     nombre = request.form['nombre']
                     foto = request.form['foto']
