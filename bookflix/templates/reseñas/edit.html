@@ -24,6 +24,7 @@
 			<span class="card-text">
 				<form method="POST">
 					<section class="form-group">
+						<label for="calificacion"> Calificacion </label>
 						<select class="custom-select" name="calificacion" id="calificacion">
 							{% for i in range(1,6) %}
 								{% if reseña['calificacion'] == i %}

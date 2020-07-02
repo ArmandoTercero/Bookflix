@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-06-2020 a las 01:53:16
+-- Tiempo de generación: 02-07-2020 a las 17:42:37
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.3
 
@@ -299,18 +299,19 @@ CREATE TABLE `usuario` (
   `tarjetaPin` varchar(10) NOT NULL,
   `tarjetaFechaDeExpiracion` date NOT NULL,
   `fecha_de_nacimiento` date NOT NULL,
-  `plan_id` int(10) NOT NULL
+  `plan_id` int(10) NOT NULL,
+  `fecha_de_creacion` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `email`, `contraseña`, `tarjetaNumero`, `tarjetaPin`, `tarjetaFechaDeExpiracion`, `fecha_de_nacimiento`, `plan_id`) VALUES
-(1, 'admin', 'admin', 'admin@gmail.com', 'admin', '100', '1212', '2020-05-31', '1999-08-30', 1),
-(2, 'hugo', 'contrera', 'hugo@gmail.com', '1234', '12345', '123', '2020-05-31', '1998-08-30', 1),
-(3, 'juan', 'perez', 'juanp@gmail.com', '1234', '4321', '1234', '2020-05-29', '1999-08-20', 1),
-(4, 'julia', 'perez', 'juli@gmail.com', '1234', '1212', '1222', '2020-05-30', '1999-08-30', 1);
+INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `email`, `contraseña`, `tarjetaNumero`, `tarjetaPin`, `tarjetaFechaDeExpiracion`, `fecha_de_nacimiento`, `plan_id`, `fecha_de_creacion`) VALUES
+(1, 'admin', 'admin', 'admin@gmail.com', 'admin', '100', '1212', '2020-05-31', '1999-08-30', 1, '2020-07-02'),
+(2, 'hugo', 'contrera', 'hugo@gmail.com', '1234', '12345', '123', '2020-05-31', '1998-08-30', 1, '2020-07-02'),
+(3, 'juan', 'perez', 'juanp@gmail.com', '1234', '4321', '1234', '2020-05-29', '1999-08-20', 1, '2020-07-02'),
+(4, 'julia', 'perez', 'juli@gmail.com', '1234', '1212', '1222', '2020-05-30', '1999-08-30', 1, '2020-07-02');
 
 -- --------------------------------------------------------
 
