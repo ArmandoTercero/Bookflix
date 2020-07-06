@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-07-2020 a las 17:42:37
+-- Tiempo de generación: 06-07-2020 a las 19:29:12
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.3
 
@@ -161,7 +161,8 @@ CREATE TABLE `leido` (
 --
 
 INSERT INTO `leido` (`id`, `libro_id`, `perfil_id`) VALUES
-(2, 1, 2);
+(2, 1, 2),
+(3, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -270,18 +271,20 @@ CREATE TABLE `reseña` (
   `perfil_id` int(11) NOT NULL,
   `libro_id` int(11) NOT NULL,
   `calificacion` tinyint(4) NOT NULL,
-  `comentario` text NOT NULL
+  `comentario` text NOT NULL,
+  `spoiler` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `reseña`
 --
 
-INSERT INTO `reseña` (`id`, `perfil_id`, `libro_id`, `calificacion`, `comentario`) VALUES
-(1, 1, 1, 1, '1'),
-(2, 6, 1, 2, '2'),
-(3, 6, 2, 3, '3'),
-(4, 4, 2, 4, '4');
+INSERT INTO `reseña` (`id`, `perfil_id`, `libro_id`, `calificacion`, `comentario`, `spoiler`) VALUES
+(1, 1, 1, 1, '1', 0),
+(2, 6, 1, 2, '2', 0),
+(3, 6, 2, 3, '3', 0),
+(4, 4, 2, 4, '4', 0),
+(5, 5, 1, 4, 'Sobresaliente, pero es una temática muy comercial y dejo un tanto que desear.', 1);
 
 -- --------------------------------------------------------
 
@@ -469,7 +472,7 @@ ALTER TABLE `genero`
 -- AUTO_INCREMENT de la tabla `leido`
 --
 ALTER TABLE `leido`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `leyendo`
@@ -499,7 +502,7 @@ ALTER TABLE `plan`
 -- AUTO_INCREMENT de la tabla `reseña`
 --
 ALTER TABLE `reseña`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
