@@ -69,11 +69,38 @@
 					>edit</a>
 
 					{% if libro.libro.activo == 1 %}
+
 					<a
-						class="material-icons btn btn-danger"
-						title="Eliminar"
-						href="{{ url_for('libro_deshabilitar', libro_id=libro.libro.id) }}"
+						class="btn btn-danger text-white material-icons" data-toggle="modal" data-target="#exampleModal_{{libro.libro.id}}"
 					>delete</a>
+
+					<!-- https://stackoverflow.com/questions/40937631/modals-created-in-jinja-conditional-statement-are-all-showing-the-same-data -->
+					<!-- Modal -->
+					<div class="modal fade" id="exampleModal_{{libro.libro.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">Deshabilitar Libro</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+
+								<div class="modal-body">
+									¿Estas seguro de que quieres deshablitar el libro?, puede que haya usuarios que estan leyendo el libro y todavía no lo completaron.
+								</div>
+
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>							
+									<a
+										class="btn btn-danger"
+										href="{{ url_for('libro_deshabilitar', libro_id=libro.libro.id) }}"
+									>Aceptar</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
 					{% else %}
 					<a
 						class="material-icons btn btn-success"
