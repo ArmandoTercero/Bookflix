@@ -249,3 +249,19 @@ class Libro (object):
 		cursor.execute(sql, (id_perfil, id_libro))
 
 		return cursor.rowcount > 0
+
+	@classmethod
+	def librosLecturas(cls):
+		sql = """
+			SELECT t1.*, IF(t2.lecturas IS NULL, 0, t2.lecturas) as 'lecturas'
+			FROM 
+				(SELECT * FROM libro) t1
+			LEFT JOIN
+				(SELECT COUNT(*) AS 'lecturas', libro_id FROM leido GROUP BY libro_id) t2
+			ON (t1.id = t2.libro_id)
+			ORDER BY lecturas DESC
+		"""
+		cursor = cls.database().cursor()
+		cursor.execute(sql)
+		cls.database().commit()
+		return cursor.fetchall()

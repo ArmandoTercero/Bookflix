@@ -82,3 +82,7 @@ def libro_deshabilitar(libro_id):
 @app.route("/libro/leido/<libro_id>", methods=["GET"])
 def libro_leido(libro_id):
     return bookController.leido(libro_id)
+
+@app.route("/librosMasLeidos", methods=["GET"])
+def librosMasLeidos():
+    return bookController.librosMasLeidos()

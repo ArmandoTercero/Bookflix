@@ -196,4 +196,8 @@ class BookController(AbstractController):
 		Libro.deshabilitar(libro_id)
 		return redirect (url_for("libro_index"))
 
+	def librosMasLeidos(self):
+		libros = Libro.librosLecturas()
+		return render_template('libros/librosMasLeidos.html', libros=libros)
+
 bookController = BookController()
