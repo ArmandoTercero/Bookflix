@@ -303,6 +303,8 @@ CREATE TABLE `usuario` (
   `tarjetaFechaDeExpiracion` date NOT NULL,
   `fecha_de_nacimiento` date NOT NULL,
   `plan_id` int(10) NOT NULL,
+  `ultimo_pago` date DEFAULT NULL,
+  `tarjeta_valida` tinyint(1) NOT NULL DEFAULT 1,
   `fecha_de_creacion` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

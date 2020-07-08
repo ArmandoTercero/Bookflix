@@ -96,3 +96,20 @@ def user_id(id):
 @app.route("/modificar_plan", methods=["GET", "POST"])
 def modificar_plan():
     return usercontroller.modificar_plan()
+
+@app.route("/cobro_index", methods=["GET"])
+def cobro_index():
+    return usercontroller.cobrar_usuario()
+
+@app.route("/cobro_all", methods=["GET"])
+def cobro_all():
+    return usercontroller.cobrar_usuario_all()
+
+@app.route("/modificar_tarjeta", methods=["GET"])
+def modificar_tarjeta():
+    return usercontroller.modificar_tarjeta()
+
+@app.route("/modificar_tarjeta", methods=["POST"])
+def modificar_tarjeta_upload():
+    return usercontroller.modificar_tarjeta_upload()
+

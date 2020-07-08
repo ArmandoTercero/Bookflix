@@ -37,6 +37,37 @@ class UserController():
     def panel_de_control(self):
         return render_template('panel_de_control.html')
 
+    def cobrar_usuario (self):
+        usuarios = Usuario.all()
+        return render_template('usuarios/cobros.html', usuarios=usuarios)
+
+    def cobrar_usuario_all (self):
+        Usuario.cobrar_all()
+        return redirect (url_for("cobro_index"))
+
+    def modificar_tarjeta (self, errores=[]):
+        user_id = session["id"]
+        usuario = Usuario.encontrar_por_id (user_id)
+        return render_template('usuarios/modificar_tarjeta.html', errores=errores, usuario=usuario)
+
+    def modificar_tarjeta_upload (self):
+        errores = []
+        user_id = session["id"]
+        hoy = datetime.today()
+        tarjetaNumero = request.form["tarjetaNumero"]
+        tarjetaPin = request.form["tarjetaPin"]
+        tarjetaFechaDeExpiracion = datetime.strptime(request.form["tarjetaFechaDeExpiracion"], "%Y-%m-%d")
+        tarjetaNumero_valido = len(tarjetaNumero) != 16 and  tarjetaNumero[-1] != 5
+        tarjetaPin_valido = len(tarjetaPin) != 3
+        if (hoy >= tarjetaFechaDeExpiracion) or tarjetaNumero_valido or tarjetaPin_valido:
+            errores.append(
+                'Los datos proporcionados acerca la tarjeta de crédito no son válidos.')
+        if errores:
+            return self.modificar_tarjeta (errores)
+        else:
+            Usuario.modificar_tarjeta (user_id, tarjetaNumero, tarjetaPin, tarjetaFechaDeExpiracion)
+            return redirect (url_for("ver_perfiles", id=session['id']))
+
     def register(self):
         planes = Plan.all()
         return render_template('registrar.html', planes=planes)
@@ -120,6 +151,8 @@ class UserController():
 
             if session["admin"]:
                 return render_template('panel_de_control.html')
+            elif not usuario["tarjeta_valida"]:
+                return redirect (url_for("modificar_tarjeta"))
             else:
                 return redirect (url_for("ver_perfiles", id=session['id']))
         else:

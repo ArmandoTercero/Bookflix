@@ -1,3 +1,4 @@
+import datetime
 from db import get_db
 
 class Usuario (object):
@@ -12,6 +13,68 @@ class Usuario (object):
 		cursor = cls.database().cursor()
 		cursor.execute(sql, (usuario_id))		
 		return cursor.fetchone()
+
+	@classmethod
+	def all(cls):
+		sql = "SELECT * FROM usuario"
+		cursor = cls.database().cursor()
+		cursor.execute(sql)
+		return cursor.fetchall()
+
+	@classmethod
+	def modificar_tarjeta (cls, user_id, numero, pin, fecha):
+		sql = """
+			UPDATE usuario SET
+			tarjeta_valida = 1,
+			tarjetaNumero = %s,
+			tarjetaPin = %s,
+			tarjetaFechaDeExpiracion = %s
+			WHERE usuario.id = %s
+		"""
+		cursor = cls.database().cursor()
+		cursor.execute(sql, (numero, pin, fecha, user_id))
+		cls.database().commit()
+		return True
+
+	@classmethod
+	def cobrar_all(cls):
+		usuarios = cls.all()
+		today = datetime.date.today()
+		for usuario in usuarios:
+			id = usuario["id"]
+			last = usuario["ultimo_pago"]
+			valido = usuario["tarjeta_valida"]
+			if usuario["tarjetaNumero"][-1] == "5":
+				cls.set_invalido(id)
+			elif not last or (last < today and last.month != today.month):
+				cls.cobrar (id)
+			else:
+				pass
+		return True
+
+	@classmethod
+	def set_invalido(cls, user_id):
+		sql = """
+			UPDATE usuario
+			SET tarjeta_valida = 0
+			WHERE usuario.id = %s
+		"""
+		cursor = cls.database().cursor()
+		cursor.execute(sql, user_id)
+		cls.database().commit()
+		return True
+
+	@classmethod
+	def cobrar(cls, user_id):
+		sql = """
+			UPDATE usuario
+			SET ultimo_pago = %s
+			WHERE usuario.id = %s
+		"""
+		cursor = cls.database().cursor()
+		cursor.execute(sql, (datetime.date.today(), user_id))
+		cls.database().commit()
+		return True
 
 	@classmethod
 	def crear(cls, data):
