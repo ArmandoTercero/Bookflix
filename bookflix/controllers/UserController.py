@@ -345,5 +345,36 @@ class UserController():
                                str(perfiles_a_borrar) + " perfil/es para poder realizar el cambio.")
                 return render_template('usuarios/modificar_plan.html', planes=planes, id_plan_del_usuario=plan_del_usuario['id'], errores=errores)
 
+    def suscripcionForm(self):
+        return render_template('usuarios/suscripcionesForm.html')
+
+    def suscripcionShow(self):
+        m = {
+            '1': 'Enero',
+            '2': 'Febrero',
+            '3': 'Marzo',
+            '4': 'Abril',
+            '5': 'Mayo',
+            '6': 'Junio',
+            '7': 'Julio',
+            '8': 'Agosto',
+            '9': 'Septiembre',
+            '10': 'Octubre',
+            '11': 'Noviembre',
+            '12': 'Diciembre'
+        }
+
+        año = request.form['año']
+        mes = request.form['mes']
+        mes_string = m[str(mes)]
+        usuarios = Usuario.suscripciones_dado_año_y_mes(año, mes)
+        usuarios_cantidad = len(Usuario.suscripciones_dado_año_y_mes(año, mes))
+        return render_template(
+            'usuarios/suscripcionesShow.html',
+            año=año,
+            mes=mes_string,
+            usuarios=usuarios,
+            usuarios_cantidad=usuarios_cantidad
+        )
 
 usercontroller = UserController()

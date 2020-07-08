@@ -113,3 +113,10 @@ def modificar_tarjeta():
 def modificar_tarjeta_upload():
     return usercontroller.modificar_tarjeta_upload()
 
+@app.route("/suscripciones", methods=["GET"])
+def suscripcionForm():
+    return usercontroller.suscripcionForm()
+
+@app.route("/suscripciones", methods=["POST"])
+def suscripcionShow():
+    return usercontroller.suscripcionShow()

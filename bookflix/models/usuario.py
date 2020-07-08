@@ -130,3 +130,15 @@ class Usuario (object):
 		cursor.execute(sql, (plan_id, id))
 		cls.database().commit()
 		return True
+
+	@classmethod
+	def suscripciones_dado_año_y_mes(cls, año, mes):
+		sql = """
+			SELECT u.*
+			FROM usuario AS u
+			WHERE year(u.fecha_de_creacion) = %s AND month(u.fecha_de_creacion) = %s
+		"""
+		cursor = cls.database().cursor()
+		cursor.execute(sql, (año, mes))
+		cls.database().commit()
+		return cursor.fetchall()
