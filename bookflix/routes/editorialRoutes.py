@@ -17,3 +17,7 @@ def editorial_new():
 @app.route("/editorial/editar", methods=["POST", "GET"])
 def editorial_edit():
 	return editorialController.edit()
+
+@app.route("/editorial/eliminar/<editorial_id>", methods=["POST", "GET"])
+def editorial_delete(editorial_id):
+	return editorialController.delete(editorial_id)

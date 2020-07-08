@@ -17,3 +17,7 @@ def genero_new():
 @app.route("/genero/editar", methods=["POST", "GET"])
 def genero_edit():
 	return generoController.edit()
+
+@app.route("/genero/eliminar/<genero_id>", methods=["POST", "GET"])
+def genero_delete(genero_id):
+	return generoController.delete(genero_id)

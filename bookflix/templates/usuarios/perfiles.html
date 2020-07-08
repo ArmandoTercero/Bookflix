@@ -12,6 +12,15 @@
 <body class="fondo">
 
     <div class="conteiner">
+        {% if not perfiles %}
+        <h1>Todavia no hay ningun perfil creado!!</h1>
+        <div class="text-center">
+			{% if perfiles|length < plan.perfiles_max %}
+            <a href="/crear_perfil/{{ usuario.id }}" class="btn btn-danger"> Crear Perfil </a>
+			{% endif %}
+            <a href="{{ url_for('logout') }}" class="btn btn-danger"> Salir </a>
+        </div>
+        {% else %}
         <h1 class="titulo text-center pt-5 mt-5"> ¿Quién esta ingresando ahora? </h1>
         <div class="row justify-content-center align-items-center text-center pt-3 m-5">
             {% for perfil in perfiles %}
@@ -32,6 +41,7 @@
 			{% endif %}
             <a href="{{ url_for('logout') }}" class="btn btn-danger"> Salir </a>
         </div>
+        {% endif %}
     </div>
 
 </body>
