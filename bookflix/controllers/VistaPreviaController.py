@@ -37,10 +37,13 @@ class VistaPreviaController():
                 return self.index()
 
     def delete(self, id):
-        vistas_previas = VistaPrevia.all()
+        mensajes = []
+        mensajes.append("Se elimino la vista previa correctamente")
         vista = VistaPrevia.eliminar(id)
-        #return render_template('vistas_previas/index.html', vistas_previas=vistas_previas)
-        return redirect(url_for('vista_previa_index', vistas_previas=vistas_previas))
+        vistas_previas = VistaPrevia.all()
+        return render_template('vistas_previas/index.html', vistas_previas=vistas_previas, mensajes=mensajes)
+        #no se usa el redirect ppor que tira un error en la terminal
+        #return redirect(url_for('vista_previa_index', vistas_previas=vistas_previas, mensajes=mensajes))
 
     def modificar(self, id):
         vista_previa = VistaPrevia.encontrar_por_id(id)
@@ -70,7 +73,7 @@ class VistaPreviaController():
         name = file.filename
         if name == '':
             dbpath = ''
-            print("devolvi vacio")
+            #print("devolvi vacio")
             return dbpath
         else:    
             print("devolvi con datos, el name es")

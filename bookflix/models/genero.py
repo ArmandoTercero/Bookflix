@@ -1,5 +1,6 @@
 from db import get_db
 
+
 class Genero (object):
 
 	@classmethod
@@ -51,5 +52,13 @@ class Genero (object):
 		"""
 		cursor = cls.database().cursor()
 		cursor.execute(sql, (nombre.lower(), id))
+		cls.database().commit()
+		return True
+
+	@classmethod
+	def eliminar(cls, genero_id):
+		sql = """ DELETE FROM genero WHERE id = %s"""
+		cursor = cls.database().cursor()
+		cursor.execute(sql, (str(genero_id)))
 		cls.database().commit()
 		return True

@@ -16,7 +16,7 @@ def vista_previa_index():
 def vista_previa_new():
     return vistaPreviaController.new()
 
-@app.route("/vista_previa/eliminar/<string:id>", methods=["POST", "GET"])
+@app.route("/vista_previa/eliminar/<id>", methods=["POST", "GET"])
 def vista_previa_eliminar(id):
     return vistaPreviaController.delete(id)
 

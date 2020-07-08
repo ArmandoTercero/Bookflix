@@ -1,6 +1,7 @@
 from db import get_db
 from datetime import datetime
 
+
 class Editorial (object):
 
 	@classmethod
@@ -59,4 +60,11 @@ class Editorial (object):
 		cursor.execute(sql, (nombre.lower(), id))
 		cls.database().commit()
 		return True
-
+		
+	@classmethod
+	def eliminar(cls, editorial_id):
+		sql = """ DELETE FROM editorial WHERE id = %s"""
+		cursor = cls.database().cursor()
+		cursor.execute(sql, (str(editorial_id)))
+		cls.database().commit()
+		return True

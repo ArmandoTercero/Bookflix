@@ -29,6 +29,15 @@
 
 <div class="container p-5">
 	<table class="table table-striped">
+		{% if errores %}
+		<div class="alert alert-danger" role="alert">
+			<ul>
+				{% for error in errores %}
+				<li>{{ error }}</li>
+				{% endfor %}
+			</ul>
+		</div>
+		{% endif %}
 		<thead>
 			<tr>
 				<th scope="col">#</th>
@@ -65,9 +74,18 @@
 				</td>
 				<td>
 					{% if editorial.activo %}
-					<a class="material-icons btn btn-danger disabled" title="Eliminar">delete</a>
+					<a 
+						class="material-icons btn btn-danger" 
+						title="Eliminar"
+						href="{{ url_for('editorial_delete', editorial_id=editorial.id) }}"
+					>delete</a>
+						
 					{% else %}
-					<a class="material-icons btn btn-success disabled" title="Restaurar">delete</a>
+					<a 
+						class="material-icons btn btn-danger"
+						title="Restaurar"
+						href="{{ url_for('editorial_delete', editorial_id=editorial.id) }}"					
+					 >delete</a>
 					{% endif %}
 				</td>
 			</tr>
