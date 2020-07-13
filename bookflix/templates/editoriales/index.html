@@ -28,70 +28,77 @@
 </div>
 
 <div class="container p-5">
-	<table class="table table-striped">
-		{% if errores %}
-		<div class="alert alert-danger" role="alert">
-			<ul>
-				{% for error in errores %}
-				<li>{{ error }}</li>
-				{% endfor %}
-			</ul>
-		</div>
-		{% endif %}
-		<thead>
-			<tr>
-				<th scope="col">#</th>
-				<th scope="col">Nombre</th>
-				<th scope="col">Activo</th>
-				<th scope="col" colspan="3">Acciones</th>
-			</tr>
-		</thead>
 
-		<tbody>
-			{% for editorial in editoriales %}
-			<tr>
-				<th scope="row">{{ editorial.id }}</th>
-				<td>{{ editorial.nombre.capitalize() }}</td>
-				<td>
-					{% if editorial.activo %}
-						Si
-					{% else %}
-						No
-					{% endif %}
-				</td>
-				<td>
-					<a
-						class="material-icons btn btn-primary disabled"
-						title="Ver"
-					>visibility</a>
-				</td>
-				<td>
-					<a
-						class="material-icons btn btn-info"
-						title="Editar"
-						href="{{ url_for('editorial_edit', editorial_id=editorial.id) }}"
-					>edit</a>
-				</td>
-				<td>
-					{% if editorial.activo %}
-					<a 
-						class="material-icons btn btn-danger" 
-						title="Eliminar"
-						href="{{ url_for('editorial_delete', editorial_id=editorial.id) }}"
-					>delete</a>
-						
-					{% else %}
-					<a 
-						class="material-icons btn btn-danger"
-						title="Restaurar"
-						href="{{ url_for('editorial_delete', editorial_id=editorial.id) }}"					
-					 >delete</a>
-					{% endif %}
-				</td>
-			</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+		{% if editoriales %}
+		<table class="table table-striped">
+			{% if errores %}
+			<div class="alert alert-danger" role="alert">
+				<ul>
+					{% for error in errores %}
+					<li>{{ error }}</li>
+					{% endfor %}
+				</ul>
+			</div>
+			{% endif %}
+
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Nombre</th>
+					<th scope="col">Activo</th>
+					<th scope="col" colspan="3">Acciones</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				{% for editorial in editoriales %}
+				<tr>
+					<th scope="row">{{ editorial.id }}</th>
+					<td>{{ editorial.nombre.capitalize() }}</td>
+					<td>
+						{% if editorial.activo %}
+							Si
+						{% else %}
+							No
+						{% endif %}
+					</td>
+					<td>
+						<a
+							class="material-icons btn btn-primary disabled"
+							title="Ver"
+						>visibility</a>
+					</td>
+					<td>
+						<a
+							class="material-icons btn btn-info"
+							title="Editar"
+							href="{{ url_for('editorial_edit', editorial_id=editorial.id) }}"
+						>edit</a>
+					</td>
+					<td>
+						{% if editorial.activo %}
+						<a 
+							class="material-icons btn btn-danger" 
+							title="Eliminar"
+							href="{{ url_for('editorial_delete', editorial_id=editorial.id) }}"
+						>delete</a>
+							
+						{% else %}
+						<a 
+							class="material-icons btn btn-danger"
+							title="Restaurar"
+							href="{{ url_for('editorial_delete', editorial_id=editorial.id) }}"					
+						>delete</a>
+						{% endif %}
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		
+		{% else %}
+			No hay editoriales cargadas en el sistema, ¡intenta agregar una!.
+		{% endif %}
 </div>
 
 {% endblock %}
