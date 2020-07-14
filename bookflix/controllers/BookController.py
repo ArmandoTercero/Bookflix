@@ -104,7 +104,7 @@ class BookController(AbstractController):
 		total = Libro.obtenerCalificacionTotalDeUnLibro(libro_id)[0]['total']
 		promedio = 0
 		if (cantidad != 0):
-			promedio = (total / cantidad)
+			promedio = round((total / cantidad), 2)
 
 		if "perfil_id" in session and not session["admin"]:
 			perfil_id = session["perfil_id"]
