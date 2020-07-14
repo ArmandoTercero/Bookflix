@@ -78,7 +78,7 @@
 						Libro ya leído
 						<i class="material-icons" style="vertical-align:middle">loop</i>
 					</a>
-					{% else %}
+					{% elif leyendo %}
 					<a class="btn btn-success btn-lg text-right" href="{{ url_for('libro_leido', libro_id=libro.id) }}">
 						Marcar como leído
 						<i class="material-icons" style="vertical-align:middle">add_to_queue</i>
