@@ -38,16 +38,15 @@ class CapituloController(AbstractController):
 
 	@AbstractController.validate
 	def new_completo(self, libro_id, errores=[]):
-		return render_template('capitulos/agregar.html', errores=errores)
+		return render_template('capitulos/unico.html', errores=errores)
 
 	@AbstractController.validate
 	def new_completo_capitulo(self, libro_id):
-		errores = self.upload(libro_id)
-		if (len(errores) == 0):
-			Libro.completo(libro_id)
-			return redirect (url_for("libro", libro_id=libro_id))
-		else:
-			return self.new_completo (libro_id, errores)
+		libro = Libro.id (libro_id)
+		pdfpath = self.gen_path('archivo')
+		Capitulo.crear(libro_id, libro["fecha_publicacion"], pdfpath)
+		Libro.completo(libro_id)
+		return redirect (url_for("libro", libro_id=libro_id))
 
 	def gen_path(self, field):
 		file = request.files[field]
