@@ -66,7 +66,7 @@ class CapituloController(AbstractController):
 		if "fechaVencimiento" in request.form and request.form["fechaVencimiento"]:
 			vdate = datetime.strptime(request.form["fechaVencimiento"], "%Y-%m-%d")
 			if vdate.date() > libro["fecha_vencimiento"] or vdate.date() < pdate.date():
-				errores.append("Fecha de vencimiento incorrecta")
+				errores.append("Fecha de vencimiento ingresada es menor que la fecha de publicación")
 		else:
 			vdate = None
 		if (len(errores) == 0):
