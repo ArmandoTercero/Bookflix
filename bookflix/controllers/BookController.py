@@ -96,6 +96,12 @@ class BookController(AbstractController):
 		capitulos = Capitulo.libro(libro_id)
 		perfil_tiene_reseña = False
 		perfil_leyo_el_libro = False
+		
+		cantidad = Libro.obtenerCantidadDeReseñasDeUnLibro(libro_id)[0]['cantidad']
+		total = Libro.obtenerCalificacionTotalDeUnLibro(libro_id)[0]['total']
+		promedio = 0
+		if (cantidad != 0):
+			promedio = (total / cantidad)
 
 		if "perfil_id" in session and not session["admin"]:
 			perfil_id = session["perfil_id"]
@@ -122,7 +128,8 @@ class BookController(AbstractController):
 			leyendo=leyendo,
 			reseñas=reseñas,
 			perfil_tiene_reseña=perfil_tiene_reseña,
-			perfil_leyo_el_libro=perfil_leyo_el_libro
+			perfil_leyo_el_libro=perfil_leyo_el_libro,
+			promedio=promedio
 		)
 
 	@AbstractController.validate

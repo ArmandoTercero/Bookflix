@@ -36,12 +36,19 @@
 					{% endif %}
 					</p>
 					<p> <b>Genero:</b> {{genero.nombre}} </p>
+					
 					{% if session.admin %}
 						{% if libro.activo %}
 						<p><b>Estado:</b> Habilitado</p>
 						{% else %}
 						<p><b>Estado:</b> Deshabilitado</p>
 						{% endif %}
+					{% endif %}
+
+					{% if promedio > 0 %}
+					<p><b>Promedio:</b> {{promedio}}</p>
+					{% else %}
+					<p><b>Promedio:</b> El libro todavía no tiene calificaciones.</p>
 					{% endif %}
 				</div>
 			</div>
