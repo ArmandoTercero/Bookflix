@@ -62,7 +62,7 @@ class CapituloController(AbstractController):
 		pdate = datetime.strptime(request.form["fechaPublicacion"], "%Y-%m-%d")
 		errores = []
 		if pdate.date() < libro["fecha_publicacion"]:
-			errores.append("Fecha de publicacion incorrecta")
+			errores.append("La fecha de publicación no puede ser anterior a la del libro ", libro["fecha_publicacion"])
 		if "fechaVencimiento" in request.form and request.form["fechaVencimiento"]:
 			vdate = datetime.strptime(request.form["fechaVencimiento"], "%Y-%m-%d")
 			if vdate.date() > libro["fecha_vencimiento"] or vdate.date() < pdate.date():

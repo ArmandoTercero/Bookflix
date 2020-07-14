@@ -56,12 +56,14 @@
 
 		<!-- Información de los capitulos -->
 		<div class="card mx-auto" style="width: 60rem;">
-			<div class="card-header d-flex justify-content-between"">
+			<div class="card-header d-flex justify-content-between">
 				<div>
-					{% if libro.completo == 1 %}
-						<h1 class="card-title">Leer Libro Entero</h1>
-					{% else %}
-						<h1 class="card-title">Leer por capítulos</h1>
+					{% if capitulos|length > 0 %}
+						{% if libro.completo == 1 %}
+							<h1 class="card-title">Leer Libro Entero</h1>
+						{% else %}
+							<h1 class="card-title">Leer por capítulos</h1>
+						{% endif %}
 					{% endif %}
 				</div>
 
@@ -116,36 +118,38 @@
 
 			<!-- Información que muestro en el caso de un libro por capítulos (osea tiene 2 o más capítulos) -->
 			{% else %}
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th scope="col">Número de capítulo</th>
-						<th scope="col">Fecha de publicación</th>
-						<th scope="col">Acciones</th>
-					</tr>
-				</thead>
-		
-				<tbody>
-					{% for capitulo in capitulos %}
-					<tr>
-						<!-- https://stackoverflow.com/questions/35343881/jinja-loop-index-does-not-print -->
-						<th scope="row">{{ loop.index }}</th>
-						<td>{{ capitulo.fecha_publicacion }}</td>
-						<td>
-							<a
-								class="btn btn-primary"
-								title="Ver"
-								href="{{ url_for('capitulo', capitulo_id=capitulo.id) }}"
-							>
-							<!-- https://stackoverflow.com/questions/22545325/how-to-vertically-align-text-with-icon-font -->
-							<span class="material-icons" style="vertical-align:middle;">visibility</span>
-							Leer
-							</a>
-						</td>
-					</tr>
-					{% endfor %}
-				</tbody>
-			</table>
+			{% if capitulos|length > 0 %}
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col">Número de capítulo</th>
+							<th scope="col">Fecha de publicación</th>
+							<th scope="col">Acciones</th>
+						</tr>
+					</thead>
+			
+					<tbody>
+						{% for capitulo in capitulos %}
+						<tr>
+							<!-- https://stackoverflow.com/questions/35343881/jinja-loop-index-does-not-print -->
+							<th scope="row">{{ loop.index }}</th>
+							<td>{{ capitulo.fecha_publicacion }}</td>
+							<td>
+								<a
+									class="btn btn-primary"
+									title="Ver"
+									href="{{ url_for('capitulo', capitulo_id=capitulo.id) }}"
+								>
+								<!-- https://stackoverflow.com/questions/22545325/how-to-vertically-align-text-with-icon-font -->
+								<span class="material-icons" style="vertical-align:middle;">visibility</span>
+								Leer
+								</a>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				{% endif %}
 			{% endif %}
 		</div>
 
