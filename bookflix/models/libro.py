@@ -18,9 +18,21 @@ class Libro (object):
 
 	@classmethod
 	def all_leidos (cls, perfil_id):
-		sql = "SELECT l.* FROM leido AS r, libro AS l WHERE r.perfil_id = %s AND l.id = r.libro_id"
+		sql = """
+			SELECT l.*
+			FROM leido AS r
+			INNER JOIN libro AS l ON l.id = r.libro_id
+			WHERE r.perfil_id = %s
+
+			UNION
+
+			SELECT l.*
+			FROM leyendo AS r
+			INNER JOIN libro AS l ON l.id = r.libro_id
+			WHERE r.perfil_id = %s AND l.activo=0
+		"""
 		cursor = cls.database().cursor()
-		cursor.execute(sql % perfil_id)
+		cursor.execute(sql, (perfil_id, perfil_id))
 		return cursor.fetchall()
 
 	@classmethod
@@ -263,5 +275,29 @@ class Libro (object):
 		"""
 		cursor = cls.database().cursor()
 		cursor.execute(sql)
+		cls.database().commit()
+		return cursor.fetchall()
+
+	@classmethod
+	def obtenerCantidadDeReseñasDeUnLibro(cls, id_libro):
+		sql = """
+			SELECT COUNT(*) as cantidad
+			FROM libro as l
+			INNER JOIN reseña as r WHERE l.id = r.libro_id AND l.id=%s
+		"""
+		cursor = cls.database().cursor()
+		cursor.execute(sql, (id_libro))
+		cls.database().commit()
+		return cursor.fetchall()
+
+	@classmethod
+	def obtenerCalificacionTotalDeUnLibro(cls, id_libro):
+		sql = """
+			SELECT SUM(r.calificacion) as total
+			FROM libro as l
+			INNER JOIN reseña as r WHERE l.id = r.libro_id AND l.id=%s
+		"""
+		cursor = cls.database().cursor()
+		cursor.execute(sql, (id_libro))
 		cls.database().commit()
 		return cursor.fetchall()
