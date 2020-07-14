@@ -100,6 +100,7 @@ class BookController(AbstractController):
 		if "perfil_id" in session and not session["admin"]:
 			perfil_id = session["perfil_id"]
 			leido = Libro.leido (libro_id, perfil_id)
+			leyendo = Libro.leyendo (libro_id, perfil_id)
 			favorito = Libro.favorito (libro_id, perfil_id)
 			if Libro.el_perfil_dio_una_reseña_al_libro(session['perfil_id'], libro_id):
 				perfil_tiene_reseña = True
@@ -108,6 +109,7 @@ class BookController(AbstractController):
 		else:
 			leido = None
 			favorito = None
+			leyendo = None
 		return render_template(
 			'libros/show.html',
 			libro=libro,
@@ -117,6 +119,7 @@ class BookController(AbstractController):
 			capitulos=capitulos,
 			leido=leido,
 			favorito=favorito,
+			leyendo=leyendo,
 			reseñas=reseñas,
 			perfil_tiene_reseña=perfil_tiene_reseña,
 			perfil_leyo_el_libro=perfil_leyo_el_libro
