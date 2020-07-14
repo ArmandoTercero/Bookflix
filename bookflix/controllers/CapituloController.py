@@ -64,6 +64,12 @@ class CapituloController(AbstractController):
 		errores = []
 		if pdate.date() < libro["fecha_publicacion"]:
 			errores.append("Fecha de publicacion incorrecta")
+		if "fechaVencimiento" in request.form and request.form["fechaVencimiento"]:
+			vdate = datetime.strptime(request.form["fechaVencimiento"], "%Y-%m-%d")
+			if vdate.date() < libro["fecha_vencimiento"]:
+				errores.append("Fecha de vencimiento incorrecta")
+		else:
+			vdate = None
 		if (len(errores) == 0):
 			pdfpath = self.gen_path('archivo')
 			Capitulo.crear(libro_id, pdate, pdfpath)
