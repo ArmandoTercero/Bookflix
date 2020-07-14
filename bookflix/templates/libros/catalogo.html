@@ -63,6 +63,7 @@
                 <p> <b>Sinopsis:</b> {{libro.sinopsis}}</b></p>
                 <hr>
                 <div class="text-center">
+                    {% if libro.activo %}
                     <a
                         class="btn btn-primary"
                         title="Ver"
@@ -71,6 +72,16 @@
                         <span class="material-icons" style="vertical-align:middle;">visibility</span>
                         Detalles
                     </a>
+                    {% else %}
+                    <a
+                        class="btn btn-primary disabled"
+                        title="Ver"
+                        href="{{ url_for('libro', libro_id=libro.id) }}"
+                    >
+                        <span class="material-icons" style="vertical-align:middle;">visibility</span>
+                        Ya no está disponible
+                    </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
