@@ -39,6 +39,9 @@ class BookController(AbstractController):
 	def catalogo (self, libros):
 		if not session["admin"]:
 			libros = [libro for libro in libros if libro["activo"] == 1]
+		return self.catalogo_todos(libros)
+
+	def catalogo_todos (self, libros):
 		autores = Author.all()
 		generos = Genero.all()
 		editoriales = Editorial.all()
@@ -76,7 +79,7 @@ class BookController(AbstractController):
 			abort(403)
 		perfil_id = session["perfil_id"]
 		libros = Libro.all_leidos (perfil_id)
-		return self.catalogo (libros)
+		return self.catalogo_todos (libros)
 
 	def index(self):
 		libros = Libro.all()
