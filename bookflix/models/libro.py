@@ -183,7 +183,10 @@ class Libro (object):
 		name = form.get('nombre', '')
 		isbn = form.get('isbn', '')
 		pdate = datetime.strptime(form["fechaPublicacion"], "%Y-%m-%d")
-		vdate = datetime.strptime(form["fechaVencimiento"], "%Y-%m-%d")
+		if form["fechaVencimiento"]:
+			vdate = datetime.strptime(form["fechaVencimiento"], "%Y-%m-%d")
+		else:
+			vdate = None
 		sinopsis = form.get('sinopsis', '')
 		editorial = form.get('editorial', '')
 		genero = form.get('genero', '')
