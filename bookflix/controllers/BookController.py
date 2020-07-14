@@ -160,11 +160,14 @@ class BookController(AbstractController):
 	def new_book(self):
 		isbn = request.form.get('isbn', '')
 		pdate = datetime.strptime(request.form["fechaPublicacion"], "%Y-%m-%d")
-		vdate = datetime.strptime(request.form["fechaVencimiento"], "%Y-%m-%d")
+		if "fechaVencimiento" in request.form and request.form["fechaPublicacion"]:
+			vdate = datetime.strptime(request.form["fechaVencimiento"], "%Y-%m-%d")
+		else:
+			vdate = None
 		errores = []
 		if Libro.existe_isbn(isbn):
 			errores.append("ISBN Repetido")
-		if vdate <= pdate:
+		if vdate and vdate <= pdate:
 			errores.append("Fecha de vencimiento incorrecta")
 		if (len(errores) != 0):
 			return self.new (errores, request.form)
@@ -185,11 +188,14 @@ class BookController(AbstractController):
 		libro = Libro.id(libro_id)
 		isbn = request.form.get('isbn', '')
 		pdate = datetime.strptime(request.form["fechaPublicacion"], "%Y-%m-%d")
-		vdate = datetime.strptime(request.form["fechaVencimiento"], "%Y-%m-%d")
+		if "fechaVencimiento" in request.form and request.form["fechaPublicacion"]:
+			vdate = datetime.strptime(request.form["fechaVencimiento"], "%Y-%m-%d")
+		else:
+			vdate = None
 		errores = []
 		if isbn != libro["isbn"] and Libro.existe_isbn(isbn):
 			errores.append("ISBN Repetido")
-		if vdate <= pdate:
+		if vdate and vdate <= pdate:
 			errores.append("Fecha de vencimiento incorrecta")
 		if (len(errores) != 0):
 			return self.edit (libro_id, errores)

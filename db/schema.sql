@@ -196,7 +196,7 @@ CREATE TABLE `libro` (
   `nombre` text NOT NULL,
   `isbn` varchar(100) NOT NULL,
   `fecha_publicacion` date NOT NULL,
-  `fecha_vencimiento` date NOT NULL,
+  `fecha_vencimiento` date,
   `ruta_img` text NOT NULL,
   `sinopsis` text NOT NULL,
   `editorial` int(6) NOT NULL,

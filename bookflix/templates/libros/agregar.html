@@ -93,7 +93,7 @@
 						<section class="form-group">
 							<label for="fechaVencimiento"> Fecha de vencimiento </label>
 							<input type="date" class="form-control form-control-lg rounded-0" name="fechaVencimiento"
-								id="fechaVencimiento" required {% if old %}value="{{old.fechaVencimiento}}"{% endif %}>
+								id="fechaVencimiento" {% if old %}value="{{old.fechaVencimiento}}"{% endif %}>
 						</section>
 
 						<section class="form-group">
