@@ -160,7 +160,7 @@ class BookController(AbstractController):
 	def new_book(self):
 		isbn = request.form.get('isbn', '')
 		pdate = datetime.strptime(request.form["fechaPublicacion"], "%Y-%m-%d")
-		if "fechaVencimiento" in request.form and request.form["fechaPublicacion"]:
+		if "fechaVencimiento" in request.form and request.form["fechaVencimiento"]:
 			vdate = datetime.strptime(request.form["fechaVencimiento"], "%Y-%m-%d")
 		else:
 			vdate = None
@@ -188,7 +188,7 @@ class BookController(AbstractController):
 		libro = Libro.id(libro_id)
 		isbn = request.form.get('isbn', '')
 		pdate = datetime.strptime(request.form["fechaPublicacion"], "%Y-%m-%d")
-		if "fechaVencimiento" in request.form and request.form["fechaPublicacion"]:
+		if "fechaVencimiento" in request.form and request.form["fechaVencimiento"]:
 			vdate = datetime.strptime(request.form["fechaVencimiento"], "%Y-%m-%d")
 		else:
 			vdate = None
