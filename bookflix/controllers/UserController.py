@@ -20,7 +20,11 @@ class UserController():
 
     def index(self, perfil_id=None):
         if perfil_id != None:
-            session["perfil_id"] = perfil_id
+            try:
+                int(perfil_id)
+                session["perfil_id"] = perfil_id
+            except:
+                pass
         libros = Libro.all()
         editoriales = Editorial.all()
         generos = Genero.all()
