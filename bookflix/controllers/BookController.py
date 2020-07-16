@@ -91,6 +91,10 @@ class BookController(AbstractController):
 		return render_template('libros/index.html', libros=data)
 
 	def libro(self, libro_id):
+		try:
+			int (libro_id)
+		except:
+			abort (404)
 		libro = Libro.id(libro_id)
 		autor = Author.id(libro["autor"])
 		genero = Genero.encontrar_por_id(libro["genero"])
